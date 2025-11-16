@@ -1,0 +1,34 @@
+title: Gervi Labs
+description: Applied AI, art, and long term experiments.
+url: "https://gervi.ai"
+baseurl: ""
+
+markdown: kramdown
+theme: null
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+  ax:
+    output: true
+    permalink: /ax/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: project
+  - scope:
+      path: ""
+      type: "ax"
+    values:
+      layout: ax_entry
+
+permalink: pretty
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

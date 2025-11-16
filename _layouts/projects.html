@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<section class="page">
+  <h1>Project diary</h1>
+  <p>
+    This diary collects ongoing and past projects at Gervi Labs.
+    Some projects have their own dedicated sites, others live only here.
+  </p>
+
+  <ul class="project-list">
+    {% assign sorted_projects = site.projects | sort: "sort_key" | reverse %}
+    {% for project in sorted_projects %}
+      <li class="project-list-item">
+        <a class="project-title" href="{{ project.url | relative_url }}">{{ project.title }}</a>
+        {% if project.tagline %}
+          <p class="project-tagline">{{ project.tagline }}</p>
+        {% endif %}
+        <p class="project-meta">
+          {% if project.year %}<span>{{ project.year }}</span>{% endif %}
+          {% if project.type %}<span>{{ project.type }}</span>{% endif %}
+          {% if project.status %}<span class="project-status">{{ project.status }}</span>{% endif %}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

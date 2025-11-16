@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<article class="ax-entry">
+  <header class="project-detail-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.subtitle %}
+      <p class="project-detail-tagline">{{ page.subtitle }}</p>
+    {% endif %}
+  </header>
+
+  <section class="project-detail-body">
+    {{ content }}
+  </section>
+</article>

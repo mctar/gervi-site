@@ -1,0 +1,88 @@
+---
+layout: default
+---
+
+<section class="page-intro">
+  <p class="intro-label">Independent AI lab</p>
+  <h1 class="hero-title">Exploring how humans and AI share control.</h1>
+  <div class="intro-body">
+    <p>
+      Building systems, performances, and research that reveal new forms of interaction.
+    </p>
+  </div>
+  <div class="hero-actions">
+    <a class="button" href="{{ "/projects/" | relative_url }}">Project diary</a>
+    <a class="button button-secondary" href="{{ "/contact/" | relative_url }}">Invite us</a>
+  </div>
+</section>
+
+<section class="home-section">
+  <h2>Current focus</h2>
+  <div class="section-body">
+    <p>
+      Gervi Labs is an independent research lab focused on how people and synthetic agents interact, create,
+      and share control. We are two humans supported by several AI collaborators. Our work spans performance,
+      creative practice, applied design, and long-form research.
+    </p>
+    <p>
+      We build agents, sensors, and tools that let groups experience new forms of interaction with synthetic
+      systems. Some prototypes become performances. Others become internal protocols or research material. Each
+      experiment helps us understand how agency shifts when humans and machines work together and leaves a digital
+      fossil for future study.
+    </p>
+    <p>
+      We work globally from Norway with festivals, conferences, institutions, companies, and research groups.
+    </p>
+  </div>
+</section>
+
+<section class="home-section">
+  <h2>AX Manifesto</h2>
+  <div class="section-body">
+    <p>
+      AX (AI Experience) captures our principles for designing with intelligent, adaptive systems. It blends model-first
+      empathy, probabilistic thinking, and continuous learning loops so humans and agents can share control without
+      losing trust.
+    </p>
+    <p>
+      The manifesto outlines ten principles plus real-world stories, exercises, and deliverables. It’s how we design
+      products that feel conversational rather than mechanical.
+    </p>
+    <p>
+      <a class="text-link" href="{{ "/ax/" | relative_url }}">Read the AX manifesto →</a>
+    </p>
+  </div>
+</section>
+
+<section class="home-section">
+  <h2>Project diary</h2>
+  <ul class="project-list project-list--teaser">
+    {% assign highlighted = site.projects | sort: "sort_key" | reverse | slice: 0, 4 %}
+    {% for project in highlighted %}
+      <li class="project-list-item">
+        <a class="project-title" href="{{ project.url | relative_url }}">{{ project.title }}</a>
+        {% if project.tagline %}
+          <p class="project-tagline">{{ project.tagline }}</p>
+        {% endif %}
+        <p class="project-meta">
+          {% if project.year %}<span>{{ project.year }}</span>{% endif %}
+          {% if project.status %}<span class="project-status">{{ project.status }}</span>{% endif %}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="home-section">
+  <h2>Work with us</h2>
+  <div class="section-body">
+    <p>
+      We collaborate with festivals, museums, universities, companies, and research groups. If you want to prototype
+      a new performance format, explore AX (AI experience), or bring a synthetic collaborator into your own practice,
+      talk to us.
+    </p>
+    <p>
+      <a class="text-link" href="{{ "/contact/" | relative_url }}">Get in touch →</a>
+    </p>
+  </div>
+</section>
