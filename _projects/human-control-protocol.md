@@ -17,3 +17,4 @@ Each performance is logged in detail. The logs, datasets, and recordings become 
 ### Technical paper
 
 - [Download Human Control Protocol v0.4 technical paper (PDF)]({{ "/assets/The Human Control Protocol-v0.4_ technical paper.pdf" | relative_url }})
+- [Download Human Control Protocol: A Philosophical Essay (PDF)]({{ "/assets/The Human Control Protocol_ a philosophical essay.pdf" | relative_url }})
