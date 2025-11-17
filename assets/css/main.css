@@ -329,6 +329,17 @@ a:focus {
   color: rgba(247, 247, 242, 0.9);
 }
 
+.project-hero {
+  margin: 2rem 0;
+}
+
+.project-hero img {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+}
+
 .contact-form {
   max-width: 520px;
   margin-top: 2rem;
