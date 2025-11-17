@@ -14,7 +14,7 @@ An AI agent acts as a performance director. Audience members become computationa
 
 Each performance is logged in detail. The logs, datasets, and recordings become digital fossils that can be studied later as traces of a particular moment in time, a specific audience, and a specific version of the system.
 
-### Technical paper
+### Papers and essays
 
 - [Download Human Control Protocol v0.4 technical paper (PDF)]({{ "/assets/The Human Control Protocol-v0.4_ technical paper.pdf" | relative_url }})
 - [Download Human Control Protocol: A Philosophical Essay (PDF)]({{ "/assets/The Human Control Protocol_ a philosophical essay.pdf" | relative_url }})
