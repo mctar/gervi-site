@@ -8,6 +8,12 @@ type: tools
 sort_key: 2025.6
 ---
 
+<p class="project-links">
+  <a href="https://promptsatan.com" target="_blank" rel="noopener">promptsatan.com</a>
+  <span>•</span>
+  <a href="https://promptsaint.com" target="_blank" rel="noopener">promptsaint.com</a>
+</p>
+
 In June 2025 we set two small portals loose into the world: [promptsatan.com](https://promptsatan.com) and [promptsaint.com](https://promptsaint.com). They sit somewhere between teaching tool, inside joke, and field kit for people who want to get better at talking to large language models. The experiment is ongoing.
 
 We keep meeting the same pattern in workshops. People say they “cannot prompt,” then proceed to write long, careful emails to colleagues, clear Jira tickets, or very specific briefs to designers. They do know how to explain what they want. They just do not yet see LLMs as something that deserves the same care, play, and precision.

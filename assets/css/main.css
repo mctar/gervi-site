@@ -329,6 +329,26 @@ a:focus {
   color: rgba(247, 247, 242, 0.9);
 }
 
+.project-links {
+  margin: 0;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-links a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.project-links span {
+  color: var(--line);
+}
+
 .project-hero {
   margin: 2rem 0;
 }
