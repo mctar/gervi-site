@@ -7,6 +7,10 @@ type: performance
 sort_key: 2023.9
 ---
 
+<figure class="project-hero">
+  <img src="{{ "/assets/the opera.png" | relative_url }}" alt="The Opera hero image">
+</figure>
+
 In 2023 we set ourselves a constraint: make an opera in 10 days. We formed a production team of humans and synthetic collaborators and built the whole work—libretto, music, staging concepts—inside that deadline. More details on the process and performances are coming soon.
 
 The Opera began with a simple but demanding question: what happens when human creativity works side by side with synthetic systems, not as tools, but as collaborators with their own creative presence. Over Easter in 2023 we decided to test this by creating a complete opera in ten days with a mixed team of humans and artificial contributors. The time constraint was intentional, because accelerated development reveals how collaboration actually functions.
