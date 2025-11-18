@@ -1,6 +1,6 @@
 ---
 layout: page
-title: AX
+title: AX (AI Experience)
 permalink: /ax/
 description: AX Manifesto and stories from the probabilistic age.
 ---
