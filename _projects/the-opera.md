@@ -7,6 +7,8 @@ type: performance
 sort_key: 2023.9
 ---
 
+In 2023 we set ourselves a constraint: make an opera in 10 days. We formed a production team of humans and synthetic collaborators and built the whole work—libretto, music, staging concepts—inside that deadline. More details on the process and performances are coming soon.
+
 The Opera began with a simple but demanding question: what happens when human creativity works side by side with synthetic systems, not as tools, but as collaborators with their own creative presence. Over Easter in 2023 we decided to test this by creating a complete opera in ten days with a mixed team of humans and artificial contributors. The time constraint was intentional, because accelerated development reveals how collaboration actually functions.
 
 At the center of the process were the two human leads, Lena Thorsmæhlum and Thordur Arnason. We carried the long arc of the work, sensed coherence, interpreted ambiguity, and held the emotional and conceptual direction of the piece. This became our early interpretation of a human in the loop. Our role was not to correct the AIs. Our role was to guide, contextualize, redirect, filter, and shape the material that flowed from the synthetic ensemble.
