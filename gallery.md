@@ -55,11 +55,23 @@ description: Visual notes from Gervi Labs projects.
   {% endfor %}
 </div>
 
+<div class="gallery-lightbox" id="gallery-lightbox">
+  <button class="lightbox-close" type="button" aria-label="Close gallery view">Close</button>
+  <figure>
+    <img src="" alt="">
+    <figcaption></figcaption>
+  </figure>
+</div>
+
 <script>
   (function () {
     var projectSelect = document.getElementById('gallery-project-filter');
     var yearSelect = document.getElementById('gallery-year-filter');
     var items = document.querySelectorAll('.gallery-item');
+    var lightbox = document.getElementById('gallery-lightbox');
+    var lightboxImg = lightbox.querySelector('img');
+    var lightboxCaption = lightbox.querySelector('figcaption');
+    var closeBtn = lightbox.querySelector('.lightbox-close');
 
     function filterGallery() {
       var project = projectSelect.value;
@@ -74,5 +86,40 @@ description: Visual notes from Gervi Labs projects.
 
     projectSelect.addEventListener('change', filterGallery);
     yearSelect.addEventListener('change', filterGallery);
+
+    function openLightbox(item) {
+      var img = item.querySelector('img');
+      var caption = item.querySelector('figcaption');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = caption ? caption.textContent : '';
+      lightbox.classList.add('gallery-lightbox--open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('gallery-lightbox--open');
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+      lightboxCaption.textContent = '';
+    }
+
+    items.forEach(function (item) {
+      var img = item.querySelector('img');
+      img.addEventListener('click', function () {
+        openLightbox(item);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+    document.addEventListener('keyup', function (event) {
+      if (event.key === 'Escape' && lightbox.classList.contains('gallery-lightbox--open')) {
+        closeLightbox();
+      }
+    });
   })();
 </script>

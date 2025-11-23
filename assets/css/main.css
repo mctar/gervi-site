@@ -381,20 +381,25 @@ a:focus {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.75rem;
   margin-top: 2rem;
 }
 
 .gallery-item {
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .gallery-item img {
   width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   border-radius: 18px;
   border: 1px solid var(--line);
   display: block;
+  cursor: zoom-in;
 }
 
 .gallery-item figcaption {
@@ -479,6 +484,63 @@ a:focus {
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--muted);
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 999;
+}
+
+.gallery-lightbox--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gallery-lightbox figure {
+  margin: 0;
+  max-width: min(900px, 90vw);
+  width: 100%;
+}
+
+.gallery-lightbox img {
+  width: 100%;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  object-fit: contain;
+  max-height: 80vh;
+}
+
+.gallery-lightbox figcaption {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 @media (max-width: 720px) {
