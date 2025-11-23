@@ -349,6 +349,63 @@ a:focus {
   color: var(--line);
 }
 
+<<<<<<< HEAD
+=======
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.gallery-filters label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.gallery-filters select {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--fg);
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  border-radius: 999px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery-item {
+  margin: 0;
+}
+
+.gallery-item img {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.gallery-item figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+>>>>>>> 0410ca1 (Initial commit)
 .project-hero {
   margin: 2rem 0;
 }
