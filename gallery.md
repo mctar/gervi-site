@@ -8,7 +8,7 @@ description: Visual notes from Gervi Labs projects.
 <section class="gallery-filters">
   <div>
     <label for="gallery-project-filter">Project</label>
-    <select id="gallery-project-filter">
+    <select id="gallery-project-filter" data-default="{{ page.project | default: 'all' }}">
       <option value="all">All projects</option>
       {% assign project_titles = "" | split: "" %}
       {% for entry in site.data.gallery %}
@@ -74,7 +74,7 @@ description: Visual notes from Gervi Labs projects.
     var closeBtn = lightbox.querySelector('.lightbox-close');
 
     function filterGallery() {
-      var project = projectSelect.value;
+      var project = projectSelect.value || projectSelect.dataset.default || 'all';
       var year = yearSelect.value;
 
       items.forEach(function (item) {

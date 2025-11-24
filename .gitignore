@@ -1,7 +1,4 @@
 .DS_Store
-_site/
-<<<<<<< HEAD
-=======
 .jekyll-cache/
->>>>>>> 0410ca1 (Initial commit)
+_site/
 .env
