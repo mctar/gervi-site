@@ -1,0 +1,403 @@
+/* ── Synthetic Dispatch ── */
+/* Editorial layer for Gervi Labs — matches the zine aesthetic */
+/* Typefaces: Bebas Neue (display), IBM Plex Serif (body), IBM Plex Mono (code/labels) */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --d-bg: #0a0a0a;
+  --d-bg-soft: #111110;
+  --d-fg: #f0ebe0;
+  --d-muted: rgba(240, 235, 224, 0.5);
+  --d-accent: #dc2626;
+  --d-gold: #c9a84c;
+  --d-line: rgba(201, 168, 76, 0.12);
+  --d-line-hard: rgba(201, 168, 76, 0.25);
+}
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--d-bg); }
+
+body {
+  background: var(--d-bg);
+  color: var(--d-fg);
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Halftone grain (matches zines) ── */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -20%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(3%, -15%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.2px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.12;
+  animation: grain 20s steps(10) infinite;
+}
+
+/* ── Container ── */
+.d-container {
+  width: min(680px, 100%);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── Dispatch header ── */
+.dispatch-header {
+  border-bottom: 1px solid var(--d-line-hard);
+  padding: 1.2rem 0;
+  position: relative;
+  z-index: 10;
+}
+
+.dispatch-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dispatch-brand a {
+  text-decoration: none;
+  color: var(--d-fg);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dispatch-brand a span.accent {
+  color: var(--d-accent);
+}
+
+.dispatch-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.dispatch-nav a {
+  color: var(--d-muted);
+  text-decoration: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.dispatch-nav a:hover,
+.dispatch-nav a.active {
+  color: var(--d-accent);
+}
+
+.dispatch-nav .nav-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--d-line-hard);
+}
+
+/* ── Main content ── */
+.dispatch-main {
+  padding: 4rem 0;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography ── */
+.dispatch-main h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  color: var(--d-fg);
+  text-transform: uppercase;
+  text-shadow: -2px 2px 0 var(--d-accent);
+}
+
+.dispatch-main h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--d-accent);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--d-line);
+}
+
+.dispatch-main h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--d-fg);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.dispatch-main p {
+  margin-bottom: 1rem;
+  color: var(--d-muted);
+  font-family: 'IBM Plex Serif', serif;
+}
+
+.dispatch-main a {
+  color: var(--d-gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.dispatch-main a:hover {
+  border-bottom-color: var(--d-gold);
+}
+
+/* ── Lead text ── */
+.dispatch-lead {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.05rem;
+  color: var(--d-fg);
+  opacity: 0.8;
+  margin-bottom: 3rem;
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+/* ── Section cards (landing page) ── */
+.dispatch-sections {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--d-line-hard);
+  border: 1px solid var(--d-line-hard);
+  margin-top: 2rem;
+}
+
+.dispatch-section-card {
+  background: var(--d-bg);
+  padding: 2rem;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: block;
+}
+
+.dispatch-section-card:hover {
+  background: var(--d-bg-soft);
+  border-bottom-color: transparent;
+}
+
+.dispatch-section-card .card-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--d-accent);
+  margin-bottom: 0.6rem;
+}
+
+.dispatch-section-card .card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--d-fg);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.dispatch-section-card .card-desc {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.9rem;
+  color: var(--d-muted);
+  line-height: 1.6;
+}
+
+.dispatch-section-card .card-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--d-gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  opacity: 0.6;
+}
+
+/* ── Zine grid ── */
+.zine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--d-line-hard);
+  border: 1px solid var(--d-line-hard);
+  margin-top: 1.5rem;
+}
+
+.zine-item {
+  background: var(--d-bg);
+  padding: 1.5rem;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: block;
+}
+
+.zine-item:hover {
+  background: var(--d-bg-soft);
+  border-bottom-color: transparent;
+}
+
+.zine-item .zine-number {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--d-accent);
+  margin-bottom: 0.4rem;
+}
+
+.zine-item .zine-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--d-fg);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.zine-item .zine-status {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--d-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Dispatch list (weekly entries) ── */
+.dispatch-list {
+  list-style: none;
+  margin-top: 1.5rem;
+}
+
+.dispatch-list li {
+  border-top: 1px solid var(--d-line);
+  padding: 1.2rem 0;
+}
+
+.dispatch-list li:last-child {
+  border-bottom: 1px solid var(--d-line);
+}
+
+.dispatch-list .entry-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--d-gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dispatch-list .entry-title {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--d-fg);
+  margin-top: 0.3rem;
+}
+
+/* ── Status indicator ── */
+.status-pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--d-accent);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Footer ── */
+.dispatch-footer {
+  border-top: 1px solid var(--d-line);
+  padding: 1.5rem 0;
+  margin-top: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.dispatch-footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--d-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dispatch-footer a {
+  color: var(--d-gold);
+  border-bottom: none;
+}
+
+.dispatch-footer a:hover {
+  color: var(--d-accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .d-container {
+    padding: 0 1.5rem;
+  }
+
+  .dispatch-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dispatch-nav {
+    gap: 1rem;
+  }
+
+  .dispatch-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .zine-grid {
+    grid-template-columns: 1fr;
+  }
+}

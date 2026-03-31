@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispatches from the Shift — Issue #04: Eating the Seed Corn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --earth: #1a1205;
+  --acid: #8bef3a;
+  --magenta: #d946ef;
+  --cream: #f0ebe0;
+  --black: #0a0a0a;
+  --white: #f8f8f2;
+  --amber: #d97706;
+  --rust: #7c2d12;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--black); }
+body { background: var(--black); color: var(--black); font-family: 'IBM Plex Serif', serif; line-height: 1.65; font-size: 17px; overflow-x: hidden; }
+
+/* HALFTONE TEXTURE */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -12%); }
+  40% { transform: translate(-4%, 8%); }
+  50% { transform: translate(12%, -3%); }
+  60% { transform: translate(-8%, 14%); }
+  70% { transform: translate(3%, -7%); }
+  80% { transform: translate(-11%, 2%); }
+  90% { transform: translate(6%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.2px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 8888;
+  opacity: 0.18;
+  animation: grain 20s steps(10) infinite;
+}
+
+/* PAGE SYSTEM */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-in {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  padding: 0;
+}
+.dot.active {
+  background: var(--acid);
+  transform: scale(1.5);
+  box-shadow: 0 0 6px var(--acid);
+}
+
+/* ====================== */
+/* COVER                  */
+/* ====================== */
+.cover {
+  background: var(--earth);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(139,239,58,0.04) 40px,
+      rgba(139,239,58,0.04) 41px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(139,239,58,0.04) 40px,
+      rgba(139,239,58,0.04) 41px
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+.cover-series {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--acid);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 3;
+}
+.cover-issue {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--acid);
+  color: var(--earth);
+  padding: 0.5rem 1rem;
+  transform: rotate(-3deg);
+  z-index: 3;
+  font-weight: 600;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 16vw, 11rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--cream);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+}
+.cover-title .eating {
+  display: block;
+  color: var(--acid);
+  text-shadow: -3px -3px 0 var(--magenta), 3px 3px 0 rgba(139,239,58,0.3);
+}
+.cover-title .the {
+  display: block;
+  font-size: 0.45em;
+  color: var(--cream);
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+}
+.cover-title .seed-corn {
+  display: block;
+  color: var(--acid);
+  text-shadow: -4px -4px 0 var(--magenta), 4px 4px 0 rgba(217,70,239,0.3);
+}
+.cover-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  color: var(--cream);
+  opacity: 1;
+  position: relative;
+  z-index: 3;
+  text-shadow: 0 0 12px rgba(26,18,5,0.95), 0 0 24px rgba(26,18,5,0.8), 0 0 48px rgba(26,18,5,0.6);
+  background: rgba(26,18,5,0.7);
+  padding: 0.3em 0.8em;
+  display: inline-block;
+}
+.cover-by {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream);
+  opacity: 0.5;
+  z-index: 3;
+}
+.cover-season {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--acid);
+  opacity: 0.5;
+  z-index: 3;
+}
+/* Hazard stripes on cover */
+.cover-hazard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--acid),
+    var(--acid) 10px,
+    var(--earth) 10px,
+    var(--earth) 20px
+  );
+  z-index: 3;
+}
+
+/* ====================== */
+/* STAT PAGE              */
+/* ====================== */
+.stat {
+  background: var(--black);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(ellipse at center, rgba(139,239,58,0.06) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+.stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 22vw, 14rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+.stat-big .val {
+  color: var(--acid);
+  text-shadow: -3px 3px 0 var(--magenta);
+}
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  max-width: 440px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.8;
+  position: relative;
+  z-index: 2;
+}
+.stat-source {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--magenta);
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  position: relative;
+  z-index: 2;
+}
+
+/* ====================== */
+/* TOC                    */
+/* ====================== */
+.toc {
+  background: var(--cream);
+  color: var(--black);
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  text-shadow: -2px 2px 0 var(--acid);
+}
+.toc-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px dashed var(--earth);
+  align-items: flex-start;
+}
+.toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--acid);
+  min-width: 3rem;
+  line-height: 1;
+  font-weight: 900;
+  text-shadow: 1px 1px 0 var(--magenta);
+}
+.toc-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 0 0 0.3rem 0;
+}
+.toc-info p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--earth);
+  opacity: 0.7;
+}
+
+/* ====================== */
+/* EDITOR'S NOTE          */
+/* ====================== */
+.editors-note {
+  background: var(--earth);
+  color: var(--cream);
+}
+.en-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--acid);
+  margin-bottom: 1.5rem;
+}
+.en-body {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--cream);
+  max-width: 580px;
+}
+.en-body p { margin-bottom: 1.2rem; }
+.en-body em {
+  color: var(--acid);
+  font-style: italic;
+  font-weight: 600;
+}
+.en-sign {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--magenta);
+  margin-top: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* ====================== */
+/* ARTICLE                */
+/* ====================== */
+.article {
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+.art-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+.art-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+.art-body p {
+  margin-bottom: 1.2rem;
+  line-height: 1.75;
+}
+.art-body p:first-child::first-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem;
+  float: left;
+  line-height: 0.7;
+  padding-right: 0.3rem;
+  font-weight: 900;
+}
+.art-body strong { font-weight: 700; }
+.art-body em { font-style: italic; font-weight: 600; }
+
+.highlight {
+  background: var(--acid);
+  color: var(--black);
+  padding: 0.15em 0.4em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.highlight.mag {
+  background: var(--magenta);
+  color: var(--black);
+}
+
+/* Article variants */
+.article-earth {
+  background: var(--earth);
+  color: var(--cream);
+}
+.article-earth .art-num { color: var(--acid); }
+.article-earth .art-title { color: var(--cream); text-shadow: -2px 2px 0 var(--magenta); }
+.article-earth .art-body p:first-child::first-letter { color: var(--acid); }
+.article-earth .art-body em { color: var(--acid); }
+.article-earth .art-body strong { color: var(--cream); }
+
+.article-black {
+  background: var(--black);
+  color: var(--cream);
+}
+.article-black .art-num { color: var(--magenta); }
+.article-black .art-title { color: var(--acid); text-shadow: -2px 2px 0 var(--magenta); }
+.article-black .art-body p:first-child::first-letter { color: var(--magenta); }
+.article-black .art-body em { color: var(--magenta); }
+.article-black .art-body strong { color: var(--cream); }
+
+.article-cream {
+  background: var(--cream);
+  color: var(--black);
+}
+.article-cream .art-num { color: var(--earth); }
+.article-cream .art-title { color: var(--black); text-shadow: -2px 2px 0 var(--acid); }
+.article-cream .art-body p:first-child::first-letter { color: var(--acid); }
+.article-cream .art-body em { color: var(--magenta); }
+.article-cream .art-body strong { color: var(--black); }
+
+.article-magenta {
+  background: var(--magenta);
+  color: var(--black);
+}
+.article-magenta .art-num { color: var(--earth); }
+.article-magenta .art-title { color: var(--black); text-shadow: -2px 2px 0 var(--acid); }
+.article-magenta .art-body p:first-child::first-letter { color: var(--earth); }
+.article-magenta .art-body em { color: var(--earth); }
+.article-magenta .art-body strong { color: var(--black); }
+
+.article-acid {
+  background: var(--acid);
+  color: var(--black);
+}
+.article-acid .art-num { color: var(--earth); }
+.article-acid .art-title { color: var(--black); text-shadow: -2px 2px 0 var(--magenta); }
+.article-acid .art-body p:first-child::first-letter { color: var(--magenta); }
+.article-acid .art-body em { color: var(--earth); }
+.article-acid .art-body strong { color: var(--black); }
+
+/* Data callout blocks */
+.data-block {
+  background: rgba(139,239,58,0.1);
+  border-left: 5px solid var(--acid);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-top: 2px solid var(--magenta);
+  border-right: 2px dashed var(--earth);
+}
+.data-block p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.data-block .val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: var(--acid);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+/* dark variant */
+.article-earth .data-block,
+.article-black .data-block {
+  background: rgba(139,239,58,0.08);
+  border-left-color: var(--acid);
+  border-top-color: var(--magenta);
+}
+.article-earth .data-block p,
+.article-black .data-block p {
+  color: var(--cream);
+}
+
+/* ====================== */
+/* PULL QUOTE             */
+/* ====================== */
+.pullquote {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+}
+.pq-box {
+  max-width: 750px;
+  padding: 3rem;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+.pq-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pq-text .em {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+.pq-text .strong { font-weight: 900; }
+.pq-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+.pq-border {
+  border: 5px solid;
+  border-color: inherit;
+  box-shadow: -6px 6px 0 rgba(0,0,0,0.2);
+}
+.pq-tilt { transform: rotate(-2deg); }
+.pq-tilt-r { transform: rotate(1.5deg); }
+
+/* PQ color variants */
+.pq-acid { background: var(--acid); color: var(--black); }
+.pq-acid .pq-attr { color: var(--earth); }
+
+.pq-magenta { background: var(--magenta); color: var(--black); }
+.pq-magenta .pq-attr { color: var(--black); }
+
+.pq-black { background: var(--black); color: var(--acid); }
+.pq-black .pq-attr { color: var(--acid); }
+
+.pq-earth { background: var(--earth); color: var(--acid); }
+.pq-earth .pq-attr { color: var(--cream); }
+
+.pq-cream { background: var(--cream); color: var(--black); }
+.pq-cream .pq-attr { color: var(--earth); }
+
+/* ====================== */
+/* INTERSTITIAL           */
+/* ====================== */
+.inter {
+  justify-content: center;
+  text-align: center;
+}
+.inter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 11vw, 7rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+}
+.inter-title .col {
+  color: var(--acid);
+  text-shadow: 2px 2px 0 var(--magenta);
+}
+.inter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+.inter-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  max-width: 450px;
+  margin: 1.5rem auto 0;
+  line-height: 1.6;
+}
+
+/* ====================== */
+/* ART SPREADS            */
+/* ====================== */
+.art-spread {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.art-credit {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+  z-index: 3;
+}
+.art-spread[data-illustration],
+.page[data-illustration].art-spread {
+  min-height: 100vh;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* CSS generative art placeholders */
+.art-seedcorn {
+  background: var(--magenta);
+}
+.art-seedcorn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse 200px 300px at 25% 40%, var(--acid) 0%, transparent 60%),
+    radial-gradient(ellipse 150px 200px at 70% 55%, var(--magenta) 0%, transparent 50%),
+    radial-gradient(circle 80px at 50% 70%, rgba(139,239,58,0.3) 0%, transparent 60%),
+    radial-gradient(circle 40px at 30% 25%, var(--magenta) 0%, transparent 50%),
+    radial-gradient(circle 60px at 80% 30%, rgba(139,239,58,0.4) 0%, transparent 50%);
+  opacity: 0.7;
+  z-index: 1;
+}
+.art-seedcorn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--acid) 1.5px, transparent 1.5px);
+  background-size: 8px 8px;
+  opacity: 0.25;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.art-ladder {
+  background: var(--earth);
+}
+.art-ladder::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    linear-gradient(180deg, transparent 0%, var(--acid) 2%, var(--acid) 3%, transparent 4%) 48% 0 / 4px 100% no-repeat,
+    linear-gradient(180deg, transparent 0%, var(--acid) 2%, var(--acid) 3%, transparent 4%) 52% 0 / 4px 100% no-repeat,
+    linear-gradient(90deg, transparent 44%, var(--acid) 46%, var(--acid) 54%, transparent 56%) 0 20% / 100% 3px no-repeat,
+    linear-gradient(90deg, transparent 44%, var(--acid) 46%, var(--acid) 54%, transparent 56%) 0 35% / 100% 3px no-repeat,
+    linear-gradient(90deg, transparent 44%, var(--acid) 46%, var(--acid) 54%, transparent 56%) 0 50% / 100% 3px no-repeat,
+    linear-gradient(90deg, transparent 44%, var(--magenta) 46%, var(--magenta) 48%, transparent 50%) 0 65% / 100% 3px no-repeat,
+    radial-gradient(circle 120px at 50% 75%, rgba(217,70,239,0.3) 0%, transparent 70%),
+    radial-gradient(circle 80px at 35% 30%, rgba(139,239,58,0.15) 0%, transparent 60%),
+    radial-gradient(circle 60px at 70% 20%, rgba(217,70,239,0.15) 0%, transparent 60%);
+  opacity: 0.8;
+  z-index: 1;
+}
+.art-ladder::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--magenta) 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.2;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.art-chain {
+  background: linear-gradient(145deg, var(--black) 0%, #1a0a2e 100%);
+}
+.art-chain::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    radial-gradient(circle 30px at 20% 50%, var(--acid) 0%, transparent 50%),
+    radial-gradient(circle 30px at 32% 50%, var(--acid) 0%, transparent 50%),
+    radial-gradient(circle 30px at 44% 50%, var(--acid) 0%, transparent 50%),
+    radial-gradient(circle 30px at 56% 50%, var(--magenta) 0%, transparent 50%),
+    radial-gradient(circle 30px at 68% 50%, rgba(139,239,58,0.3) 0%, transparent 50%),
+    radial-gradient(circle 30px at 80% 50%, rgba(217,70,239,0.2) 0%, transparent 50%),
+    linear-gradient(90deg, transparent 18%, var(--acid) 19%, var(--acid) 19.5%, transparent 20%),
+    linear-gradient(90deg, transparent 30%, var(--acid) 31%, var(--acid) 31.5%, transparent 32%),
+    linear-gradient(90deg, transparent 42%, var(--acid) 43%, var(--acid) 43.5%, transparent 44%),
+    linear-gradient(90deg, transparent 54%, var(--magenta) 55%, var(--magenta) 55.5%, transparent 56%);
+  opacity: 0.6;
+  z-index: 1;
+}
+.art-chain::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, rgba(139,239,58,0.6) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.15;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Art label overlay */
+.art-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 3;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* ====================== */
+/* NEXT ISSUE TEASER      */
+/* ====================== */
+.teaser {
+  background: var(--magenta);
+  color: var(--black);
+  justify-content: center;
+  text-align: center;
+}
+.teaser-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--earth);
+  margin-bottom: 1.5rem;
+}
+.teaser-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--black);
+  text-shadow: -2px 2px 0 var(--acid);
+  margin-bottom: 1.5rem;
+}
+.teaser-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--earth);
+}
+
+/* ====================== */
+/* COLOPHON               */
+/* ====================== */
+.colophon {
+  background: var(--earth);
+  color: var(--cream);
+  text-align: center;
+}
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--acid);
+  margin-bottom: 1rem;
+}
+.col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  color: var(--cream);
+  text-shadow: 2px 2px 0 var(--magenta);
+}
+.col-text {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.8;
+}
+.col-text p { margin-bottom: 0.8rem; }
+.col-issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.col-issue {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid rgba(139,239,58,0.3);
+  color: var(--cream);
+  opacity: 0.7;
+}
+.col-issue.current {
+  background: var(--acid);
+  color: var(--earth);
+  border-color: var(--acid);
+  font-weight: 600;
+  opacity: 1;
+}
+
+a.col-issue { text-decoration: none; transition: opacity 0.2s, background 0.2s; cursor: pointer; }
+a.col-issue:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+a.col-issue.current:hover { opacity: 1; }
+.col-footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--acid);
+  margin-top: 2.5rem;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+/* ====================== */
+/* REGISTRATION / CROP    */
+/* ====================== */
+.reg-mark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1px solid;
+  border-radius: 50%;
+  opacity: 0.15;
+  z-index: 4;
+  pointer-events: none;
+}
+.reg-mark::before {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  line-height: 1;
+}
+.reg-tl { top: 1rem; left: 1rem; }
+.reg-tr { top: 1rem; right: 1rem; }
+.reg-bl { bottom: 1rem; left: 1rem; }
+.reg-br { bottom: 1rem; right: 1rem; }
+.reg-light { border-color: var(--cream); color: var(--cream); }
+.reg-dark { border-color: var(--black); color: var(--black); }
+.reg-acid { border-color: var(--acid); color: var(--acid); }
+
+/* Hazard stripe decoration */
+.hazard-bar {
+  width: 100%;
+  height: 8px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--acid),
+    var(--acid) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  position: absolute;
+  z-index: 3;
+}
+.hazard-top { top: 0; left: 0; }
+.hazard-bottom { bottom: 0; left: 0; }
+
+/* ====================== */
+/* PRINT                  */
+/* ====================== */
+@media print {
+  body::before { display: none; }
+  .page { page-break-after: always; page-break-inside: avoid; }
+  .nav-dots { display: none; }
+  @page { size: A5; margin: 1.5cm; }
+}
+
+/* ====================== */
+/* RESPONSIVE             */
+/* ====================== */
+@media (max-width: 600px) {
+  .page { padding: 2rem 1.2rem; }
+  .pullquote { padding: 2rem 1.2rem; }
+  .pq-box { padding: 1.5rem; }
+  .nav-dots { right: 0.7rem; gap: 0.4rem; }
+  .dot { width: 6px; height: 6px; }
+}
+
+/* DISPATCH BACK NAV */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--cream, var(--white, #f0ebe0));
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--cream, var(--white, #f0ebe0));
+  color: var(--black, #0a0a0a);
+}
+</style>
+</head>
+<body>
+<div class="dispatch-back"><a href="/dispatch/zines/">â All Issues</a></div>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" aria-label="Page navigation">
+  <button class="dot active" aria-label="Page 1"></button>
+  <button class="dot" aria-label="Page 2"></button>
+  <button class="dot" aria-label="Page 3"></button>
+  <button class="dot" aria-label="Page 4"></button>
+  <button class="dot" aria-label="Page 5"></button>
+  <button class="dot" aria-label="Page 6"></button>
+  <button class="dot" aria-label="Page 7"></button>
+  <button class="dot" aria-label="Page 8"></button>
+  <button class="dot" aria-label="Page 9"></button>
+  <button class="dot" aria-label="Page 10"></button>
+  <button class="dot" aria-label="Page 11"></button>
+  <button class="dot" aria-label="Page 12"></button>
+  <button class="dot" aria-label="Page 13"></button>
+  <button class="dot" aria-label="Page 14"></button>
+  <button class="dot" aria-label="Page 15"></button>
+  <button class="dot" aria-label="Page 16"></button>
+  <button class="dot" aria-label="Page 17"></button>
+  <button class="dot" aria-label="Page 18"></button>
+  <button class="dot" aria-label="Page 19"></button>
+  <button class="dot" aria-label="Page 20"></button>
+</nav>
+
+<!-- ======================== -->
+<!-- PAGE 1: COVER            -->
+<!-- ======================== -->
+<section class="page cover" data-illustration="cover-seedcorn" style="background-image: url(/assets/dispatch/zines/issue-04/img-01.webp); background-size: cover; background-position: center;">
+  <div class="cover-issue">Issue #04 / Spring 2026</div>
+  <div class="cover-series">Dispatches from the Shift</div>
+  <h1 class="cover-title">
+    <span class="eating">Eating</span>
+    <span class="the">the</span>
+    <span class="seed-corn">Seed Corn</span>
+  </h1>
+  <p class="cover-sub">The generation we're not training</p>
+  <div class="cover-by">Words: Thordur Arnason<br>Chief Dispatcher: Lena Thorsmæhlum</div>
+  <div class="cover-season">Spring 2026</div>
+  <div class="cover-hazard"></div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-tr reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 2: STAT             -->
+<!-- ======================== -->
+<section class="page stat">
+  <div class="page-in">
+    <div class="stat-big"><span class="val">14%</span></div>
+    <div class="stat-label">Drop in job-finding rates for 22-to-25-year-olds entering AI-exposed professions</div>
+    <div class="stat-source">Massenkoff &amp; McCrory, 2025</div>
+  </div>
+  <span class="reg-mark reg-bl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 3: TOC              -->
+<!-- ======================== -->
+<section class="page toc">
+  <div class="page-in">
+    <h2 class="toc-title">Contents</h2>
+
+    <div class="toc-item">
+      <div class="toc-num">01</div>
+      <div class="toc-info">
+        <h3>The O-Ring</h3>
+        <p>Theory and evidence: why 94% exposure produces 0% unemployment</p>
+      </div>
+    </div>
+
+    <div class="toc-item">
+      <div class="toc-num">02</div>
+      <div class="toc-info">
+        <h3>The Junior Trap</h3>
+        <p>Entry-level collapse and the seniority gap we're building in real time</p>
+      </div>
+    </div>
+
+    <div class="toc-item">
+      <div class="toc-num">03</div>
+      <div class="toc-info">
+        <h3>The New Shape</h3>
+        <p>How the SWE role went from T-shaped to Y-shaped</p>
+      </div>
+    </div>
+
+    <div class="toc-item">
+      <div class="toc-num">04</div>
+      <div class="toc-info">
+        <h3>Voluntary Learning</h3>
+        <p>Anthropic's 81K study: chosen learning works, assigned learning atrophies</p>
+      </div>
+    </div>
+
+    <div class="toc-item">
+      <div class="toc-num">05</div>
+      <div class="toc-info">
+        <h3>The Exposed Middle</h3>
+        <p>Freelancers, the laws of physics, and being measurably stupid</p>
+      </div>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-dark"></span>
+  <span class="reg-mark reg-br reg-dark"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 4: EDITOR'S NOTE    -->
+<!-- ======================== -->
+<section class="page editors-note">
+  <div class="page-in">
+    <div class="en-label">Editor's Note</div>
+    <div class="en-body">
+      <p>The O-Ring theory says your job is safe. Every link in the chain must hold. AI can't replace the whole chain. Comforting &mdash; until you realize nobody is training the people who were supposed to replace you.</p>
+      <p>This issue follows the data: not the panic headlines, not the capability scores, but what's actually happening to the youngest workers, the freelancers, and the ladder everyone else is standing on.</p>
+    </div>
+    <div class="en-sign">&mdash; The Editors</div>
+  </div>
+  <span class="reg-mark reg-tr reg-acid"></span>
+  <span class="reg-mark reg-bl reg-acid"></span>
+  <div class="hazard-bar hazard-bottom"></div>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 5: ART — O-RING     -->
+<!-- ======================== -->
+<section class="page art-spread art-chain" data-illustration="oring-chain" style="background-image: url(/assets/dispatch/zines/issue-04/img-02.webp); background-size: cover; background-position: center;">
+  <div class="art-label" style="color: var(--acid);">O-Ring Chain</div>
+  <div class="art-credit">Art: The Synthetics</div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 6: ARTICLE 1        -->
+<!-- ======================== -->
+<section class="page article article-cream">
+  <div class="page-in">
+    <div class="art-num">Article 01</div>
+    <h2 class="art-title">The O-Ring</h2>
+    <div class="art-body">
+      <p>The O-Ring will replace your job.</p>
+      <p>You know the line. 'AI won't replace you, but someone using AI will.' Cute. Also wrong.</p>
+      <p>A new report by Massenkoff and McCrory finally gives us what we've been starving for: not vibes, not capability scores, not another 'X% of jobs are exposed' headline. <em>Actual observed usage data</em> cross-referenced with employment outcomes.</p>
+      <p>The headline finding: a <span class="highlight">gargantuan gap</span> between what AI can do and what it is actually doing.</p>
+      <div class="data-block">
+        <p><span class="val">94% vs 33%</span> Computer and math occupations. Theoretical exposure: 94%. Observed exposure: 33%. A 61-point gap between panic and reality.</p>
+      </div>
+      <p>Programmers sit at 74.5% observed exposure, highest of any occupation, and yet... mass unemployment? Nowhere in the data. Zero divergence from unexposed workers since ChatGPT launched.</p>
+      <p>Why? <em>The O-Ring theory.</em> Named after the part that destroyed the Challenger. In complex knowledge work, every task in the chain must succeed for the output to have value. Automate 90% of a deal and you still need the human who reads the room when the buyer hesitates. Partial automation does not equal job destruction. It equals <span class="highlight">job concentration</span>.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-dark"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 6: PULL QUOTE 1     -->
+<!-- ======================== -->
+<section class="page pullquote pq-earth">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--magenta), 3px 3px 0 rgba(139,239,58,0.3);">Remove the <span class="em">bottom rung</span> and the ladder still stands. But <span style="color: var(--magenta);">nobody new</span> is climbing it.</p>
+    <p class="pq-attr">&mdash; Thordur Arnason</p>
+  </div>
+  <span class="reg-mark reg-tr reg-acid"></span>
+  <span class="reg-mark reg-bl reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 7: INTERSTITIAL     -->
+<!-- ======================== -->
+<section class="page inter" style="background: var(--black); color: var(--cream);">
+  <div class="page-in" style="text-align: center;">
+    <div class="inter-label" style="color: var(--magenta);">Warning</div>
+    <h2 class="inter-title">We are building a <span class="col">seniority gap</span> in real time</h2>
+    <p class="inter-sub" style="color: var(--cream); opacity: 0.6;">A decade from now, we will desperately need humans with deep domain judgment. And we will have prevented an entire generation from acquiring it.</p>
+  </div>
+  <div class="hazard-bar hazard-top"></div>
+  <div class="hazard-bar hazard-bottom"></div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 8: ARTICLE 2        -->
+<!-- ======================== -->
+<section class="page article article-earth">
+  <div class="page-in">
+    <div class="art-num">Article 02</div>
+    <h2 class="art-title">The Junior Trap</h2>
+    <div class="art-body">
+      <p>So relax? No. Here's where it breaks.</p>
+      <p>A <span class="highlight">14% drop</span> in job-finding rates for 22-to-25-year-olds entering highly exposed professions. Not older workers. <em>Only the youngest cohort.</em> Companies aren't firing senior programmers. They're cancelling the junior req and buying a $20/month API key instead.</p>
+      <p>This is the junior trap. Some of us have been banging this drum for years.</p>
+      <p>The entry-level tasks that score highest on AI capability are the <em>exact tasks</em> 22-year-olds rely on to learn the trade. Remove the bottom rung and the ladder still stands. But nobody new is climbing it.</p>
+      <p>We are building a seniority gap in real time. A decade from now, we will desperately need humans with deep domain judgment to oversee and correct AI output in complex O-Ring workflows. And we will have <span class="highlight mag">prevented an entire generation</span> from acquiring that judgment.</p>
+      <p>The O-Ring won't replace your job. It will protect it. Right up until we realize nobody trained the people who were supposed to replace you.</p>
+      <p>That's not a prediction. <em>It's already in the data.</em></p>
+    </div>
+  </div>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 9: PULL QUOTE 2     -->
+<!-- ======================== -->
+<section class="page pullquote pq-acid">
+  <div class="pq-box pq-tilt-r pq-border" style="border-color: var(--earth);">
+    <p class="pq-text">Companies aren't <span class="em">firing</span> senior programmers. They're <span style="color: var(--magenta);">cancelling the junior req.</span></p>
+    <p class="pq-attr">&mdash; Thordur Arnason</p>
+  </div>
+  <span class="reg-mark reg-tl reg-dark"></span>
+  <span class="reg-mark reg-br reg-dark"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 10: ART PAGE        -->
+<!-- ======================== -->
+<section class="page art-spread art-ladder" data-illustration="broken-ladder" style="background-image: url(/assets/dispatch/zines/issue-04/img-03.webp); background-size: cover; background-position: center;">
+  <div class="art-label" style="color: var(--acid);">Broken Ladder</div>
+  <div class="art-credit">Art: The Synthetics</div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 11: ARTICLE 3       -->
+<!-- ======================== -->
+<section class="page article article-black">
+  <div class="page-in">
+    <div class="art-num">Article 03</div>
+    <h2 class="art-title">The New Shape</h2>
+    <div class="art-body">
+      <p>The SWE role has fundamentally changed over a few short months. I have been coding for decades. This is different.</p>
+      <p>I have lived through many 'this changes everything' moments in software. Most did not. <em>This one did.</em></p>
+      <p>Six months ago, a senior engineer's value was measured in code written. Today, it is measured in <span class="highlight">code directed</span>. Andrej Karpathy went from roughly 80 percent manual coding to 80 percent agent coding in a matter of weeks. Boris Cherny at Anthropic ships more than twenty five PRs a day, all written by Claude. Not reviewed by Claude. <em>Written.</em></p>
+      <p>I have felt this shift myself over the past year. The muscle memory built over decades. Syntax. Patterns. The mechanical fluency of fingers on a keyboard. It is not worthless, but it is no longer the bottleneck.</p>
+      <p>The errors have changed. Not syntax mistakes that a linter catches. <em>Conceptual errors.</em> Wrong assumptions. Overcomplicated abstractions. Missing the simple or elegant solution. Catching these requires something implementation skill never really trained deeply. Judgment. Taste. Architectural intuition.</p>
+      <p>The question is no longer 'can you write this?' It is <span class="highlight">'should this exist, and is this the right way to build it?'</span></p>
+      <div class="data-block">
+        <p><span class="val">T &rarr; Y</span> The old T shape rewarded deep implementation skill in a single domain. The Y-shaped professional has a new vertical stem: AI fluency. The ability to direct, evaluate, and collaborate with AI systems.</p>
+      </div>
+      <p>Anthropic now hires mostly generalists. Not because depth no longer matters, but because the kind of depth that matters has shifted. Strategic judgment. Quality discrimination. Knowing what to build and why.</p>
+      <p>Most people are not software engineers. Most people are knowledge workers. This just happened to engineers. <em>Where does it happen next?</em></p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 12: PULL QUOTE 3    -->
+<!-- ======================== -->
+<section class="page pullquote pq-magenta">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--acid), 3px 3px 0 var(--earth);">The <span class="strong">10x engineer</span> is not 10x faster at typing. They are 10x better at <span class="em">deciding what should exist.</span></p>
+    <p class="pq-attr">&mdash; Thordur Arnason</p>
+  </div>
+  <span class="reg-mark reg-tr reg-dark"></span>
+  <span class="reg-mark reg-bl reg-dark"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 13: ARTICLE 4       -->
+<!-- ======================== -->
+<section class="page article article-acid">
+  <div class="page-in">
+    <div class="art-num">Article 04</div>
+    <h2 class="art-title">Voluntary Learning</h2>
+    <div class="art-body">
+      <p>From the Anthropic 81K study:</p>
+      <p>Two: <em>Voluntary learning works. Forced learning creates atrophy.</em></p>
+      <p>Educators report witnessing cognitive decay in their students at <span class="highlight mag">2.5 to 3 times the baseline</span>. Tradespeople learning on their own terms? Almost zero atrophy (4%, less than half average) and some of the highest learning gains of any group.</p>
+      <p>The pattern is precise: AI learning works when chosen. When assigned, it becomes a shortcut machine that hollows out the skill it was supposed to develop.</p>
+      <p>Every enterprise mandating AI enablement programs should think hard about this finding.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-br reg-dark"></span>
+  <div class="hazard-bar hazard-bottom" style="background: repeating-linear-gradient(-45deg, var(--earth), var(--earth) 8px, var(--acid) 8px, var(--acid) 16px);"></div>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 14: PULL QUOTE 4    -->
+<!-- ======================== -->
+<section class="page pullquote pq-black">
+  <div class="pq-box pq-tilt-r">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--magenta), 3px 3px 0 rgba(139,239,58,0.2);"><span style="color: var(--acid);">AI learning</span> works when <span class="em">chosen.</span> When assigned, it becomes a <span style="color: var(--magenta);">shortcut machine.</span></p>
+    <p class="pq-attr">&mdash; Thordur Arnason</p>
+  </div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 16: ART — SEED CORN -->
+<!-- ======================== -->
+<section class="page art-spread art-seedcorn" data-illustration="seed-devour" style="background-image: url(/assets/dispatch/zines/issue-04/img-04.webp); background-size: contain; background-color: #1a1205; background-position: center;">
+  <div class="art-label" style="color: var(--magenta);">Seed Corn</div>
+  <div class="art-credit">Art: The Synthetics</div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 17: ARTICLE 5       -->
+<!-- ======================== -->
+<section class="page article article-earth">
+  <div class="page-in">
+    <div class="art-num">Article 05</div>
+    <h2 class="art-title">The Exposed Middle</h2>
+    <div class="art-body">
+      <p>Three: Watch the freelancers.</p>
+      <p>Anthropic's own language: <em>'the exposed middle.'</em> Freelance creatives: 23% lived benefit, 17% lived precarity. The one group where upside and downside nearly cancel out. AI is both their tool and their competition.</p>
+      <p>Corporate employees have institutional buffers. Solopreneurs bet everything on leverage. Freelancers get the gains and the squeeze with <span class="highlight">nothing between them</span>.</p>
+      <p>If you want to see what AI does to labor markets before the corporate layer catches up, watch the freelancers. They're running the experiment in real time, on themselves.</p>
+      <p>Reading this made me want to quit today and found three companies. One that hires electricians. One that hires plumbers. And one that scoops up all the brilliant junior talent nobody is hiring because the market is too busy optimizing Q2 headcount to notice it's eating its own seed corn.</p>
+      <p>Two are protected by the laws of physics. The third by the fact that <span class="highlight mag">everyone else is being profoundly, measurably stupid</span>.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <div class="hazard-bar hazard-top"></div>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 16: PULL QUOTE 5    -->
+<!-- ======================== -->
+<section class="page pullquote pq-cream">
+  <div class="pq-box pq-tilt pq-border" style="border-color: var(--earth); box-shadow: -6px 6px 0 var(--magenta);">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--acid), 3px 3px 0 var(--magenta);">Everyone else is being <span class="strong" style="color: var(--magenta);">profoundly, measurably</span> <span class="em">stupid.</span></p>
+    <p class="pq-attr">&mdash; Thordur Arnason</p>
+  </div>
+  <span class="reg-mark reg-tr reg-dark"></span>
+  <span class="reg-mark reg-bl reg-dark"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 17: NEXT ISSUE      -->
+<!-- ======================== -->
+<section class="page teaser">
+  <div class="page-in" style="text-align: center;">
+    <div class="teaser-label">Next Issue</div>
+    <h2 class="teaser-title">The Rick Rubins</h2>
+    <p class="teaser-sub">Taste, restraint, and the deliberate no.</p>
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--earth); margin-top: 2rem; opacity: 0.6;">Issue #05 / Dispatches from the Shift</p>
+  </div>
+  <span class="reg-mark reg-tl reg-dark"></span>
+  <span class="reg-mark reg-br reg-dark"></span>
+</section>
+
+<!-- ======================== -->
+<!-- PAGE 18: COLOPHON        -->
+<!-- ======================== -->
+<section class="page colophon">
+  <div class="page-in">
+    <div class="col-label">Colophon</div>
+    <h2 class="col-title">Dispatches from the Shift</h2>
+    <div class="col-text">
+      <p>All texts by Thordur Arnason.<br>Originally published on LinkedIn, 2025&ndash;2026.</p>
+      <p>Editor in Chief: Lena Thorsmaehlum<br>Publisher: Gervi Labs</p>
+    </div>
+    <div class="col-issues">
+      <a class="col-issue" href="/dispatch/zines/issue-00-the-pyramids-crumble.html">#00 The Pyramids Crumble</a>
+      <a class="col-issue" href="/dispatch/zines/issue-01-the-four-horsemen.html">#01 The Four Horsemen</a>
+      <a class="col-issue" href="/dispatch/zines/issue-02-the-finite-mind.html">#02 The Finite Mind</a>
+      <a class="col-issue" href="/dispatch/zines/issue-03-cognitive-surrender.html">#03 Cognitive Surrender</a>
+      <a class="col-issue current" href="/dispatch/zines/issue-04-eating-the-seed-corn.html">#04 Eating the Seed Corn</a>
+      <a class="col-issue" href="/dispatch/zines/issue-05-the-rick-rubins.html">#05 The Rick Rubins</a>
+      <a class="col-issue" href="/dispatch/zines/issue-06-cyborgs-of-swing.html">#06 Cyborgs of Swing</a>
+    </div>
+    </div>
+    <div class="col-footer">gervilabs.com &bull; Spring 2026<br><a href="/dispatch/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Synthetic Dispatch</a> · <a href="/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Gervi Labs</a></div>
+  </div>
+  <span class="reg-mark reg-tl reg-acid"></span>
+  <span class="reg-mark reg-br reg-acid"></span>
+</section>
+
+<script>
+const pages = document.querySelectorAll('.page');
+const dots = document.querySelectorAll('.dot');
+let currentPage = 0;
+
+function updateDots() {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentPage);
+  });
+}
+
+function scrollToPage(index) {
+  currentPage = Math.max(0, Math.min(index, pages.length - 1));
+  pages[currentPage].scrollIntoView({ behavior: 'smooth' });
+  updateDots();
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    scrollToPage(currentPage + 1);
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    scrollToPage(currentPage - 1);
+  }
+});
+
+window.addEventListener('scroll', () => {
+  let closest = 0;
+  let closestDist = Infinity;
+  pages.forEach((page, i) => {
+    const dist = Math.abs(page.getBoundingClientRect().top);
+    if (dist < closestDist) {
+      closestDist = dist;
+      closest = i;
+    }
+  });
+  currentPage = closest;
+  updateDots();
+});
+
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    scrollToPage(i);
+  });
+});
+
+updateDots();
+</script>
+</body>
+</html>

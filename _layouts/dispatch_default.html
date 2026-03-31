@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% if page.title %}{{ page.title }} | Synthetic Dispatch{% else %}Synthetic Dispatch | {{ site.title }}{% endif %}</title>
+
+    {% if page.description %}
+      <meta name="description" content="{{ page.description | escape }}">
+    {% else %}
+      <meta name="description" content="Synthetic Dispatch — editorial intelligence from Gervi Labs.">
+    {% endif %}
+
+    <link rel="stylesheet" href="{{ "/assets/css/dispatch.css" | relative_url }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ "/assets/favicon-32x32.png" | relative_url }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ "/assets/favicon-192x192.png" | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ "/assets/favicon-192x192.png" | relative_url }}">
+    <link rel="shortcut icon" href="{{ "/assets/favicon.ico" | relative_url }}">
+
+    <meta property="og:title" content="{% if page.title %}{{ page.title }} | Synthetic Dispatch{% else %}Synthetic Dispatch{% endif %}">
+    <meta property="og:description" content="{{ page.description | default: 'Editorial intelligence from Gervi Labs.' | escape }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+  </head>
+  <body>
+    <div class="site-shell" style="display:flex;flex-direction:column;min-height:100vh;">
+      {% include dispatch-header.html %}
+
+      <main class="dispatch-main">
+        <div class="d-container">
+          {{ content }}
+        </div>
+      </main>
+
+      <footer class="dispatch-footer">
+        <div class="d-container">
+          <p>
+            Synthetic Dispatch is a publication of <a href="{{ "/" | relative_url }}">Gervi Labs</a>.
+            &copy; {{ site.time | date: "%Y" }} All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<header class="dispatch-header">
+  <div class="d-container dispatch-header-inner">
+    <div class="dispatch-brand">
+      <a href="{{ "/dispatch/" | relative_url }}"><span class="accent">//</span> Synthetic Dispatch</a>
+    </div>
+
+    <nav class="dispatch-nav">
+      <a href="{{ "/dispatch/zines/" | relative_url }}"{% if page.section == "zines" %} class="active"{% endif %}>Zines</a>
+      <a href="{{ "/dispatch/weekly/" | relative_url }}"{% if page.section == "weekly" %} class="active"{% endif %}>Weekly</a>
+      <a href="{{ "/dispatch/watchman/" | relative_url }}"{% if page.section == "watchman" %} class="active"{% endif %}>Watchman</a>
+      <div class="nav-divider"></div>
+      <a href="{{ "/" | relative_url }}">Gervi Labs</a>
+    </nav>
+  </div>
+</header>

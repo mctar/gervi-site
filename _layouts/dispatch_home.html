@@ -1,0 +1,31 @@
+---
+layout: dispatch_default
+---
+
+<h1>Synthetic Dispatch</h1>
+<p class="dispatch-lead">Editorial intelligence from Gervi Labs. Zines, weekly briefings, and live monitoring of the AI landscape.</p>
+
+{{ content }}
+
+<div class="dispatch-sections">
+  <a class="dispatch-section-card" href="{{ "/dispatch/zines/" | relative_url }}">
+    <div class="card-label">01 &mdash; Publication</div>
+    <div class="card-title">Zines</div>
+    <div class="card-desc">Self-contained HTML microsites exploring AI through essays, visuals, and experiments. First series: editions 00&ndash;06.</div>
+    <div class="card-meta">7 editions in progress</div>
+  </a>
+
+  <a class="dispatch-section-card" href="{{ "/dispatch/weekly/" | relative_url }}">
+    <div class="card-label">02 &mdash; Briefing</div>
+    <div class="card-title">Weekly Dispatch</div>
+    <div class="card-desc">A curated review of the week in AI. Published every Monday.</div>
+    <div class="card-meta">Published Mondays</div>
+  </a>
+
+  <a class="dispatch-section-card" href="{{ "/dispatch/watchman/" | relative_url }}">
+    <div class="card-label">03 &mdash; Monitor</div>
+    <div class="card-title">The Watchman</div>
+    <div class="card-desc">Continuous monitoring of release notes from select AI labs. Always on.</div>
+    <div class="card-meta"><span class="status-pulse"></span>Live</div>
+  </a>
+</div>

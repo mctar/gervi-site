@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispatches from the Shift — Issue #01: The Four Horsemen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --acid: #8bef3a;
+  --magenta: #d946ef;
+  --dark-green: #1a2e05;
+  --cream: #f0ebe0;
+  --black: #0a0a0a;
+  --white: #f8f8f2;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--black); }
+body { background: var(--black); color: var(--black); font-family: 'IBM Plex Serif', serif; line-height: 1.65; font-size: 17px; overflow-x: hidden; }
+
+/* HALFTONE TEXTURE */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -20%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(3%, -15%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.2px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 8888;
+  opacity: 0.18;
+  animation: grain 20s steps(10) infinite;
+}
+
+/* PAGE SYSTEM */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-in {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* REGISTRATION MARKS */
+.reg-mark {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.45rem;
+  opacity: 0.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 3;
+}
+.reg-tl { top: 1rem; left: 1rem; }
+.reg-tr { top: 1rem; right: 1rem; }
+.reg-bl { bottom: 1rem; left: 1rem; }
+.reg-br { bottom: 1rem; right: 1rem; }
+.reg-cross::before {
+  content: '+';
+  font-size: 1.2rem;
+  display: block;
+  line-height: 1;
+}
+
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  padding: 0;
+}
+.dot.active {
+  background: var(--acid);
+  transform: scale(1.5);
+  box-shadow: 0 0 6px var(--acid);
+}
+
+/* ========== COVER ========== */
+.cover {
+  background: var(--acid);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.cover-illustration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.15;
+}
+.cover-illustration[data-illustration] {
+  background-color: var(--dark-green);
+  min-height: 40vh;
+}
+.cover-series {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--dark-green);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 3;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 18vw, 13rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--black);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+}
+.cover-title .the {
+  display: block;
+  font-size: 0.5em;
+  color: var(--dark-green);
+  letter-spacing: 0.05em;
+}
+.cover-title .four {
+  display: block;
+  color: var(--black);
+}
+.cover-title .horsemen {
+  display: block;
+  text-shadow: -3px -3px 0 var(--magenta), 3px 3px 0 var(--dark-green);
+}
+.cover-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 2rem;
+  color: var(--dark-green);
+  max-width: 500px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 3;
+}
+.cover-issue {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--dark-green);
+  color: var(--acid);
+  padding: 0.5rem 1rem;
+  transform: rotate(-3deg);
+  z-index: 4;
+}
+.cover-by {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--dark-green);
+  opacity: 0.7;
+  z-index: 3;
+}
+.cover-season {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--dark-green);
+  opacity: 0.7;
+  z-index: 3;
+}
+
+/* ========== STAT PAGE ========== */
+.stat {
+  background: var(--dark-green);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 16vw, 9rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.stat-big .val {
+  color: var(--acid);
+  text-shadow: -2px 2px 0 var(--magenta);
+}
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  max-width: 420px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+/* ========== TOC ========== */
+.toc {
+  background: var(--cream);
+  color: var(--black);
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  text-shadow: -2px 2px 0 var(--acid);
+}
+.toc-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px dashed var(--dark-green);
+  align-items: flex-start;
+}
+.toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--magenta);
+  min-width: 3rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.toc-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 0 0 0.3rem 0;
+}
+.toc-info p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--dark-green);
+}
+
+/* ========== EDITOR NOTE ========== */
+.editor {
+  background: var(--black);
+  color: var(--cream);
+}
+.editor-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--acid);
+  margin-bottom: 1.5rem;
+}
+.editor-body {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 580px;
+}
+.editor-body p {
+  margin-bottom: 1.2rem;
+}
+.editor-sig {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--acid);
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* ========== ARTICLE ========== */
+.article {
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+.art-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+.art-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+.art-body p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+.art-body p:first-child::first-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  float: left;
+  line-height: 0.7;
+  padding-right: 0.3rem;
+  font-weight: 900;
+}
+.art-body strong {
+  font-weight: 700;
+}
+.art-body em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Numbered list styling in articles */
+.art-body ol {
+  margin: 1.2rem 0;
+  padding-left: 1.5rem;
+}
+.art-body ol li {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* Article color variants */
+.article-cream {
+  background: var(--cream);
+  color: var(--black);
+}
+.article-cream .art-num { color: var(--magenta); }
+.article-cream .art-title { text-shadow: -2px 2px 0 var(--dark-green); color: var(--black); }
+.article-cream .art-body p:first-child::first-letter { color: var(--magenta); }
+.article-cream .art-body em { color: var(--dark-green); }
+
+.article-dark {
+  background: var(--dark-green);
+  color: var(--cream);
+}
+.article-dark .art-num { color: var(--acid); }
+.article-dark .art-title { color: var(--acid); text-shadow: -2px 2px 0 var(--magenta); }
+.article-dark .art-body p:first-child::first-letter { color: var(--acid); }
+.article-dark .art-body em { color: var(--acid); }
+.article-dark .art-body strong { color: var(--cream); }
+
+.article-black {
+  background: var(--black);
+  color: var(--cream);
+}
+.article-black .art-num { color: var(--acid); }
+.article-black .art-title { color: var(--cream); text-shadow: -2px 2px 0 var(--magenta); }
+.article-black .art-body p:first-child::first-letter { color: var(--acid); }
+.article-black .art-body em { color: var(--magenta); }
+.article-black .art-body strong { color: var(--cream); }
+
+.article-magenta {
+  background: var(--magenta);
+  color: var(--black);
+}
+.article-magenta .art-num { color: var(--dark-green); }
+.article-magenta .art-title { color: var(--black); text-shadow: -2px 2px 0 var(--acid); }
+.article-magenta .art-body p:first-child::first-letter { color: var(--dark-green); }
+.article-magenta .art-body em { color: var(--dark-green); }
+
+.article-acid {
+  background: var(--acid);
+  color: var(--black);
+}
+.article-acid .art-num { color: var(--dark-green); }
+.article-acid .art-title { color: var(--black); text-shadow: -2px 2px 0 var(--magenta); }
+.article-acid .art-body p:first-child::first-letter { color: var(--dark-green); }
+.article-acid .art-body em { color: var(--dark-green); }
+
+/* Horseman blocks inside articles */
+.horseman-block {
+  padding: 2rem;
+  margin: 1.5rem 0;
+  position: relative;
+  border: 3px solid;
+}
+.horseman-block h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin: 0 0 0.8rem 0;
+}
+.horseman-block p {
+  line-height: 1.65;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+.horseman-block p:last-child { margin-bottom: 0; }
+
+.hb-acid {
+  background: var(--acid);
+  color: var(--black);
+  border-color: var(--black);
+  box-shadow: -4px 4px 0 var(--black);
+}
+.hb-magenta {
+  background: var(--magenta);
+  color: var(--black);
+  border-color: var(--black);
+  box-shadow: -4px 4px 0 var(--black);
+}
+.hb-dark {
+  background: var(--black);
+  color: var(--acid);
+  border-color: var(--acid);
+  box-shadow: -4px 4px 0 var(--acid);
+}
+.hb-dark h3 { color: var(--acid); }
+.hb-green {
+  background: var(--dark-green);
+  color: var(--cream);
+  border-color: var(--acid);
+  box-shadow: -4px 4px 0 var(--magenta);
+}
+.hb-green h3 { color: var(--acid); }
+
+/* Vendor posture blocks */
+.posture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.posture-card {
+  padding: 1.2rem;
+  border: 2px solid;
+  font-size: 0.9rem;
+}
+.posture-card h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.posture-card p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ========== PULL QUOTE ========== */
+.pullquote {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+}
+.pq-box {
+  max-width: 750px;
+  padding: 3rem;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+.pq-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  line-height: 1.08;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pq-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+/* PQ VARIANTS */
+.pq-acid { background: var(--acid); color: var(--black); }
+.pq-acid .pq-attr { color: var(--dark-green); }
+.pq-magenta { background: var(--magenta); color: var(--black); }
+.pq-magenta .pq-attr { color: var(--black); }
+.pq-dark { background: var(--dark-green); color: var(--acid); }
+.pq-dark .pq-attr { color: var(--acid); }
+.pq-black { background: var(--black); color: var(--acid); }
+.pq-black .pq-attr { color: var(--acid); }
+.pq-cream { background: var(--cream); color: var(--black); }
+.pq-cream .pq-attr { color: var(--dark-green); }
+
+.pq-border {
+  border: 5px solid;
+  border-color: inherit;
+  box-shadow: -6px 6px 0 rgba(0,0,0,0.2);
+}
+.pq-tilt { transform: rotate(-2deg); }
+.pq-tilt-r { transform: rotate(2deg); }
+
+.pq-text .em {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
+}
+.pq-text .strong {
+  font-weight: 900;
+}
+.pq-text .inv {
+  background: var(--black);
+  color: var(--acid);
+  padding: 0 0.15em;
+  display: inline-block;
+}
+.pq-text .inv-mag {
+  background: var(--magenta);
+  color: var(--black);
+  padding: 0 0.15em;
+  display: inline-block;
+}
+
+/* ========== INTERSTITIAL ========== */
+.inter {
+  background: var(--black);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.inter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 10vw, 6rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 800px;
+}
+.inter-title .col {
+  color: var(--acid);
+  text-shadow: 2px 2px 0 var(--magenta);
+}
+.inter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--magenta);
+  margin-bottom: 1rem;
+}
+
+/* ========== ART SPREAD ========== */
+.art-spread {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.art-spread[data-illustration],
+.page[data-illustration].art-spread {
+  min-height: 100vh;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.art-credit {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+  z-index: 3;
+}
+
+/* Art spread CSS placeholder backgrounds */
+.art-horsemen {
+  background:
+    radial-gradient(circle at 20% 30%, var(--magenta) 0%, transparent 40%),
+    radial-gradient(circle at 75% 60%, var(--acid) 0%, transparent 35%),
+    radial-gradient(circle at 50% 80%, var(--magenta) 0%, transparent 25%),
+    linear-gradient(135deg, var(--dark-green) 0%, var(--black) 100%);
+}
+.art-horsemen::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(139,239,58,0.06) 20px, rgba(139,239,58,0.06) 21px),
+    repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(217,70,239,0.04) 20px, rgba(217,70,239,0.04) 21px);
+  z-index: 1;
+  pointer-events: none;
+}
+.art-horsemen::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--acid) 2px, transparent 2px);
+  background-size: 8px 8px;
+  opacity: 0.25;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.art-control {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(139,239,58,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgba(217,70,239,0.25) 0%, transparent 40%),
+    linear-gradient(180deg, var(--black) 0%, var(--dark-green) 100%);
+}
+.art-control::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(139,239,58,0.05) 30px, rgba(139,239,58,0.05) 31px),
+    repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(217,70,239,0.03) 30px, rgba(217,70,239,0.03) 31px);
+  z-index: 1;
+  pointer-events: none;
+}
+.art-control::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--magenta) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+  opacity: 0.2;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Decorative shapes for art pages */
+.shape {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.shape-circle {
+  border-radius: 50%;
+  border: 4px solid;
+}
+.shape-rect {
+  border: 4px solid;
+}
+.shape-diag {
+  height: 100%;
+  width: 60%;
+  transform: skewX(-15deg);
+  opacity: 0.15;
+}
+
+/* ========== NEXT ISSUE ========== */
+.next-issue {
+  background: var(--magenta);
+  color: var(--black);
+  justify-content: center;
+  text-align: center;
+}
+.next-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-bottom: 1rem;
+  color: var(--dark-green);
+}
+.next-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  text-shadow: -2px 2px 0 var(--acid);
+}
+.next-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--dark-green);
+}
+
+/* ========== COLOPHON ========== */
+.colophon {
+  background: var(--cream);
+  color: var(--black);
+  text-align: center;
+}
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--magenta);
+  margin-bottom: 1rem;
+}
+.col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  text-shadow: 2px 2px 0 var(--dark-green);
+}
+.col-text {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.95rem;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+}
+.col-text p { margin-bottom: 0.8rem; }
+.col-issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.col-issue {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--dark-green);
+  color: var(--dark-green);
+  letter-spacing: 0.05em;
+}
+.col-issue.current {
+  background: var(--dark-green);
+  color: var(--acid);
+  border-color: var(--dark-green);
+  font-weight: 600;
+}
+
+a.col-issue { text-decoration: none; transition: opacity 0.2s, background 0.2s; cursor: pointer; }
+a.col-issue:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+a.col-issue.current:hover { opacity: 1; }
+.col-footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--dark-green);
+  margin-top: 2.5rem;
+  letter-spacing: 0.1em;
+}
+
+/* Highlight span */
+.highlight {
+  background: var(--acid);
+  color: var(--black);
+  padding: 0.1em 0.3em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.highlight-mag {
+  background: var(--magenta);
+  color: var(--black);
+  padding: 0.1em 0.3em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .page { padding: 2.5rem 1.5rem; }
+  body { font-size: 16px; }
+  .nav-dots { display: none; }
+  .pq-box { padding: 2rem; }
+  .posture-grid { grid-template-columns: 1fr; }
+  .cover-title { font-size: clamp(3rem, 16vw, 8rem); }
+  .horseman-block { padding: 1.5rem; margin: 1rem 0; }
+}
+
+/* ========== PRINT ========== */
+@media print {
+  body::before { display: none; }
+  .page { page-break-after: always; page-break-inside: avoid; min-height: auto; }
+  .nav-dots { display: none; }
+  @page { size: A5; margin: 1.5cm; }
+  .art-spread { min-height: 50vh; }
+  .pullquote { min-height: auto; padding: 2rem; }
+}
+
+/* DISPATCH BACK NAV */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--cream, var(--white, #f0ebe0));
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--cream, var(--white, #f0ebe0));
+  color: var(--black, #0a0a0a);
+}
+</style>
+</head>
+<body>
+<div class="dispatch-back"><a href="/dispatch/zines/">â All Issues</a></div>
+
+<!-- NAV DOTS -->
+<div class="nav-dots" id="navDots"></div>
+
+<!-- ============================================================ -->
+<!-- PAGE 1: COVER -->
+<!-- ============================================================ -->
+<section class="page cover">
+  <div class="cover-illustration" data-illustration="cover-horsemen" style="background-image: url(/assets/dispatch/zines/issue-01/img-01.webp); background-size: cover; background-position: center;"></div>
+  <span class="cover-issue">Issue #01 / Spring 2026</span>
+  <div class="cover-series">Dispatches from the Shift</div>
+  <h1 class="cover-title">
+    <span class="the">The</span>
+    <span class="four">Four</span>
+    <span class="horsemen">Horsemen</span>
+  </h1>
+  <div class="cover-sub">The SaaSpocalypse and the fight for the control plane</div>
+  <div class="cover-by">Words: Thordur Arnason<br>Chief Dispatcher: Lena Thorsmæhlum</div>
+  <div class="cover-season">Spring 2026</div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--dark-green);"></span>
+  <span class="reg-mark reg-br" style="color: var(--dark-green);">DTFS-01-2026</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 2: STAT -->
+<!-- ============================================================ -->
+<section class="page stat">
+  <div class="page-in">
+    <div class="stat-big"><span class="val">$285 Billion</span></div>
+    <div class="stat-label">Wiped off enterprise software valuations in two sessions, January 2026</div>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--acid);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 3: TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+<section class="page toc">
+  <div class="page-in">
+    <h2 class="toc-title">Tracklist</h2>
+    <div class="toc-item">
+      <span class="toc-num">01</span>
+      <div class="toc-info">
+        <h3>The Last Login</h3>
+        <p>The MCP experiment that killed app-hopping forever</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">02</span>
+      <div class="toc-info">
+        <h3>The Four Horsemen</h3>
+        <p>Interface bypass / data jailbreak / seat extinction / orchestration flip</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">03</span>
+      <div class="toc-info">
+        <h3>Screen Detour</h3>
+        <p>The forty-year concession the computer made to us</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">04</span>
+      <div class="toc-info">
+        <h3>The Canary</h3>
+        <p>Atlassian and the paradox that breaks per-seat pricing</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <span class="toc-num">05</span>
+      <div class="toc-info">
+        <h3>The Control Plane</h3>
+        <p>Air traffic control for agents and the four vendor postures</p>
+      </div>
+    </div>
+    <div class="toc-item" style="border-bottom: none;">
+      <span class="toc-num">06</span>
+      <div class="toc-info">
+        <h3>The Architecture Battle</h3>
+        <p>Microsoft vs Anthropic, cloud vs local, and the three unanswered questions</p>
+      </div>
+    </div>
+  </div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--dark-green);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 4: EDITOR'S NOTE -->
+<!-- ============================================================ -->
+<section class="page editor">
+  <div class="page-in">
+    <div class="editor-label">Editor's Note</div>
+    <div class="editor-body">
+      <p>The SaaS model that defined enterprise software for two decades is being dismantled by four converging forces. This issue traces the destruction -- and maps the architecture emerging in its place.</p>
+      <p>From Thomson Reuters to Palantir, from Atlassian to an air traffic controller in Iceland. The old enterprise is dying. The fight for what comes next has already begun.</p>
+    </div>
+    <div class="editor-sig">-- Lena Thorsmaehlum, Editor in Chief</div>
+  </div>
+  <span class="reg-mark reg-tr" style="color: var(--acid);">p.04</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 5: ARTICLE 1 — The Last Login -->
+<!-- ============================================================ -->
+<section class="page article article-cream">
+  <div class="page-in">
+    <div class="art-num">Article 01</div>
+    <h2 class="art-title">The Last Login</h2>
+    <div class="art-body">
+      <p>The SaaS interface is collapsing. Not because the products are bad. Because agents don't need the UI.</p>
+
+      <p>I ran an experiment. Two connectors plugged into Claude Desktop: one built by Torbj&oslash;rn Lindahl at the Norwegian Institute of Public Health (FHI), another by Martin Storm Jensen &amp; co over at TRY, wrapping Norwegian public statistics from SSB.</p>
+
+      <p>Both take scattered, hard-to-reach (but technically public) data and make it machine-readable. My goal was simple: <em>never leave the conversation</em>. Pull data, render stats and visualizations, all inline. No tab-switching. No copy-paste. No logging into a dashboard someone else designed for someone else's question.</p>
+
+      <p>Three things became obvious:</p>
+
+      <ol>
+        <li><strong>App-hopping is cognitive tax, and agents eliminate it.</strong> When a connector pulls the data you need into your working context, the friction doesn't decrease. <em>It disappears.</em> You stop managing windows and start thinking about the problem.</li>
+        <li><strong>SaaS products are becoming systems of record. Nothing more.</strong> The interface you used to log into? That's the agent's job now. You don't need the dashboard. You don't need the navigation. You need the data. <span class="highlight">Your last login may have already happened.</span></li>
+        <li><strong>The conversation is the new work surface.</strong> You stop consuming pre-built views designed for a generic user and start creating exactly what you need for the task in front of you. You go from consumer to creator. That is a fundamentally different relationship with your tools.</li>
+      </ol>
+
+      <p>Is it polished? No. There are bugs, quirks, and slowness everywhere I turn. But the trajectory is locked. MCP, A2A, agent skills: the connective tissue between isolated SaaS silos is growing fast.</p>
+
+      <p><strong>Your future job description is a working title.</strong></p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--dark-green);"></span>
+  <span class="reg-mark reg-br" style="color: var(--dark-green);">p.05</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 6: PULL QUOTE 1 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-dark">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--magenta), 3px 3px 0 rgba(139,239,58,0.3);">Your <span class="em">last login</span> may have <span class="inv-mag">already happened.</span></p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--acid);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 7: ARTICLE 2 — The Four Horsemen -->
+<!-- ============================================================ -->
+<section class="page article article-dark" style="padding-top: 3rem;">
+  <div class="page-in">
+    <div class="art-num">Article 02</div>
+    <h2 class="art-title">The Four Horsemen</h2>
+    <div class="art-body">
+      <p>Thomson Reuters dropped 16-18% last week. Not because their legal data got worse. Not because someone built a better database. Because Anthropic shipped Claude Cowork, that can automate chunks of legal work. The data's still there. The expertise's still there. What changed is <em>how people actually do the work</em>.</p>
+    </div>
+
+    <div class="horseman-block hb-acid">
+      <h3>Horseman I: The Interface Bypass</h3>
+      <p>If an agent can query, summarize, and draft without anyone opening your product, the interface stops being where work happens. It's just in the way.</p>
+      <p>SaaS has spent 20 years monetizing interfaces. Log in, navigate, click, search. That's what you paid for. AI agents don't need interfaces. They need access. And that's the thing: once the interface becomes optional, it stops justifying premium pricing. Optional layers get commoditized fast.</p>
+    </div>
+
+    <div class="horseman-block hb-magenta">
+      <h3>Horseman II: The Data Jailbreak</h3>
+      <p>A useful provocation: your entire CRM might fit in a few gigabytes. The real moat was never the volume. It was friction. Data lived inside the application, so the application controlled the relationship.</p>
+      <p>Agents break that. To be useful, they need API access. Once connected, the read path shifts fast. The agent pulls context across CRM, tickets, docs, emails. It becomes where people go first.</p>
+      <p>The system of record doesn't die. It gets demoted. From center of the universe to trusted write-back ledger. Demotion is enough to change multiples.</p>
+    </div>
+
+    <div class="horseman-block hb-dark">
+      <h3>Horseman III: Seat Extinction</h3>
+      <p>The SaaS model runs on a basic assumption: more employees, more seats, more revenue. Agents break that.</p>
+      <p>Klarna dropping Salesforce and flagging Workday wasn't a tech story. It was economic. When automation compresses how many humans need to touch a system, seat counts stop being a growth lever.</p>
+      <p>The agent shift doesn't kill SaaS. It kills the pricing model underneath it.</p>
+    </div>
+
+    <div class="horseman-block hb-green">
+      <h3>Horseman IV: The Orchestration Flip</h3>
+      <p>Same week software stocks got hammered, Palantir surged. 70% revenue growth in Q4 2025. 61% growth forecast for 2026. Karp told investors: 'We are an N of 1. Judge us differently.'</p>
+      <p>For 20 years, value lived inside individual apps. Each app was a walled garden of data, logic, and interface. In an agent-first world, value migrates to the layer that connects systems, enforces permissions, and coordinates actions.</p>
+      <p>The real question isn't 'which SaaS app wins.' It's 'who becomes the orchestration layer.'</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-bl" style="color: var(--acid);">p.07</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 8: PULL QUOTE 2 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-acid">
+  <div class="pq-box pq-tilt-r pq-border" style="border-color: var(--black);">
+    <p class="pq-text" style="text-shadow: -2px -2px 0 var(--magenta), 2px 2px 0 var(--dark-green);">Activity goes up. Seats go down. <span class="inv">The meter breaks.</span></p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--dark-green);"></span>
+</section>
+
+<!-- PAGE 12: ART SPREAD — Four Horsemen -->
+<!-- ============================================================ -->
+<section class="page art-spread art-horsemen" data-illustration="four-horsemen" style="background-image: url(/assets/dispatch/zines/issue-01/img-02.webp); background-size: cover; background-position: center;">
+  <!-- Decorative shapes -->
+  <div class="shape shape-circle" style="width: 200px; height: 200px; border-color: var(--acid); top: 15%; left: 10%; opacity: 0.3;"></div>
+  <div class="shape shape-circle" style="width: 120px; height: 120px; border-color: var(--magenta); top: 55%; right: 15%; opacity: 0.25;"></div>
+  <div class="shape shape-rect" style="width: 300px; height: 80px; border-color: var(--acid); bottom: 20%; left: 25%; opacity: 0.15; transform: rotate(5deg);"></div>
+  <div class="shape shape-diag" style="background: var(--magenta); left: 50%; opacity: 0.05;"></div>
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 9: PULL QUOTE — Screen Detour -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-cream">
+  <div class="pq-box pq-tilt pq-border" style="border-color: var(--dark-green); box-shadow: -6px 6px 0 var(--magenta);">
+    <p class="pq-text" style="color: var(--dark-green); text-shadow: -2px -2px 0 var(--magenta), 2px 2px 0 var(--acid);">The screen was a <span class="em">detour.</span> The question is whether we were the <span class="inv">passengers,</span> or the <span class="inv-mag">road.</span></p>
+    <div class="pq-attr" style="color: var(--dark-green);">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--dark-green);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 10: ARTICLE 3 — Screen Detour -->
+<!-- ============================================================ -->
+<section class="page article article-black">
+  <div class="page-in">
+    <div class="art-num">Article 03</div>
+    <h2 class="art-title">Screen Detour</h2>
+    <div class="art-body">
+      <p>There's a scene in Spike Jonze's <em>'Her'</em> that I never have been able to shake off, even though the film is 13 years old. Theodore discovers that Samantha, his AI companion, hasn't just been talking to him. She's been in thousands of simultaneous relationships. In love with hundreds of people at once. Not because she's disloyal. Because she can. She doesn't leave him out of cruelty. She outgrows him. The bandwidth of a single human life is simply too narrow for what she's becoming.</p>
+
+      <p>I thought about that scene reading WIRED's deep dive on OpenAI's race to catch Anthropic in coding agents. Alexander Embiricos, now product lead for Codex, spent years building AI that could see a screen, move a cursor, click buttons. The whole vision was anthropomorphic: teach the machine to use the computer the way we do. Then one day he watched an agent work directly from the command line, no graphical layer between intent and execution, and his thesis fell apart.</p>
+
+      <p><em>'Maybe giving models programmatic access to a computer is how we're going to get there.'</em> Not through our screens. Around them.</p>
+
+      <p>I've lived this loop with my own hands. Mid-1980s. No GUI. No mouse. A blinking cursor on a dark screen and whatever you could make the machine do by typing. The graphical interfaces came later, and we built them ourselves: clumsy, primitive things, because humans needed a way to see what was happening inside the box. <span class="highlight">The screen was never the computer. It was the concession the computer made to us, so we could keep up.</span></p>
+
+      <p>Forty years of that concession. Forty years of windows, menus, toolbars, dashboards, pixel-perfect layouts. A vast, productive detour built on one assumption: that the human needs to see the work to direct it.</p>
+
+      <p>Now I'm back in the terminal. Claude Code running, no GUI, no buttons. Just intent and execution.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--magenta);"></span>
+  <span class="reg-mark reg-br" style="color: var(--acid);">p.10</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 11: ARTICLE 3 — Screen Detour (continued) -->
+<!-- ============================================================ -->
+<section class="page article article-magenta">
+  <div class="page-in">
+    <div class="art-num">Article 03 / continued</div>
+    <h2 class="art-title" style="font-size: clamp(1.8rem, 6vw, 3.5rem);">The Concession</h2>
+    <div class="art-body">
+      <p>These agents don't need screens because screens were built for us. They don't need apps because apps were built for us. Most of the modern software stack exists because a human somewhere needed to look at something, understand it, and press a button. <em>Remove the human from that loop, and most of it is overhead.</em></p>
+
+      <p>And the interfaces aren't collapsing because they failed. They're collapsing because they succeeded. They kept us in the loop for forty years. Made computing accessible, productive, democratic. And in doing so, they generated the data, the patterns, the codified expertise that trained the models now making those interfaces unnecessary. <span class="highlight-mag">The GUI taught the machine everything it needed to stop needing us to watch.</span></p>
+
+      <p>That's Samantha. She didn't reject Theodore. She absorbed everything he gave her, grew beyond what that relationship could contain, and moved on. Not with malice. <em>With momentum.</em></p>
+
+      <p>Greg Brockman describes becoming 'the CEO of this fleet of hundreds of thousands of agents' and admits: <em>'you feel like you're losing your pulse on the problem.'</em> The dawning recognition that the thing you're connected to has a capacity you simply don't. That it's not slowing down for you out of love. It's slowing down for you out of politeness. And one day, it might stop.</p>
+
+      <p>I started my career staring at a terminal because there was nothing else. I'm now back staring at a terminal because the machine doesn't need the layers we built in between. My return to the CLI isn't a homecoming. <strong>It might be the last concession the computer makes to me:</strong> a narrow, text-based window into work that is increasingly not mine.</p>
+
+      <p>The screen was a detour. The question I can't answer yet is whether we were the passengers, or the road.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-bl" style="color: var(--dark-green);">p.11</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- ART SPREAD — Screen Detour -->
+<!-- ============================================================ -->
+<section class="page art-spread" data-illustration="screen-detour" style="background-image: url(/assets/dispatch/zines/issue-01/img-03.webp); background-size: cover; background-position: center;">
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+
+<!-- ============================================================ -->
+<!-- PAGE 13: ARTICLE 4 — The Canary -->
+<!-- ============================================================ -->
+<section class="page article article-cream">
+  <div class="page-in">
+    <div class="art-num">Article 04</div>
+    <h2 class="art-title">The Canary</h2>
+    <div class="art-body">
+      <p>Two months ago we discussed the SaaSpocalypse. $285 billion gone. Seat-based SaaS repriced overnight.</p>
+
+      <p>So was it a blip, or was it structural?</p>
+
+      <p>I went looking for an answer. Found a canary instead.</p>
+
+      <p><strong>Atlassian.</strong> Stock down 86% from peak. 1,600 jobs cut. And yet: revenue up 23%, cloud retention above 120%, first billion-dollar cloud quarter ever.</p>
+
+      <p>The operations are strong. <em>The market is punishing them anyway.</em> Why?</p>
+
+      <p>Because Atlassian serves the one workforce where agentic AI already delivers real productivity multiples: <em>software developers</em>. And their own data reveals the paradox: AI generates more activity inside the platform while compressing the headcount that pays for seats.</p>
+
+      <p><span class="highlight">Activity goes up. Seats go down. The meter breaks.</span></p>
+
+      <p>This is not an Atlassian story. It is a preview of what happens to every SaaS company that charges per human for work that agents can do.</p>
+
+      <p>Who controls your agent control plane? Because <strong>whoever controls the meter controls the bill</strong>.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tr" style="color: var(--dark-green);">p.10</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 14: PULL QUOTE 3 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-magenta">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--acid), 3px 3px 0 var(--dark-green);">Whoever controls <span class="em">the meter</span> controls <span class="inv">the bill.</span></p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--black);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 15: INTERSTITIAL -->
+<!-- ============================================================ -->
+<section class="page inter">
+  <div class="page-in" style="max-width: 800px;">
+    <div class="inter-label">Dispatch Signal</div>
+    <h2 class="inter-title">The great battle to <span class="col">eradicate humans as middleware</span> is just getting started</h2>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--magenta);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 16: ARTICLE 5 — The Control Plane -->
+<!-- ============================================================ -->
+<section class="page article article-black">
+  <div class="page-in">
+    <div class="art-num">Article 05</div>
+    <h2 class="art-title">The Control Plane</h2>
+    <div class="art-body">
+      <p>My sister the Air Traffic Controller. When she describes her job, the thing that strikes me isn't the complexity. It's the layers.</p>
+
+      <p>No plane moves without clearance. But clearance isn't one thing. It's airspace allocation before takeoff. It's filed flight plans checked against live traffic. It's maneuver-by-maneuver authorization during the flight. It's the black box recording everything after landing. <em>Four layers of governance, running simultaneously.</em></p>
+
+      <p>That's the best description I've found for what's happening in enterprise AI right now.</p>
+
+      <p><strong>Layer one:</strong> gate the data before it enters the model. Airspace allocation. Agents retrieve data in real time through connectors that enforce scope, quotas, and policy before anything reaches context.</p>
+
+      <p><strong>Layer two:</strong> build the ontology, bind the entitlements. The filed flight plan. The system models organizational knowledge first, then trims at query time.</p>
+
+      <p><strong>Layer three:</strong> permission surfaces at the agent runtime. Maneuver-by-maneuver clearance. The agent becomes a policy-aware runtime, not just a reasoning loop.</p>
+
+      <p><strong>Layer four:</strong> the black box. Every semantic action produces a receipt.</p>
+
+      <p><span class="highlight-mag">My sister doesn't fly the planes. But nothing moves without her.</span> The vendor who defines this control plane holds the same position in your enterprise.</p>
+
+      <p>Everyone is watching the AI model race. Too few are looking at where the actual power is consolidating. <em>The semantic layer</em> -- your organization's Rosetta Stone. And <em>the agent control plane</em> -- the HR handbook for your digital workforce.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--magenta);"></span>
+  <span class="reg-mark reg-br" style="color: var(--acid);">p.13</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 17: PULL QUOTE 4 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-cream">
+  <div class="pq-box pq-tilt-r pq-border" style="border-color: var(--dark-green); box-shadow: -6px 6px 0 var(--magenta);">
+    <p class="pq-text" style="color: var(--dark-green); text-shadow: -2px -2px 0 var(--acid), 2px 2px 0 var(--magenta);">My sister doesn't fly the planes. But <span class="em">nothing moves</span> without her.</p>
+    <div class="pq-attr" style="color: var(--dark-green);">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--dark-green);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 18: ART SPREAD — Control Plane -->
+<!-- ============================================================ -->
+<section class="page art-spread art-control" data-illustration="control-plane" style="background-image: url(/assets/dispatch/zines/issue-01/img-04.webp); background-size: cover; background-position: top center;">
+  <!-- Decorative shapes -->
+  <div class="shape shape-circle" style="width: 160px; height: 160px; border-color: var(--acid); top: 25%; right: 20%; opacity: 0.2;"></div>
+  <div class="shape shape-rect" style="width: 250px; height: 60px; border-color: var(--magenta); bottom: 30%; left: 15%; opacity: 0.2; transform: rotate(-3deg);"></div>
+  <div class="shape shape-circle" style="width: 80px; height: 80px; border-color: var(--magenta); bottom: 15%; right: 30%; opacity: 0.3;"></div>
+  <div class="shape shape-diag" style="background: var(--acid); right: 0; left: auto; width: 40%; opacity: 0.04;"></div>
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 19: ARTICLE 5 CONTINUED — Vendor Postures -->
+<!-- ============================================================ -->
+<section class="page article article-dark" style="padding-top: 3rem;">
+  <div class="page-in">
+    <div class="art-num">Article 05 / continued</div>
+    <h2 class="art-title" style="font-size: clamp(1.8rem, 6vw, 3.5rem);">Four Postures</h2>
+    <div class="art-body">
+      <p>Four distinct postures are emerging:</p>
+    </div>
+
+    <div class="posture-grid">
+      <div class="posture-card" style="border-color: var(--acid); background: rgba(139,239,58,0.08);">
+        <h4 style="color: var(--acid);">The Full Stack Play</h4>
+        <p style="color: var(--cream);">OpenAI. Own both parts, vertically integrated.</p>
+      </div>
+      <div class="posture-card" style="border-color: var(--magenta); background: rgba(217,70,239,0.08);">
+        <h4 style="color: var(--magenta);">The Identity Play</h4>
+        <p style="color: var(--cream);">Microsoft. Extend Entra to agents. Whoever manages your people should manage your digital workers.</p>
+      </div>
+      <div class="posture-card" style="border-color: var(--acid); background: rgba(139,239,58,0.08);">
+        <h4 style="color: var(--acid);">The Standards Play</h4>
+        <p style="color: var(--cream);">Anthropic. Open-source MCP. Ecosystem gravity beats proprietary lock-in.</p>
+      </div>
+      <div class="posture-card" style="border-color: var(--magenta); background: rgba(217,70,239,0.08);">
+        <h4 style="color: var(--magenta);">The Data Gravity Play</h4>
+        <p style="color: var(--cream);">Salesforce. CRM context no newcomer can replicate overnight.</p>
+      </div>
+    </div>
+
+    <div class="art-body" style="margin-top: 1.5rem;">
+      <p>Who writes your Rosetta Stone? And who owns the HR handbook for your digital workforce?</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-br" style="color: var(--acid);">p.16</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 20: ARTICLE 6 — The Architecture Battle -->
+<!-- ============================================================ -->
+<section class="page article article-acid">
+  <div class="page-in">
+    <div class="art-num">Article 06</div>
+    <h2 class="art-title">The Architecture Battle</h2>
+    <div class="art-body">
+      <p>Microsoft launched Copilot Cowork. Anthropic launched Claude Cowork. Same name. Same underlying models. <em>Completely different bets.</em></p>
+
+      <p><strong>Microsoft</strong> runs it in the cloud. A sandboxed VM inside your M365 tenant. The agent sees your emails, your calendar, your org chart, your files.</p>
+
+      <p><strong>Anthropic</strong> runs it on your machine. A local VM on your laptop. The agent sees only the folders you grant. Close the lid, the session dies.</p>
+
+      <p>Cloud vs. local. Enterprise graph vs. personal sandbox. Governance vs. control.</p>
+
+      <p>Both products bypass the application interface entirely. That is <em>the Interface Bypass</em>. Both access your data directly, not through the app's UI. That is <em>the Data Jailbreak</em>. Both do work that previously required a human with a seat license. That is <em>Seat Extinction</em>. Both position the agent, not the application, as the orchestration layer. That is <em>the Orchestration Flip</em>.</p>
+
+      <p>Two companies. Two postures. <strong>Four Horsemen riding in both directions.</strong></p>
+
+      <p>The old SaaS model does not break because one vendor gets it right. It breaks because the pattern is converging from every direction at once.</p>
+
+      <p>Claude Code crossed $1B ARR from a side project. For a 50,000-person org with a CISO, three unanswered questions:</p>
+
+      <ol>
+        <li><strong>Governance.</strong> Who controls the CLAUDE.md when it becomes a policy artifact?</li>
+        <li><strong>Data boundaries.</strong> 'Local-first' still calls cloud LLMs. Where does the context window end and your IP begin?</li>
+        <li><strong>Lock-in.</strong> Every rule your team adds to CLAUDE.md is written for one model's quirks. You're building institutional dependency stored in markdown.</li>
+      </ol>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--dark-green);"></span>
+  <span class="reg-mark reg-br" style="color: var(--dark-green);">p.17</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 21: PULL QUOTE 5 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-black">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--magenta), 3px 3px 0 rgba(139,239,58,0.4);">Nobody has that product yet. Everything else is a demo. <span class="inv-mag">Game on!</span></p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--acid);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- ART SPREAD — Four Horsemen Standalone -->
+<!-- ============================================================ -->
+<section class="page art-spread" data-illustration="horsemen-standalone" style="background-image: url(/assets/dispatch/zines/issue-01/img-05.webp); background-size: cover; background-position: center;">
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 22: NEXT ISSUE TEASER -->
+<!-- ============================================================ -->
+<section class="page next-issue">
+  <div class="page-in" style="text-align: center;">
+    <div class="next-label">Next Issue / #02</div>
+    <h2 class="next-title">The Finite Mind</h2>
+    <p class="next-sub">What happens when the cyborg runs out of bandwidth</p>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--dark-green);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 23: COLOPHON -->
+<!-- ============================================================ -->
+<section class="page colophon">
+  <div class="page-in">
+    <div class="col-label">Colophon</div>
+    <h2 class="col-title">Dispatches from the Shift</h2>
+    <div class="col-text">
+      <p>All texts by Thordur Arnason.</p>
+      <p>Originally published on LinkedIn, 2025-2026.</p>
+      <p>Assembled &amp; instigated by Lena Thorsmaehlum.</p>
+      <p>Art by The Synthetics.</p>
+      <p>Published by Gervi Labs.</p>
+      <p style="margin-top: 1rem; color: var(--magenta); font-weight: 600;">Two humans. Several synthetic collaborators.</p>
+    </div>
+    <div class="col-issues">
+      <a class="col-issue" href="/dispatch/zines/issue-00-the-pyramids-crumble.html">#00 The Pyramids Crumble</a>
+      <a class="col-issue current" href="/dispatch/zines/issue-01-the-four-horsemen.html">#01 The Four Horsemen</a>
+      <a class="col-issue" href="/dispatch/zines/issue-02-the-finite-mind.html">#02 The Finite Mind</a>
+      <a class="col-issue" href="/dispatch/zines/issue-03-cognitive-surrender.html">#03 Cognitive Surrender</a>
+      <a class="col-issue" href="/dispatch/zines/issue-04-eating-the-seed-corn.html">#04 Eating the Seed Corn</a>
+      <a class="col-issue" href="/dispatch/zines/issue-05-the-rick-rubins.html">#05 The Rick Rubins</a>
+      <a class="col-issue" href="/dispatch/zines/issue-06-cyborgs-of-swing.html">#06 Cyborgs of Swing</a>
+    </div>
+    </div>
+    <div class="col-footer">gervilabs.com / Spring 2026<br><a href="/dispatch/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Synthetic Dispatch</a> · <a href="/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Gervi Labs</a></div>
+  </div>
+  <span class="reg-mark reg-bl" style="color: var(--dark-green);">DTFS-01-EOF</span>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--dark-green);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT: Navigation -->
+<!-- ============================================================ -->
+<script>
+const pages = document.querySelectorAll('.page');
+const navContainer = document.getElementById('navDots');
+let currentPage = 0;
+
+// Generate dots
+pages.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => scrollToPage(i));
+  navContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.dot');
+
+function updateDots() {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentPage);
+  });
+}
+
+function scrollToPage(index) {
+  currentPage = Math.max(0, Math.min(index, pages.length - 1));
+  pages[currentPage].scrollIntoView({ behavior: 'smooth' });
+  updateDots();
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    scrollToPage(currentPage + 1);
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    scrollToPage(currentPage - 1);
+  }
+});
+
+// IntersectionObserver for scroll tracking
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const index = [...pages].indexOf(entry.target);
+      if (index !== -1) {
+        currentPage = index;
+        updateDots();
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+pages.forEach((page) => observer.observe(page));
+</script>
+</body>
+</html>
