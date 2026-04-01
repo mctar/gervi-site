@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gervi Labs — Experiment: Zine Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --cream: #f0ebe0;
+  --crimson: #dc2626;
+  --gold: #c9a84c;
+  --muted: rgba(240, 235, 224, 0.45);
+  --line: rgba(201, 168, 76, 0.15);
+  --line-hard: rgba(201, 168, 76, 0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--black); }
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* HALFTONE GRAIN */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -20%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(3%, -15%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.2px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.10;
+  animation: grain 20s steps(10) infinite;
+}
+
+/* PAGE SYSTEM */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-in {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* REGISTRATION MARKS */
+.reg {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.4rem;
+  opacity: 0.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 3;
+  color: var(--gold);
+}
+.reg-tl { top: 1rem; left: 1.5rem; }
+.reg-tr { top: 1rem; right: 1.5rem; }
+.reg-bl { bottom: 1rem; left: 1.5rem; }
+.reg-br { bottom: 1rem; right: 1.5rem; }
+.reg::before { content: '+  '; font-size: 1rem; line-height: 1; vertical-align: middle; }
+
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 9999;
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cream);
+  opacity: 0.2;
+  cursor: pointer;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.dot.active { opacity: 1; transform: scale(1.6); }
+
+/* HEADER */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 8000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0) 100%);
+  padding-bottom: 2.5rem;
+}
+.header-logo-wrap {
+  position: fixed;
+  top: 1rem;
+  left: 2rem;
+  z-index: 8500;
+  mix-blend-mode: difference;
+}
+.header-logo-wrap img { width: 32px; height: auto; display: block; }
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--cream);
+  margin-left: 2.5rem;
+}
+.header-brand span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.header-nav {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+.header-nav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.header-nav a:hover { opacity: 1; }
+.header-nav .nav-dispatch {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--crimson);
+  opacity: 1;
+}
+
+/* ═══════════ COVER ═══════════ */
+.cover {
+  background: var(--black);
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+}
+.cover-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 2rem;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 14vw, 10rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: -4px 4px 0 var(--crimson);
+}
+.cover-title span { display: block; }
+.cover-title .accent { color: var(--crimson); text-shadow: -4px 4px 0 var(--gold); }
+.cover-sub {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.1rem;
+  color: var(--cream);
+  opacity: 0.6;
+  margin-top: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cover-cta {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cover-cta a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 1.6rem;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  transition: background 0.2s, color 0.2s;
+}
+.cover-cta a:hover { background: var(--gold); color: var(--black); }
+.cover-cta a.primary { background: var(--crimson); border-color: var(--crimson); color: var(--cream); }
+.cover-cta a.primary:hover { background: #ff3b3b; border-color: #ff3b3b; }
+
+/* ═══════════ STAT PAGE ═══════════ */
+.stat-page { background: var(--crimson); color: var(--cream); text-align: center; }
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 18vw, 12rem);
+  line-height: 1;
+  color: var(--cream);
+}
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  opacity: 0.8;
+}
+
+/* ═══════════ ABOUT / BODY ═══════════ */
+.body-page { background: var(--cream); color: var(--black); }
+.body-page .section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 1.5rem;
+}
+.body-page h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  text-shadow: -2px 2px 0 var(--crimson);
+  color: var(--black);
+}
+.body-page p {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: rgba(10,10,10,0.8);
+}
+.body-page p:first-of-type::first-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem;
+  float: left;
+  line-height: 0.7;
+  padding-right: 0.3rem;
+  color: var(--crimson);
+  font-weight: 400;
+}
+.body-page a { color: var(--crimson); text-decoration: none; border-bottom: 1px solid var(--crimson); }
+
+/* ═══════════ PULL QUOTE ═══════════ */
+.pullquote { text-align: center; }
+.pq-gold { background: var(--gold); color: var(--black); }
+.pq-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 7rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.pq-gold .pq-text { color: var(--black); text-shadow: -3px 3px 0 var(--crimson); }
+.pq-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 2rem;
+  opacity: 0.6;
+}
+
+/* ═══════════ AX SECTION ═══════════ */
+.ax-page { background: var(--black); }
+.ax-principles {
+  list-style: none;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--line-hard);
+}
+.ax-principles li {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--cream);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.ax-principles li:hover { opacity: 1; }
+.ax-principles li span.num { color: var(--crimson); margin-right: 1rem; font-weight: 600; }
+.ax-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+}
+
+/* ═══════════ PROJECTS ═══════════ */
+.projects-page { background: var(--black); }
+.project-item {
+  border-top: 1px solid var(--line-hard);
+  padding: 1.2rem 0;
+  display: block;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.project-item:last-child { border-bottom: 1px solid var(--line-hard); }
+.project-item:hover { background: rgba(201,168,76,0.03); }
+.project-item .p-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 0.25rem;
+}
+.project-item .p-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--cream);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+.project-item .p-tagline {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ═══════════ DISPATCH TEASER ═══════════ */
+.dispatch-page { background: var(--crimson); color: var(--cream); text-align: center; }
+.dispatch-page h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  text-transform: uppercase;
+  text-shadow: -3px 3px 0 rgba(0,0,0,0.3);
+  margin-bottom: 1rem;
+}
+.dispatch-page p {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1rem;
+  opacity: 0.85;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+}
+.dispatch-page .d-cta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.7rem 2rem;
+  border: 2px solid var(--cream);
+  color: var(--cream);
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-page .d-cta:hover { background: var(--cream); color: var(--crimson); }
+
+/* ═══════════ COLOPHON ═══════════ */
+.colophon-page { background: var(--black); text-align: center; }
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crimson);
+  margin-bottom: 1rem;
+}
+.col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: 2px 2px 0 var(--crimson);
+  margin-bottom: 1.5rem;
+}
+.col-text {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.9rem;
+  color: var(--cream);
+  opacity: 0.7;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.col-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.col-nav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s, background 0.2s;
+}
+.col-nav a:hover { opacity: 1; background: rgba(201,168,76,0.1); }
+.col-footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-top: 2.5rem;
+  opacity: 0.4;
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 640px) {
+  .site-header { padding: 0.8rem 1rem; }
+  .header-nav { gap: 0.8rem; }
+  .nav-dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- FIXED HEADER -->
+<div class="header-logo-wrap">
+  <a href="/"><img src="/assets/logo-white-transparent.png" alt="Gervi Labs"></a>
+</div>
+
+<header class="site-header">
+  <a class="header-brand" href="/">
+    <span>Gervi Labs</span>
+  </a>
+  <nav class="header-nav">
+    <a href="/about/">About</a>
+    <a href="/team/">Team</a>
+    <a href="/projects/">Projects</a>
+    <a href="/gallery/">Gallery</a>
+    <a href="/ax/">AX</a>
+    <a class="nav-dispatch" href="/dispatch/">Dispatch</a>
+    <a href="/contact/">Contact</a>
+  </nav>
+</header>
+
+<!-- NAV DOTS -->
+<div class="nav-dots" id="navDots"></div>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 1: COVER -->
+<!-- ═══════════════════════════════ -->
+<section class="page cover">
+  <div class="page-in">
+    <div class="cover-label">Independent AI Lab &bull; Norway &bull; Est. 2022</div>
+    <h1 class="cover-title">
+      <span>Exploring</span>
+      <span>How Humans</span>
+      <span class="accent">&amp; AI Share</span>
+      <span>Control</span>
+    </h1>
+    <p class="cover-sub">Building systems, performances, and research that reveal new forms of interaction.</p>
+    <div class="cover-cta">
+      <a class="primary" href="/projects/">Project Diary</a>
+      <a href="/contact/">Invite Us</a>
+    </div>
+  </div>
+  <span class="reg reg-tl">Gervi Labs 2026</span>
+  <span class="reg reg-br">p.01</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 2: STAT -->
+<!-- ═══════════════════════════════ -->
+<section class="page stat-page">
+  <div class="page-in">
+    <div class="stat-number">2 + 7</div>
+    <div class="stat-label">Two humans. Seven synthetic collaborators.</div>
+  </div>
+  <span class="reg reg-tr" style="color: var(--cream);">p.02</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 3: ABOUT -->
+<!-- ═══════════════════════════════ -->
+<section class="page body-page">
+  <div class="page-in">
+    <div class="section-label">About</div>
+    <h2>Current Focus</h2>
+    <p>Gervi Labs is an independent research lab focused on how people and synthetic agents interact, create, and share control. We build agents, sensors, and tools that let groups experience new forms of interaction with synthetic systems.</p>
+    <p>Some prototypes become performances. Others become internal protocols or research material. Each experiment helps us understand how agency shifts when humans and machines work together — and leaves a digital fossil for future study.</p>
+    <p>We work globally from Norway with festivals, conferences, institutions, companies, and research groups.</p>
+  </div>
+  <span class="reg reg-bl" style="color: var(--crimson);">p.03</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 4: PULL QUOTE -->
+<!-- ═══════════════════════════════ -->
+<section class="page pullquote pq-gold">
+  <div class="page-in">
+    <p class="pq-text">The question is not what AI can do. The question is what we become when we work with it.</p>
+    <div class="pq-attr">&mdash; Gervi Labs</div>
+  </div>
+  <span class="reg reg-tl" style="color: var(--black);">p.04</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 5: AX -->
+<!-- ═══════════════════════════════ -->
+<section class="page ax-page">
+  <div class="page-in">
+    <div class="section-label" style="font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--crimson);margin-bottom:1.5rem;">Manifesto</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3.5rem);text-transform:uppercase;line-height:1;margin-bottom:0.5rem;color:var(--cream);text-shadow:-2px 2px 0 var(--crimson);">AX Principles</h2>
+    <p style="font-family:'IBM Plex Serif',serif;font-size:0.95rem;color:var(--muted);margin-bottom:1.5rem;">Ten principles for designing with intelligent, adaptive systems.</p>
+    <ul class="ax-principles">
+      <li><span class="num">01</span> Model-first empathy</li>
+      <li><span class="num">02</span> Probabilistic thinking</li>
+      <li><span class="num">03</span> Shared control choreography</li>
+      <li><span class="num">04</span> Continuous learning loops</li>
+      <li><span class="num">05</span> Trust calibration</li>
+      <li><span class="num">06</span> Failure as signal</li>
+      <li><span class="num">07</span> Conversational not mechanical</li>
+      <li><span class="num">08</span> Context is capital</li>
+      <li><span class="num">09</span> Agency is a spectrum</li>
+      <li><span class="num">10</span> Leave digital fossils</li>
+    </ul>
+    <a class="ax-link" href="/ax/">Read the full manifesto &rarr;</a>
+  </div>
+  <span class="reg reg-tr">p.05</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 6: PROJECTS -->
+<!-- ═══════════════════════════════ -->
+<section class="page projects-page">
+  <div class="page-in">
+    <div class="section-label" style="font-family:'IBM Plex Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--crimson);margin-bottom:1.5rem;">Project Diary</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3.5rem);text-transform:uppercase;line-height:1;margin-bottom:1.5rem;color:var(--cream);text-shadow:-2px 2px 0 var(--crimson);">Recent Work</h2>
+
+    <a class="project-item" href="/projects/synthetic-dispatch/">
+      <div class="p-meta">2025–2026 &bull; Publication &bull; Ongoing</div>
+      <div class="p-title">Synthetic Dispatch</div>
+      <div class="p-tagline">A seven-issue zine series on what happens when AI rewrites knowledge work.</div>
+    </a>
+    <a class="project-item" href="/projects/human-control-protocol/">
+      <div class="p-meta">2025 &bull; Performance &bull; Ongoing</div>
+      <div class="p-title">Human Control Protocol</div>
+      <div class="p-tagline">A performance system where an AI agent directs a human audience as tools.</div>
+    </a>
+    <a class="project-item" href="/projects/thinking-at-the-edge/">
+      <div class="p-meta">2025 &bull; Research &bull; Ongoing</div>
+      <div class="p-title">Thinking at the Edge</div>
+      <div class="p-tagline">A research programme on AI-augmented creative and strategic practice.</div>
+    </a>
+    <a class="project-item" href="/projects/butter-bot/">
+      <div class="p-meta">2025 &bull; Tool &bull; Ongoing</div>
+      <div class="p-title">Butter Bot</div>
+      <div class="p-tagline">Micro pain-killers that do one tiny job perfectly.</div>
+    </a>
+  </div>
+  <span class="reg reg-bl">p.06</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 7: DISPATCH TEASER -->
+<!-- ═══════════════════════════════ -->
+<section class="page dispatch-page">
+  <div class="page-in">
+    <h2>Synthetic Dispatch</h2>
+    <p>Editorial intelligence from Gervi Labs. Seven zines on the shift. Weekly AI briefings. Live monitoring.</p>
+    <a class="d-cta" href="/dispatch/">Enter &rarr;</a>
+  </div>
+  <span class="reg reg-tl" style="color: var(--cream);">p.07</span>
+</section>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 8: COLOPHON -->
+<!-- ═══════════════════════════════ -->
+<section class="page colophon-page">
+  <div class="page-in">
+    <div class="col-label">Colophon</div>
+    <h2 class="col-title">Gervi Labs</h2>
+    <div class="col-text">
+      <p>Founded 2022 &bull; Stange, Norway</p>
+      <p>Thordur Arnason &amp; Lena Thorsm&aelig;hlum</p>
+      <p>Two humans. Seven synthetics.</p>
+    </div>
+    <nav class="col-nav">
+      <a href="/about/">About</a>
+      <a href="/team/">Team</a>
+      <a href="/projects/">Projects</a>
+      <a href="/gallery/">Gallery</a>
+      <a href="/ax/">AX</a>
+      <a href="/dispatch/">Dispatch</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <div class="col-footer">
+      &copy; 2026 Gervi Labs &bull; All rights reserved &bull;
+      <a href="https://www.linkedin.com/company/gervi-labs/" style="color:inherit;text-decoration:none;border-bottom:1px solid currentColor;">LinkedIn</a>
+    </div>
+  </div>
+  <span class="reg reg-bl">GERVI-HOME-EOF</span>
+  <span class="reg reg-tr">p.08</span>
+</section>
+
+<!-- JAVASCRIPT -->
+<script>
+const pages = document.querySelectorAll('.page');
+const navContainer = document.getElementById('navDots');
+let current = 0;
+
+pages.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => {
+    pages[i].scrollIntoView({ behavior: 'smooth' });
+  });
+  navContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.dot');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const i = [...pages].indexOf(entry.target);
+      if (i !== -1) {
+        current = i;
+        dots.forEach((d, j) => d.classList.toggle('active', i === j));
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+pages.forEach((p) => observer.observe(p));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    current = Math.min(current + 1, pages.length - 1);
+    pages[current].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    current = Math.max(current - 1, 0);
+    pages[current].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+</script>
+</body>
+</html>

@@ -1,10 +1,6 @@
 ---
 layout: page
-<<<<<<< HEAD
 title: AX (AI Experience)
-=======
-title: AX
->>>>>>> 0410ca1 (Initial commit)
 permalink: /ax/
 description: AX Manifesto and stories from the probabilistic age.
 ---

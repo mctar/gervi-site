@@ -2,6 +2,7 @@
 layout: page
 title: Gallery
 permalink: /gallery/
+wide: true
 description: Visual notes from Gervi Labs projects.
 ---
 
