@@ -255,54 +255,165 @@ body::before {
   opacity: 0.6;
 }
 
-/* ── Zine grid ── */
-.zine-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  background: var(--d-line-hard);
-  border: 1px solid var(--d-line-hard);
-  margin-top: 1.5rem;
+/* ── Wide container variant ── */
+.d-container--wide {
+  width: min(960px, 100%);
 }
 
-.zine-item {
-  background: var(--d-bg);
-  padding: 1.5rem;
-  text-decoration: none;
-  transition: background 0.2s;
-  display: block;
+/* ── Zine hero ── */
+.zine-hero {
+  text-align: center;
+  padding: 2rem 0 3rem;
+  border-bottom: 1px solid var(--d-line);
+  margin-bottom: 3rem;
 }
 
-.zine-item:hover {
-  background: var(--d-bg-soft);
-  border-bottom-color: transparent;
-}
-
-.zine-item .zine-number {
+.zine-hero-label {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.18em;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--d-accent);
-  margin-bottom: 0.4rem;
+  margin-bottom: 1.2rem;
 }
 
-.zine-item .zine-title {
+.zine-hero-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3rem;
+  font-size: clamp(3rem, 10vw, 5.5rem);
   font-weight: 400;
-  color: var(--d-fg);
-  margin-bottom: 0.3rem;
+  line-height: 0.95;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  color: var(--d-fg);
+  text-shadow: -3px 3px 0 var(--d-accent);
+  margin-bottom: 1rem;
 }
 
-.zine-item .zine-status {
+.zine-hero-sub {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.05rem;
+  color: var(--d-fg);
+  opacity: 0.7;
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.zine-hero-credits {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   color: var(--d-muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ── Zine covers grid ── */
+.zine-covers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.zine-cover {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.zine-cover:hover {
+  transform: translateY(-4px);
+  border-bottom-color: transparent;
+}
+
+.zine-cover-img {
+  aspect-ratio: 3 / 4;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: 1px solid var(--d-line-hard);
+  overflow: hidden;
+}
+
+.zine-cover-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+}
+
+.zine-cover:hover .zine-cover-img {
+  border-color: var(--d-accent);
+}
+
+.zine-cover-reg {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  z-index: 2;
+}
+
+.zine-cover-info {
+  padding: 0.8rem 0.2rem 0;
+}
+
+.zine-cover-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--d-accent);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.zine-cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--d-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  display: block;
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.zine-cover-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--d-muted);
+  letter-spacing: 0.06em;
+  display: block;
+}
+
+/* ── Zine colophon ── */
+.zine-colophon {
+  text-align: center;
+  padding: 3rem 0 1rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--d-line);
+}
+
+.zine-colophon p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--d-muted);
+  opacity: 0.5;
+  margin-bottom: 0.3rem;
+}
+
+.zine-colophon p:first-child {
+  color: var(--d-accent);
+  opacity: 0.7;
+  font-weight: 600;
 }
 
 /* ── Dispatch list (weekly entries) ── */
@@ -397,7 +508,12 @@ body::before {
     grid-template-columns: 1fr;
   }
 
-  .zine-grid {
-    grid-template-columns: 1fr;
+  .zine-covers {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem 1rem;
+  }
+
+  .zine-cover-title {
+    font-size: 1.2rem;
   }
 }

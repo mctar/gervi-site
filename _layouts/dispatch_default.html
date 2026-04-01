@@ -28,7 +28,7 @@
       {% include dispatch-header.html %}
 
       <main class="dispatch-main">
-        <div class="d-container">
+        <div class="d-container{% if page.wide %} d-container--wide{% endif %}">
           {{ content }}
         </div>
       </main>
