@@ -1,81 +1,575 @@
----
-layout: default
----
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+    <style>
+    /* ── Home-specific: full-viewport pages ── */
+    .home-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .home-page-in {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
 
-<section class="page-intro">
-  <p class="intro-label">Independent AI Lab &bull; Stange, Norway &bull; Est. 2022</p>
-  <h1 class="hero-title">Exploring How Humans <span class="accent">&amp; AI Share</span> Control</h1>
-  <div class="intro-body">
-    <p>Building systems, performances, and research that reveal new forms of interaction.</p>
-  </div>
-  <div class="hero-actions">
-    <a class="button button-primary" href="{{ "/projects/" | relative_url }}">Project Diary</a>
-    <a class="button" href="{{ "/contact/" | relative_url }}">Invite Us</a>
-  </div>
-</section>
+    /* Registration marks */
+    .reg {
+      position: absolute;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.4rem;
+      opacity: 0.2;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 3;
+      color: var(--gold);
+    }
+    .reg-tl { top: 1rem; left: 1.5rem; }
+    .reg-tr { top: 1rem; right: 1.5rem; }
+    .reg-bl { bottom: 1rem; left: 1.5rem; }
+    .reg-br { bottom: 1rem; right: 1.5rem; }
+    .reg::before { content: '+  '; font-size: 1rem; line-height: 1; vertical-align: middle; }
 
-<section class="home-section">
-  <h2>Current Focus</h2>
-  <div class="section-body">
-    <p>
-      Gervi Labs is an independent research lab focused on how people and synthetic agents interact, create,
-      and share control. We are two humans supported by several AI collaborators. Our work spans performance,
-      creative practice, applied design, and long-form research.
-    </p>
-    <p>
-      We build agents, sensors, and tools that let groups experience new forms of interaction with synthetic
-      systems. Some prototypes become performances. Others become internal protocols or research material. Each
-      experiment helps us understand how agency shifts when humans and machines work together and leaves a digital
-      fossil for future study.
-    </p>
-    <p>
-      We work globally from Norway with festivals, conferences, institutions, companies, and research groups.
-    </p>
-  </div>
-</section>
+    /* Nav dots */
+    .nav-dots {
+      position: fixed;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 9999;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cream);
+      opacity: 0.2;
+      cursor: pointer;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .dot.active { opacity: 1; transform: scale(1.6); }
 
-<section class="home-section">
-  <h2>AX Manifesto</h2>
-  <div class="section-body">
-    <p>
-      AX (AI Experience) captures our principles for designing with intelligent, adaptive systems. It blends model-first
-      empathy, probabilistic thinking, and continuous learning loops so humans and agents can share control without
-      losing trust.
-    </p>
-    <p>
-      <a class="text-link" href="{{ "/ax/" | relative_url }}">Read the AX manifesto &rarr;</a>
-    </p>
-  </div>
-</section>
+    /* Cover */
+    .cover { background: var(--black); text-align: center; }
+    .cover-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 2rem;
+    }
+    .cover-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 14vw, 10rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-shadow: -4px 4px 0 var(--crimson);
+    }
+    .cover-title span { display: block; }
+    .cover-title .accent { color: var(--crimson); text-shadow: -4px 4px 0 var(--gold); }
+    .cover-sub {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.1rem;
+      color: var(--cream);
+      opacity: 0.6;
+      margin-top: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cover-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cover-cta a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.7rem 1.6rem;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+    .cover-cta a:hover { background: var(--gold); color: var(--black); }
+    .cover-cta a.primary { background: var(--crimson); border-color: var(--crimson); color: var(--cream); }
+    .cover-cta a.primary:hover { background: #ff3b3b; border-color: #ff3b3b; }
 
-<section class="home-section">
-  <h2>Project Diary</h2>
-  <ul class="project-list">
-    {% assign highlighted = site.projects | sort: "sort_key" | reverse | slice: 0, 4 %}
-    {% for project in highlighted %}
-      <li class="project-list-item">
-        <a class="project-title" href="{{ project.url | relative_url }}">{{ project.title }}</a>
-        {% if project.tagline %}
-          <p class="project-tagline">{{ project.tagline }}</p>
-        {% endif %}
-        <p class="project-meta">
-          {% if project.year %}<span>{{ project.year }}</span>{% endif %}
-          {% if project.status %}<span class="project-status">{{ project.status }}</span>{% endif %}
-        </p>
-      </li>
-    {% endfor %}
-  </ul>
-</section>
+    /* Stat */
+    .stat-page { background: var(--crimson); color: var(--cream); text-align: center; }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 18vw, 12rem);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      opacity: 0.8;
+    }
 
-<section class="home-section">
-  <h2>Work with Us</h2>
-  <div class="section-body">
-    <p>
-      We collaborate with festivals, museums, universities, companies, and research groups. If you want to prototype
-      a new performance format, explore AX, or bring a synthetic collaborator into your own practice, talk to us.
-    </p>
-    <p>
-      <a class="text-link" href="{{ "/contact/" | relative_url }}">Get in touch &rarr;</a>
-    </p>
-  </div>
-</section>
+    /* Body page (light bg) */
+    .body-page { background: var(--cream); color: var(--black); }
+    .body-page .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 1.5rem;
+    }
+    .body-page h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      text-shadow: -2px 2px 0 var(--crimson);
+      color: var(--black);
+      border: none;
+      padding: 0;
+      letter-spacing: 0.02em;
+    }
+    .body-page p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      color: rgba(10,10,10,0.8);
+    }
+    .body-page p:first-of-type::first-letter {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      float: left;
+      line-height: 0.7;
+      padding-right: 0.3rem;
+      color: var(--crimson);
+      font-weight: 400;
+    }
+    .body-page a { color: var(--crimson); }
+
+    /* Pull quote */
+    .pullquote { text-align: center; }
+    .pq-gold { background: var(--gold); color: var(--black); }
+    .pq-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vw, 7rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--black);
+      text-shadow: -3px 3px 0 var(--crimson);
+    }
+    .pq-attr {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2rem;
+      opacity: 0.6;
+    }
+
+    /* AX section */
+    .ax-hp { background: var(--black); }
+    .ax-hp .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 1.5rem;
+    }
+    .ax-hp h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      color: var(--cream);
+      text-shadow: -2px 2px 0 var(--crimson);
+      border: none;
+      padding: 0;
+      letter-spacing: 0.02em;
+    }
+    .ax-hp > .home-page-in > p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .ax-principles {
+      list-style: none;
+      border-top: 1px solid var(--line-hard);
+    }
+    .ax-principles li {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--cream);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .ax-principles li:hover { opacity: 1; }
+    .ax-principles li .num { color: var(--crimson); margin-right: 1rem; font-weight: 600; }
+    .ax-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+    }
+
+    /* Projects */
+    .projects-hp { background: var(--black); }
+    .projects-hp .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 1.5rem;
+    }
+    .projects-hp h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      color: var(--cream);
+      text-shadow: -2px 2px 0 var(--crimson);
+      border: none;
+      padding: 0;
+      letter-spacing: 0.02em;
+    }
+    .hp-project {
+      border-top: 1px solid var(--line-hard);
+      padding: 1.2rem 0;
+      display: block;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .hp-project:last-child { border-bottom: 1px solid var(--line-hard); }
+    .hp-project:hover { background: rgba(201,168,76,0.03); }
+    .hp-project .p-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 0.25rem;
+    }
+    .hp-project .p-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: var(--cream);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    .hp-project .p-tagline {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Dispatch teaser */
+    .dispatch-hp { background: var(--crimson); color: var(--cream); text-align: center; }
+    .dispatch-hp h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      text-transform: uppercase;
+      text-shadow: -3px 3px 0 rgba(0,0,0,0.3);
+      margin-bottom: 1rem;
+      border: none;
+      padding: 0;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+    }
+    .dispatch-hp p {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1rem;
+      opacity: 0.85;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      color: var(--cream);
+    }
+    .d-cta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.7rem 2rem;
+      border: 2px solid var(--cream);
+      color: var(--cream);
+      transition: background 0.2s, color 0.2s;
+    }
+    .d-cta:hover { background: var(--cream); color: var(--crimson); }
+
+    /* Colophon */
+    .colophon-hp { background: var(--black); text-align: center; }
+    .col-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 1rem;
+    }
+    .col-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-shadow: 2px 2px 0 var(--crimson);
+      margin-bottom: 1.5rem;
+    }
+    .col-text {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 0.9rem;
+      color: var(--cream);
+      opacity: 0.7;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    .col-text p { color: var(--cream); opacity: 0.7; }
+    .col-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .col-nav a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    .col-nav a:hover { opacity: 1; background: rgba(201,168,76,0.1); }
+    .col-footer {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.45rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-top: 2.5rem;
+      opacity: 0.4;
+    }
+    .col-footer a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+
+    @media (max-width: 640px) {
+      .nav-dots { display: none; }
+    }
+    </style>
+  </head>
+  <body>
+    {% include header.html %}
+
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- PAGE 1: COVER -->
+    <section class="home-page cover">
+      <div class="home-page-in">
+        <div class="cover-label">Independent AI Lab &bull; Stange, Norway &bull; Est. 2022</div>
+        <h1 class="cover-title">
+          <span>Exploring</span>
+          <span>How Humans</span>
+          <span class="accent">&amp; AI Share</span>
+          <span>Control</span>
+        </h1>
+        <p class="cover-sub">Building systems, performances, and research that reveal new forms of interaction.</p>
+        <div class="cover-cta">
+          <a class="primary" href="{{ "/projects/" | relative_url }}">Project Diary</a>
+          <a href="{{ "/contact/" | relative_url }}">Invite Us</a>
+        </div>
+      </div>
+      <span class="reg reg-tl">Gervi Labs 2026</span>
+      <span class="reg reg-br">p.01</span>
+    </section>
+
+    <!-- PAGE 2: STAT -->
+    <section class="home-page stat-page">
+      <div class="home-page-in">
+        <div class="stat-number">2 + 7</div>
+        <div class="stat-label">Two humans. Seven synthetic collaborators.</div>
+      </div>
+      <span class="reg reg-tr" style="color: var(--cream);">p.02</span>
+    </section>
+
+    <!-- PAGE 3: ABOUT -->
+    <section class="home-page body-page">
+      <div class="home-page-in">
+        <div class="section-label">About</div>
+        <h2>Current Focus</h2>
+        <p>Gervi Labs is an independent research lab focused on how people and synthetic agents interact, create, and share control. We build agents, sensors, and tools that let groups experience new forms of interaction with synthetic systems.</p>
+        <p>Some prototypes become performances. Others become internal protocols or research material. Each experiment helps us understand how agency shifts when humans and machines work together — and leaves a digital fossil for future study.</p>
+        <p>We work globally from Norway with festivals, conferences, institutions, companies, and research groups.</p>
+      </div>
+      <span class="reg reg-bl" style="color: var(--crimson);">p.03</span>
+    </section>
+
+    <!-- PAGE 4: PULL QUOTE -->
+    <section class="home-page pullquote pq-gold">
+      <div class="home-page-in">
+        <p class="pq-text">The question is not what AI can do. The question is what we become when we work with it.</p>
+        <div class="pq-attr">&mdash; Gervi Labs</div>
+      </div>
+      <span class="reg reg-tl" style="color: var(--black);">p.04</span>
+    </section>
+
+    <!-- PAGE 5: AX -->
+    <section class="home-page ax-hp">
+      <div class="home-page-in">
+        <div class="section-label">Manifesto</div>
+        <h2>AX Principles</h2>
+        <p>Ten principles for designing with intelligent, adaptive systems.</p>
+        <ul class="ax-principles">
+          <li><span class="num">01</span> Model-first empathy</li>
+          <li><span class="num">02</span> Design for probability, not certainty</li>
+          <li><span class="num">03</span> Experiment and experience while you design</li>
+          <li><span class="num">04</span> Modality steers model behavior</li>
+          <li><span class="num">05</span> Prompt craft is product craft</li>
+          <li><span class="num">06</span> Trust and ethics are experience features</li>
+          <li><span class="num">07</span> Speed and cost are design decisions</li>
+          <li><span class="num">08</span> Build continuous learning loops</li>
+          <li><span class="num">09</span> Practice cross-disciplinary fluency</li>
+          <li><span class="num">10</span> Be unrelentingly curious</li>
+        </ul>
+        <a class="ax-link" href="{{ "/ax/" | relative_url }}">Read the full manifesto &rarr;</a>
+      </div>
+      <span class="reg reg-tr">p.05</span>
+    </section>
+
+    <!-- PAGE 6: PROJECTS -->
+    <section class="home-page projects-hp">
+      <div class="home-page-in">
+        <div class="section-label">Project Diary</div>
+        <h2>Recent Work</h2>
+        {% assign highlighted = site.projects | sort: "sort_key" | reverse | slice: 0, 4 %}
+        {% for project in highlighted %}
+          <a class="hp-project" href="{{ project.url | relative_url }}">
+            <div class="p-meta">{{ project.year }}{% if project.type %} &bull; {{ project.type }}{% endif %}{% if project.status %} &bull; {{ project.status }}{% endif %}</div>
+            <div class="p-title">{{ project.title }}</div>
+            {% if project.tagline %}<div class="p-tagline">{{ project.tagline }}</div>{% endif %}
+          </a>
+        {% endfor %}
+      </div>
+      <span class="reg reg-bl">p.06</span>
+    </section>
+
+    <!-- PAGE 7: DISPATCH TEASER -->
+    <section class="home-page dispatch-hp">
+      <div class="home-page-in">
+        <h2>Synthetic Dispatch</h2>
+        <p>Editorial intelligence from Gervi Labs. Seven zines on the shift. Weekly AI briefings. Live monitoring.</p>
+        <a class="d-cta" href="{{ "/dispatch/" | relative_url }}">Enter &rarr;</a>
+      </div>
+      <span class="reg reg-tl" style="color: var(--cream);">p.07</span>
+    </section>
+
+    <!-- PAGE 8: COLOPHON -->
+    <section class="home-page colophon-hp">
+      <div class="home-page-in">
+        <div class="col-label">Colophon</div>
+        <h2 class="col-title">Gervi Labs</h2>
+        <div class="col-text">
+          <p>Founded 2022 &bull; Stange, Norway</p>
+          <p>Thordur Arnason &amp; Lena Thorsm&aelig;hlum</p>
+          <p>Two humans. Seven synthetics.</p>
+        </div>
+        <nav class="col-nav">
+          <a href="{{ "/about/" | relative_url }}">About</a>
+          <a href="{{ "/team/" | relative_url }}">Team</a>
+          <a href="{{ "/projects/" | relative_url }}">Projects</a>
+          <a href="{{ "/gallery/" | relative_url }}">Gallery</a>
+          <a href="{{ "/ax/" | relative_url }}">AX</a>
+          <a href="{{ "/dispatch/" | relative_url }}">Dispatch</a>
+          <a href="{{ "/contact/" | relative_url }}">Contact</a>
+        </nav>
+        <div class="col-footer">
+          &copy; {{ site.time | date: "%Y" }} Gervi Labs &bull; All rights reserved &bull;
+          <a href="https://www.linkedin.com/company/gervi-labs/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <span class="reg reg-bl">GERVI-HOME-EOF</span>
+      <span class="reg reg-tr">p.08</span>
+    </section>
+
+    <script>
+    (function() {
+      var pages = document.querySelectorAll('.home-page');
+      var navContainer = document.getElementById('navDots');
+      var current = 0;
+
+      pages.forEach(function(_, i) {
+        var dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', function() {
+          pages[i].scrollIntoView({ behavior: 'smooth' });
+        });
+        navContainer.appendChild(dot);
+      });
+
+      var dots = document.querySelectorAll('.dot');
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var i = Array.prototype.indexOf.call(pages, entry.target);
+            if (i !== -1) {
+              current = i;
+              dots.forEach(function(d, j) { d.classList.toggle('active', i === j); });
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+
+      pages.forEach(function(p) { observer.observe(p); });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          current = Math.min(current + 1, pages.length - 1);
+          pages[current].scrollIntoView({ behavior: 'smooth' });
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          current = Math.max(current - 1, 0);
+          pages[current].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    })();
+    </script>
+  </body>
+</html>
