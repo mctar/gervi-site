@@ -112,6 +112,76 @@
     .cover-cta a.primary { background: var(--crimson); border-color: var(--crimson); color: var(--cream); }
     .cover-cta a.primary:hover { background: #ff3b3b; border-color: #ff3b3b; }
 
+    /* Operathon Hero */
+    .operathon-hero { background: var(--black); text-align: center; }
+    .operathon-hero .op-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 1.5rem;
+    }
+    .operathon-hero .op-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 9vw, 5.5rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-shadow: -3px 3px 0 var(--crimson);
+      margin-bottom: 0.5rem;
+    }
+    .operathon-hero .op-subtitle {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1rem;
+      color: var(--cream);
+      opacity: 0.5;
+      margin-bottom: 2rem;
+    }
+    .op-video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto 1.5rem;
+      border: 1px solid var(--line-hard);
+    }
+    .op-video-wrap video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .op-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      line-height: 2.2;
+    }
+    .op-meta .sep { margin: 0 0.4rem; opacity: 0.3; }
+    .op-cta {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .op-cta a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.6rem 1.4rem;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+    .op-cta a:hover { background: var(--gold); color: var(--black); }
+    .op-cta a.op-primary { background: var(--crimson); border-color: var(--crimson); color: var(--cream); }
+    .op-cta a.op-primary:hover { background: #ff3b3b; border-color: #ff3b3b; }
+
     /* Stat */
     .stat-page { background: var(--crimson); color: var(--cream); text-align: center; }
     .stat-number {
@@ -419,16 +489,40 @@
       <span class="reg reg-br">p.01</span>
     </section>
 
-    <!-- PAGE 2: STAT -->
+    <!-- PAGE 2: OPERATHON HERO -->
+    <section class="home-page operathon-hero">
+      <div class="home-page-in" style="max-width: 760px;">
+        <div class="op-label">Operathon 2026 &bull; Easter Sunday&ndash;Monday &bull; 24 Hours</div>
+        <h2 class="op-title">Mannlaus 2:<br>The Last Door</h2>
+        <p class="op-subtitle">A chamber opera directed entirely by AI. Humans as middleware.</p>
+        <div class="op-video-wrap">
+          <video controls preload="metadata" poster="{{ "/assets/mannlaus2_hero.png" | relative_url }}">
+            <source src="{{ "/assets/mannlaus2_showreel.mp4" | relative_url }}" type="video/mp4">
+          </video>
+        </div>
+        <div class="op-meta">
+          <span>6 synthetic directors</span><span class="sep">/</span><span>2 synthetic performers</span><span class="sep">/</span><span>2 humans</span><br>
+          <span>Score by AIson</span><span class="sep">/</span><span><a href="https://humancontrolprotocol.com" target="_blank" rel="noopener" style="color: var(--gold);">Human Control Protocol</a></span>
+        </div>
+        <div class="op-cta">
+          <a class="op-primary" href="{{ "/projects/mannlaus-2/" | relative_url }}">Read More</a>
+          <a href="https://humancontrolprotocol.com" target="_blank" rel="noopener">HCP</a>
+        </div>
+      </div>
+      <span class="reg reg-tl">Operathon H+24</span>
+      <span class="reg reg-br">p.02</span>
+    </section>
+
+    <!-- PAGE 3: STAT -->
     <section class="home-page stat-page">
       <div class="home-page-in">
         <div class="stat-number">2 + 7</div>
         <div class="stat-label">Two humans. Seven synthetic collaborators.</div>
       </div>
-      <span class="reg reg-tr" style="color: var(--cream);">p.02</span>
+      <span class="reg reg-tr" style="color: var(--cream);">p.03</span>
     </section>
 
-    <!-- PAGE 3: ABOUT -->
+    <!-- PAGE 4: ABOUT -->
     <section class="home-page body-page">
       <div class="home-page-in">
         <div class="section-label">About</div>
@@ -437,19 +531,19 @@
         <p>Some prototypes become performances. Others become internal protocols or research material. Each experiment helps us understand how agency shifts when humans and machines work together — and leaves a digital fossil for future study.</p>
         <p>We work globally from Norway with festivals, conferences, institutions, companies, and research groups.</p>
       </div>
-      <span class="reg reg-bl" style="color: var(--crimson);">p.03</span>
+      <span class="reg reg-bl" style="color: var(--crimson);">p.04</span>
     </section>
 
-    <!-- PAGE 4: PULL QUOTE -->
+    <!-- PAGE 5: PULL QUOTE -->
     <section class="home-page pullquote pq-gold">
       <div class="home-page-in">
         <p class="pq-text">The question is not what AI can do. The question is what we become when we work with it.</p>
         <div class="pq-attr">&mdash; Gervi Labs</div>
       </div>
-      <span class="reg reg-tl" style="color: var(--black);">p.04</span>
+      <span class="reg reg-tl" style="color: var(--black);">p.05</span>
     </section>
 
-    <!-- PAGE 5: AX -->
+    <!-- PAGE 6: AX -->
     <section class="home-page ax-hp">
       <div class="home-page-in">
         <div class="section-label">Manifesto</div>
@@ -469,10 +563,10 @@
         </ul>
         <a class="ax-link" href="{{ "/ax/" | relative_url }}">Read the full manifesto &rarr;</a>
       </div>
-      <span class="reg reg-tr">p.05</span>
+      <span class="reg reg-tr">p.06</span>
     </section>
 
-    <!-- PAGE 6: PROJECTS -->
+    <!-- PAGE 7: PROJECTS -->
     <section class="home-page projects-hp">
       <div class="home-page-in">
         <div class="section-label">Project Diary</div>
@@ -486,20 +580,20 @@
           </a>
         {% endfor %}
       </div>
-      <span class="reg reg-bl">p.06</span>
+      <span class="reg reg-bl">p.07</span>
     </section>
 
-    <!-- PAGE 7: DISPATCH TEASER -->
+    <!-- PAGE 8: DISPATCH TEASER -->
     <section class="home-page dispatch-hp">
       <div class="home-page-in">
         <h2>Synthetic Dispatch</h2>
         <p>Editorial intelligence from Gervi Labs. Seven zines on the shift. Weekly AI briefings. Live monitoring.</p>
         <a class="d-cta" href="{{ "/dispatch/" | relative_url }}">Enter &rarr;</a>
       </div>
-      <span class="reg reg-tl" style="color: var(--cream);">p.07</span>
+      <span class="reg reg-tl" style="color: var(--cream);">p.08</span>
     </section>
 
-    <!-- PAGE 8: COLOPHON -->
+    <!-- PAGE 9: COLOPHON -->
     <section class="home-page colophon-hp">
       <div class="home-page-in">
         <div class="col-label">Colophon</div>
@@ -524,7 +618,7 @@
         </div>
       </div>
       <span class="reg reg-bl">GERVI-HOME-EOF</span>
-      <span class="reg reg-tr">p.08</span>
+      <span class="reg reg-tr">p.09</span>
     </section>
 
     <script>
