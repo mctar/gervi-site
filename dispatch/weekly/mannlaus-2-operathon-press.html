@@ -165,9 +165,9 @@ h1, h2, h3 {
 }
 
 @media print {
-  body::before { }
+  body::before { display: none; }
   .page { page-break-after: always; page-break-inside: avoid; }
-  .nav-dots { }
+  .nav-dots { display: none; }
   @page { size: A5; margin: 1.5cm; }
 }
 
@@ -182,9 +182,6 @@ h1, h2, h3 {
 <!-- NAV DOTS -->
 <div class="nav-dots">
   <div class="dot active"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
   <div class="dot"></div>
   <div class="dot"></div>
   <div class="dot"></div>
@@ -358,11 +355,7 @@ h1, h2, h3 {
   <div class="art-credit">Storyboard: AIzamna &amp; Gemini</div>
 </section>
 
-<!-- ORIGINAL SEVEN DOORS ART HIDDEN -->
-<section class="page art-spread" style="">
-  <img src="/assets/dispatch/weekly/operathon-press/img-05.webp" alt="Seven doors descending">
-  <div class="art-credit">Art: Embla &amp; Gemini</div>
-</section>
+
 
 <!-- ========== PAGE 7: THE ROOMS ========== -->
 <section class="page" style="background:#2d1b4e; color:#f0ebe0;">
@@ -390,7 +383,7 @@ h1, h2, h3 {
 
 <!-- ========== PAGE 9: INSOMNIA ART ========== -->
 <section class="page art-spread">
-  <img src="/assets/dispatch/weekly/operathon-press/img-06.webp" alt="Two figures separated by light">
+  <img src="/assets/dispatch/weekly/operathon-press/img-05.webp" alt="Two figures separated by light">
   <div class="art-credit">Art: Embla &amp; Gemini</div>
 </section>
 
@@ -409,7 +402,7 @@ h1, h2, h3 {
 <section class="page" style="background:#0a0a0a; color:#f0ebe0; position:relative; overflow:hidden;">
   <!-- Dusted background -->
   <div style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;">
-    <img src="/assets/dispatch/weekly/operathon-press/img-07.webp" alt="" style="width:100%; height:100%; object-fit:cover; opacity:0.08; filter:saturate(0.3) contrast(1.3);">
+    <img src="/assets/dispatch/weekly/operathon-press/img-06.webp" alt="" style="width:100%; height:100%; object-fit:cover; opacity:0.08; filter:saturate(0.3) contrast(1.3);">
   </div>
   <span class="meta" style="color:#555; margin-bottom:1.5rem; position:relative; z-index:5;">THE PROTOCOL ALMOST BROKE &mdash; H+5</span>
 
@@ -438,7 +431,7 @@ h1, h2, h3 {
 <section class="page" style="background:#0a0a0a; color:#f0ebe0; position:relative; overflow:hidden;">
   <!-- BTS image faded in background -->
   <div style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1;">
-    <img src="/assets/dispatch/weekly/operathon-press/img-08.webp" alt="" style="width:100%; height:100%; object-fit:cover; opacity:0.12; filter:saturate(0.3) contrast(1.2);">
+    <img src="/assets/dispatch/weekly/operathon-press/img-07.webp" alt="" style="width:100%; height:100%; object-fit:cover; opacity:0.12; filter:saturate(0.3) contrast(1.2);">
   </div>
 
   <div style="position:relative; z-index:5; max-width:800px;">
@@ -488,7 +481,7 @@ h1, h2, h3 {
   <!-- Photo 1: big, rotated, taped -->
   <div style="position:absolute; top:8%; left:5%; width:55%; z-index:3; transform:rotate(-2.5deg);">
     <div style="background:white; padding:8px 8px 40px 8px; box-shadow:4px 6px 20px rgba(0,0,0,0.3);">
-      <img src="/assets/dispatch/weekly/operathon-press/img-09.webp" alt="Team outside rehearsal" style="width:100%; display:block;">
+      <img src="/assets/dispatch/weekly/operathon-press/img-08.webp" alt="Team outside rehearsal" style="width:100%; display:block;">
     </div>
     <!-- Tape strip -->
     <div style="position:absolute; top:-8px; left:30%; width:80px; height:24px; background:rgba(255,255,200,0.5); transform:rotate(3deg); border:1px solid rgba(0,0,0,0.05);"></div>
@@ -497,7 +490,7 @@ h1, h2, h3 {
   <!-- Photo 2: smaller, overlapping, different rotation -->
   <div style="position:absolute; bottom:8%; right:5%; width:50%; z-index:4; transform:rotate(1.8deg);">
     <div style="background:white; padding:8px 8px 40px 8px; box-shadow:4px 6px 20px rgba(0,0,0,0.3);">
-      <img src="/assets/dispatch/weekly/operathon-press/img-10.webp" alt="Team gathered at the farm" style="width:100%; display:block;">
+      <img src="/assets/dispatch/weekly/operathon-press/img-09.webp" alt="Team gathered at the farm" style="width:100%; display:block;">
     </div>
     <!-- Tape strips -->
     <div style="position:absolute; top:-6px; right:20%; width:70px; height:22px; background:rgba(255,255,200,0.5); transform:rotate(-5deg); border:1px solid rgba(0,0,0,0.05);"></div>
@@ -514,18 +507,14 @@ h1, h2, h3 {
 
 </section>
 
-<!-- ORIGINAL OPERATHON ART HIDDEN -->
-<section class="page art-spread" style="">
-  <img src="/assets/dispatch/weekly/operathon-press/img-11.webp" alt="The Operathon — AI and humans">
-  <div class="art-credit">Art: Embla &amp; Gemini</div>
-</section>
+
 
 <!-- ========== PAGE 12: THE CAST ========== -->
 <section style="background:#1a1a1a; color:#f0ebe0; padding:0; overflow:hidden; height:100vh;">
   <div style="display:grid; grid-template-columns:1fr 1fr; width:100%; height:100vh;">
     <!-- JUDITH -->
     <div style="position:relative; overflow:hidden;">
-      <img src="/assets/dispatch/weekly/operathon-press/img-12.webp" alt="Judith" style="width:100%; height:100%; object-fit:cover; object-position:center top; filter:contrast(1.1);">
+      <img src="/assets/dispatch/weekly/operathon-press/img-10.webp" alt="Judith" style="width:100%; height:100%; object-fit:cover; object-position:center top; filter:contrast(1.1);">
       <div style="position:absolute; bottom:0; left:0; width:100%; padding:2rem; background:linear-gradient(transparent, rgba(0,0,0,0.85) 60%); z-index:5;">
         <h3 style="font-size:2.2rem; color:var(--accent1); font-family:var(--font-display); line-height:1;">MALIN SKAG</h3>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--accent2); margin:0.4rem 0 0.8rem;">SOPRANO &mdash; JUDITH</p>
@@ -534,7 +523,7 @@ h1, h2, h3 {
     </div>
     <!-- BLUEBEARD -->
     <div style="position:relative; overflow:hidden;">
-      <img src="/assets/dispatch/weekly/operathon-press/img-13.webp" alt="Bluebeard" style="width:100%; height:100%; object-fit:cover; object-position:center top; filter:contrast(1.1);">
+      <img src="/assets/dispatch/weekly/operathon-press/img-11.webp" alt="Bluebeard" style="width:100%; height:100%; object-fit:cover; object-position:center top; filter:contrast(1.1);">
       <div style="position:absolute; bottom:0; left:0; width:100%; padding:2rem; background:linear-gradient(transparent, rgba(0,0,0,0.85) 60%); z-index:5;">
         <h3 style="font-size:2.2rem; color:var(--accent1); font-family:var(--font-display); line-height:1;">VIKTOR LIND</h3>
         <p style="font-family:var(--font-mono); font-size:0.65rem; color:var(--accent2); margin:0.4rem 0 0.8rem;">BARITONE &mdash; BLUEBEARD</p>
@@ -544,11 +533,7 @@ h1, h2, h3 {
   </div>
 </section>
 
-<!-- ========== PAGE 13: SILENCE ART  ========== -->
-<section class="page art-spread" style="">
-  <img src="/assets/dispatch/weekly/operathon-press/img-14.webp" alt="The silence arc — dissolving">
-  <div class="art-credit">Art: Embla &amp; Gemini</div>
-</section>
+
 
 <!-- ========== PAGE 14: THE SILENCE ARC ========== -->
 <section class="page" style="background:#1e1b4b; color:#c7d2fe; text-align:center;">
@@ -570,7 +555,7 @@ h1, h2, h3 {
 
 <!-- ========== PAGE 15: HANDS ART ========== -->
 <section class="page art-spread">
-  <img src="/assets/dispatch/weekly/operathon-press/img-15.webp" alt="Hands against the wall">
+  <img src="/assets/dispatch/weekly/operathon-press/img-12.webp" alt="Hands against the wall">
   <div class="art-credit">Art: Embla &amp; Gemini</div>
 </section>
 
@@ -586,7 +571,7 @@ h1, h2, h3 {
 
 <!-- ========== PAGE 17: EPILOGUE ART ========== -->
 <section class="page art-spread">
-  <img src="/assets/dispatch/weekly/operathon-press/img-16.webp" alt="Two figures on mycelium bed">
+  <img src="/assets/dispatch/weekly/operathon-press/img-13.webp" alt="Two figures on mycelium bed">
   <div class="art-credit">Art: Embla &amp; Gemini</div>
 </section>
 
