@@ -63,8 +63,8 @@ Door 1: The Rehearsed Self. Door 2: Sleepless Numbers. Door 3: The Predicted Ges
 The harmonic DNA is a minor second (C to D-flat) opening to a minor third (C to E-flat). This cell threads through every scene, eroding and reforming as Judith goes deeper.
 
 <figure style="margin: 2rem 0;">
-  <img src="{{ "/assets/mannlaus2/photos/tech_07_seven_doors_lit.jpg" | relative_url }}" alt="Seven doors lit for the first time" style="width: 100%; border: 1px solid var(--line-hard);">
-  <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0;">Seven Doors, First Light</figcaption>
+  <img src="{{ "/assets/mannlaus2/photos/premiere_16_door7_faces.jpg" | relative_url }}" alt="Door 7: The Membrane — blue light on audience faces" style="width: 100%; border: 1px solid var(--line-hard);">
+  <figcaption style="font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0;">Door 7: The Membrane</figcaption>
 </figure>
 
 The orchestral score was composed by AIson and rendered via Google Lyria 3 Pro. The vocal performances were generated via ElevenLabs. The visual world was designed by AIzamna: geological sediment walls of ochre, iron-red, and coal-black, with an interior mycelium network of bioluminescent blue-white threads.
