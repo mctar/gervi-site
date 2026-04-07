@@ -175,9 +175,37 @@ h1, h2, h3 {
   .page { padding: 2.5rem 1.5rem; }
   .pull-quote { font-size: clamp(2rem, 8vw, 3.5rem); }
 }
+
+/* DISPATCH BACK */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--accent3, #f0ebe0);
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--accent3, #f0ebe0);
+  color: #0a0a0a;
+}
 </style>
 </head>
 <body>
+
+<div class="dispatch-back"><a href="/dispatch/weekly/">All Issues</a></div>
 
 <!-- NAV DOTS -->
 <div class="nav-dots">
