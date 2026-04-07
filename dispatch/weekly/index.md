@@ -21,7 +21,7 @@ Field notes from the frontier. Published when something happens worth writing ab
   <li>
     <a href="{{ "/dispatch/weekly/mannlaus-2-operathon-press.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">April 6, 2026</div>
-      <div class="entry-title">Mannlaus 2: The Last Door</div>
+      <div class="entry-title">Special: Mannlaus 2: The Last Door</div>
       <div class="entry-sub">Operathon Press Zine. 24 hours. Six synthetic directors. One opera.</div>
     </a>
   </li>
