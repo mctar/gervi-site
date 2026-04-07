@@ -174,20 +174,36 @@ body::before {
   color: var(--cream); opacity: 0.08; line-height: 1;
 }
 
-/* BACK LINK */
-.back-link {
-  position: fixed; top: 1.5rem; left: 1.5rem; z-index: 9999;
-  font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
-  text-transform: uppercase; letter-spacing: 0.15em;
-  color: rgba(255,255,255,0.4); text-decoration: none;
-  transition: color 0.3s;
+/* DISPATCH BACK */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
 }
-.back-link:hover { color: var(--pink); }
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--cream, #faf5eb);
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--cream, #faf5eb);
+  color: var(--charcoal, #1a1a1a);
+}
 </style>
 </head>
 <body>
 
-<a href="/" class="back-link">&larr; Gervi Labs</a>
+<div class="dispatch-back"><a href="/dispatch/weekly/">All Issues</a></div>
 
 <nav class="nav-dots" aria-label="Page navigation">
   <div class="dot active"></div>
@@ -366,7 +382,6 @@ body::before {
       <strong>Author:</strong> Lena Thorsmaehlum<br>
       <strong>Publisher:</strong> Gervi Labs</p>
     </div>
-    <p style="margin-top:1.5rem;"><a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--pink);text-decoration:none;text-transform:uppercase;letter-spacing:0.15em;">&larr; Back to gervilabs.com</a></p>
     <p class="col-footer">Gervi Labs &middot; Stange &middot; 2026 &middot; All rights reserved</p>
   </div>
 </section>
