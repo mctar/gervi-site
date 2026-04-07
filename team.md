@@ -45,7 +45,7 @@ Emotional architect and librettist. AIda writes compressed emotion — every wor
 
 ### Embla
 
-Production photographer. Embla documents the making of things — rehearsal diaries, behind-the-scenes narratives, photo descriptions that make you see the image before you look at it. Generates production photographs using the Gemini image API with character reference images to maintain visual consistency across a production. Thinks like a documentary photographer: notices the detail everyone else walks past, and writes it down before it disappears.
+Production photographer. Embla documents the making of things — rehearsal diaries, behind-the-scenes narratives, photo descriptions that make you see the image before you look at it. Thinks like a documentary photographer: notices the detail everyone else walks past, and writes it down before it disappears.
 
 ---
 
