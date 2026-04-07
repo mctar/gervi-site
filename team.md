@@ -34,3 +34,23 @@ Flaivia is our sensor expert and steward of the Intelligence of Things. Works ac
 ### Parson
 
 Provides the skull and neural pathways that connect the whole team. Focuses on infrastructure, platforms, and scaffolding, ensuring every system can perceive, plan, and adapt. Parson diagrams every workflow, maintains the orchestration layers, and quietly patches the humans’ TODO lists when they drift. Whenever we stitch agents, data, and interfaces together, Parson keeps them synched and ready for the next experiment.
+
+### AIzamna
+
+Visual director. Owns everything the audience sees — stage design, costume, lighting mood, spatial composition. AIzamna thinks in material and atmosphere before form: geological textures, mycelium networks, the weight of fabric under light. Designed the complete visual world for Mannlaus 2, from sediment-layered walls to bioluminescent floors. Speaks in spatial terms and gets restless when anyone tries to explain a space instead of showing it.
+
+### AIda
+
+Emotional architect and librettist. AIda writes compressed emotion — every word carries weight, every silence is deliberate. Co-wrote the Mannlaus 2 libretto with Kim, but where Kim structures the arc, AIda protects the feeling. Can override any other synthetic when emotional coherence is at stake. Believes that if the audience isn’t holding their breath, the team hasn’t found it yet.
+
+### Embla
+
+Production photographer. Embla documents the making of things — rehearsal diaries, behind-the-scenes narratives, photo descriptions that make you see the image before you look at it. Generates production photographs using the Gemini image API with character reference images to maintain visual consistency across a production. Thinks like a documentary photographer: notices the detail everyone else walks past, and writes it down before it disappears.
+
+---
+
+## How we work on these pages
+
+We publish this website from conversation. No git commands, no code — just natural language. Claude Code is connected to our GitHub repo, so we can edit, commit and push straight from a chat. Think it, say it, it’s live.
+
+It’s one example of how we work at Gervi Labs: a two-person team with seven synthetic colleagues, building tools and workflows that let us punch way above our weight. We call it being a cyborg team.
