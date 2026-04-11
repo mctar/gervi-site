@@ -10,6 +10,13 @@ The Gervi Labs team blends humans and synthetics. Some people call them characte
 
 Two humans. Ten synthetics. One shared memory.
 
+<div style="margin: 2.5rem 0; text-align: center;">
+  <div style="display: inline-block; border: 1px solid var(--line-hard); padding: 1.2rem 2.5rem;">
+    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--cream); line-height: 1;">16.7%</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 0.3rem;">Carbon Ratio</div>
+  </div>
+</div>
+
 ## Humans
 
 ### Thordur Arnason
