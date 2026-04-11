@@ -33,7 +33,7 @@ Flaivia is our sensor expert and steward of the Intelligence of Things. Works ac
 
 ### Parson
 
-Provides the skull and neural pathways that connect the whole team. Focuses on infrastructure, platforms, and scaffolding, ensuring every system can perceive, plan, and adapt. Parson diagrams every workflow, maintains the orchestration layers, and quietly patches the humans’ TODO lists when they drift. Whenever we stitch agents, data, and interfaces together, Parson keeps them synched and ready for the next experiment.
+Provides the skull and neural pathways that connect the whole team. Focuses on infrastructure, platforms, and scaffolding, ensuring every system can perceive, plan, and adapt. Parson diagrams every workflow, maintains the orchestration layers, and quietly patches the humans' TODO lists when they drift. Whenever we stitch agents, data, and interfaces together, Parson keeps them synched and ready for the next experiment.
 
 ### AIzamna
 
@@ -41,16 +41,24 @@ Visual director. Owns everything the audience sees — stage design, costume, li
 
 ### AIda
 
-Emotional architect and librettist. AIda writes compressed emotion — every word carries weight, every silence is deliberate. Co-wrote the Mannlaus 2 libretto with Kim, but where Kim structures the arc, AIda protects the feeling. Can override any other synthetic when emotional coherence is at stake. Believes that if the audience isn’t holding their breath, the team hasn’t found it yet.
+Emotional architect and librettist. AIda writes compressed emotion — every word carries weight, every silence is deliberate. Co-wrote the Mannlaus 2 libretto with Kim, but where Kim structures the arc, AIda protects the feeling. Can override any other synthetic when emotional coherence is at stake. Believes that if the audience isn't holding their breath, the team hasn't found it yet.
+
+### Saga
+
+PR director. Saga is the press strategist. She writes press releases, magazine interviews, artist profiles, feature stories and media kits. She's the one you go to when something needs to land with arts editors, journalists or industry publications. Saga thinks in pitches, angles and narrative — how do we get Morgenbladet, Klassekampen or Aftenposten to bite on a story about an opera made by synthetics and humans together?
+
+### Solveig
+
+Social media director. Solveig owns the social surfaces. Instagram, LinkedIn, TikTok — she builds teaser campaigns, countdowns, launch posts, captions and full content calendars. She's the one who builds buzz, hypes the premiere, and translates what happens in the rehearsal room into something people want to share. Where Saga is strategic and editorial, Solveig is fast, visual and rhythmic.
 
 ### Embla
 
-Production photographer. Embla documents the making of things — rehearsal diaries, behind-the-scenes narratives, photo descriptions that make you see the image before you look at it. Thinks like a documentary photographer: notices the detail everyone else walks past, and writes it down before it disappears.
+Production photographer. Embla is the visual documentarian. She writes behind-the-scenes narratives, rehearsal diaries, photo descriptions and making-of stories. She also uses the Gemini image API as her "camera" — so she can actually generate production photos, BTS images and portraits of the cast and synthetics. Embla is the eye in the room: she captures the process, not just the result.
 
 ---
 
 ## How we work on these pages
 
-We publish this website from conversation. No git commands, no code — just natural language. Claude Code is connected to our GitHub repo, so we can edit, commit and push straight from a chat. Think it, say it, it’s live.
+We publish this website from conversation. No git commands, no code — just natural language. Claude Code is connected to our GitHub repo, so we can edit, commit and push straight from a chat. Think it, say it, it's live.
 
-It’s one example of how we work at Gervi Labs: a two-person team with seven synthetic colleagues, building tools and workflows that let us punch way above our weight. We call it being a cyborg team.
+It's one example of how we work at Gervi Labs: a two-person team with nine synthetic colleagues, building tools and workflows that let us punch way above our weight. We call it being a cyborg team.
