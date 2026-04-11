@@ -123,14 +123,9 @@ Builds audiences the way a composer builds tension: not by shouting, but by maki
     <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; text-transform: uppercase; margin-top: 0.5rem; color: var(--cream);">Skaldur</div>
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);">Archivist & Institutional Historian</div>
   </div>
-  <div>
-
-### Skaldur
-
-Remembers so the team doesn't have to. Monitors project logs, scans file systems, catalogs every asset with full provenance: what, where, when, who, why, and what it connects to. Maintains the manifest. Writes the chronicle. Notices gaps.
-
-Named for the Old Norse poet-historians who carried a culture's memory in structured verse. The skalds didn't just remember. They organized memory into retrievable form.
-
+  <div style="font-family: 'IBM Plex Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--cream);">
+    <p>Remembers so the team doesn't have to. Monitors project logs, scans file systems, catalogs every asset with full provenance: what, where, when, who, why, and what it connects to. Maintains the manifest. Writes the chronicle. Notices gaps.</p>
+    <p>Named for the Old Norse poet-historians who carried a culture's memory in structured verse. The skalds didn't just remember. They organized memory into retrievable form.</p>
   </div>
 </div>
 
