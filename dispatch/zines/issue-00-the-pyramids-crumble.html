@@ -441,6 +441,27 @@ body::before {
 .article-navy .art-title { color: var(--crimson); text-shadow: -2px 2px 0 var(--gold); }
 .article-navy .art-body p:first-child::first-letter { color: var(--crimson); }
 .article-navy .art-body em { color: var(--gold); }
+.article-navy .art-body strong { color: var(--cream); }
+
+.article-black {
+  background: var(--black);
+  color: var(--cream);
+}
+.article-black .art-num { color: var(--gold); }
+.article-black .art-title { color: var(--cream); text-shadow: -2px 2px 0 var(--crimson); }
+.article-black .art-body p:first-child::first-letter { color: var(--crimson); }
+.article-black .art-body em { color: var(--gold); }
+.article-black .art-body strong { color: var(--cream); }
+
+.article-crimson {
+  background: var(--crimson);
+  color: var(--cream);
+}
+.article-crimson .art-num { color: var(--navy); }
+.article-crimson .art-title { color: var(--cream); text-shadow: -2px 2px 0 var(--navy); }
+.article-crimson .art-body p:first-child::first-letter { color: var(--gold); }
+.article-crimson .art-body em { color: var(--gold); }
+.article-crimson .art-body strong { color: var(--cream); }
 
 .article-slate {
   background: var(--slate);
@@ -448,361 +469,1059 @@ body::before {
 }
 .article-slate .art-num { color: var(--crimson); }
 .article-slate .art-title { color: var(--gold); text-shadow: -2px 2px 0 var(--crimson); }
-.article-slate .art-body p:first-child::first-letter { color: var(--crimson); }
+.article-slate .art-body p:first-child::first-letter { color: var(--gold); }
 .article-slate .art-body em { color: var(--gold); }
+.article-slate .art-body strong { color: var(--cream); }
+
+/* Challenge/future blocks */
+.challenge-block {
+  padding: 2rem;
+  margin: 1.5rem 0;
+  position: relative;
+  border: 3px solid;
+}
+.challenge-block h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin: 0 0 0.8rem 0;
+}
+.challenge-block p {
+  line-height: 1.65;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+.challenge-block p:last-child { margin-bottom: 0; }
+
+.cb-crimson {
+  background: var(--crimson);
+  color: var(--cream);
+  border-color: var(--cream);
+  box-shadow: -4px 4px 0 var(--gold);
+}
+.cb-crimson h3 { color: var(--gold); }
+
+.cb-navy {
+  background: var(--navy);
+  color: var(--cream);
+  border-color: var(--gold);
+  box-shadow: -4px 4px 0 var(--crimson);
+}
+.cb-navy h3 { color: var(--gold); }
+
+.cb-gold {
+  background: rgba(201,168,76,0.15);
+  color: var(--cream);
+  border-color: var(--gold);
+  box-shadow: -4px 4px 0 var(--navy);
+}
+.cb-gold h3 { color: var(--gold); }
+
+.cb-dark {
+  background: var(--black);
+  color: var(--cream);
+  border-color: var(--crimson);
+  box-shadow: -4px 4px 0 var(--crimson);
+}
+.cb-dark h3 { color: var(--crimson); }
+
+/* Mutation blocks */
+.mutation-block {
+  padding: 1.8rem;
+  margin: 1.5rem 0;
+  position: relative;
+  border-left: 5px solid;
+}
+.mutation-block h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem 0;
+}
+.mutation-block p {
+  line-height: 1.65;
+  font-size: 0.92rem;
+  margin-bottom: 0.6rem;
+}
+.mutation-block p:last-child { margin-bottom: 0; }
+.mutation-block .meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+
+.mb-crimson {
+  border-color: var(--crimson);
+  background: rgba(220,38,38,0.08);
+}
+.mb-crimson h3 { color: var(--crimson); }
+.mb-crimson .meta { color: var(--crimson); }
+
+.mb-gold {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+.mb-gold h3 { color: var(--gold); }
+.mb-gold .meta { color: var(--gold); }
+
+.mb-cream {
+  border-color: var(--cream);
+  background: rgba(240,235,224,0.06);
+}
+.mb-cream h3 { color: var(--cream); }
+.mb-cream .meta { color: var(--cream); }
 
 /* ========== PULL QUOTE ========== */
 .pullquote {
-  background: var(--dark-crimson);
-  color: var(--cream);
-  justify-content: center;
+  min-height: 100vh;
+  display: flex;
   align-items: center;
-}
-.pq-content {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(2rem, 8vw, 4.5rem);
-  line-height: 1.2;
-  text-transform: uppercase;
-  text-align: center;
-  max-width: 600px;
-  color: var(--cream);
-  text-shadow: -3px 3px 0 var(--gold);
+  justify-content: center;
+  padding: 3rem;
   position: relative;
-  z-index: 2;
 }
-.pq-cite {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--gold);
-  margin-top: 1.5rem;
-  opacity: 0.8;
-}
-
-/* ========== IMAGE PAGE ========== */
-.image-page {
-  background: var(--black);
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-}
-.img-container {
-  width: 100%;
-  max-width: 600px;
+.pq-box {
+  max-width: 750px;
+  padding: 3rem;
   position: relative;
-  z-index: 2;
-}
-.img-container img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.img-caption {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--cream);
-  margin-top: 1.5rem;
-  opacity: 0.7;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* ========== BACK MATTER ========== */
-.back {
-  background: var(--navy);
-  color: var(--cream);
-  justify-content: center;
-  align-items: center;
+  z-index: 3;
   text-align: center;
 }
-.back-header {
+.pq-text {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.8rem;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  line-height: 1.08;
   text-transform: uppercase;
-  margin-bottom: 2rem;
-  color: var(--crimson);
+  margin: 0;
 }
-.back-body {
-  font-family: 'IBM Plex Serif', serif;
-  font-size: 0.95rem;
-  line-height: 1.8;
-  max-width: 500px;
-}
-.back-body p {
-  margin-bottom: 1.2rem;
-}
-.back-cta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-top: 2rem;
-  color: var(--gold);
-}
-
-/* ========== FOOTER ========== */
-footer {
-  background: var(--black);
-  color: var(--cream);
-  text-align: center;
-  padding: 2rem;
+.pq-attr {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.6rem;
   text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+/* PQ VARIANTS */
+.pq-navy { background: var(--navy); color: var(--crimson); }
+.pq-navy .pq-attr { color: var(--gold); }
+.pq-crimson { background: var(--crimson); color: var(--cream); }
+.pq-crimson .pq-attr { color: var(--navy); }
+.pq-gold { background: var(--gold); color: var(--navy); }
+.pq-gold .pq-attr { color: var(--navy); }
+.pq-black { background: var(--black); color: var(--crimson); }
+.pq-black .pq-attr { color: var(--gold); }
+.pq-cream { background: var(--cream); color: var(--navy); }
+.pq-cream .pq-attr { color: var(--crimson); }
+.pq-slate { background: var(--slate); color: var(--gold); }
+.pq-slate .pq-attr { color: var(--cream); }
+
+.pq-border {
+  border: 5px solid;
+  border-color: inherit;
+  box-shadow: -6px 6px 0 rgba(0,0,0,0.2);
+}
+.pq-tilt { transform: rotate(-2deg); }
+.pq-tilt-r { transform: rotate(2deg); }
+
+.pq-text .em {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
+}
+.pq-text .strong {
+  font-weight: 900;
+}
+.pq-text .inv {
+  background: var(--navy);
+  color: var(--crimson);
+  padding: 0 0.15em;
+  display: inline-block;
+}
+.pq-text .inv-gold {
+  background: var(--gold);
+  color: var(--navy);
+  padding: 0 0.15em;
+  display: inline-block;
+}
+.pq-text .inv-crimson {
+  background: var(--crimson);
+  color: var(--cream);
+  padding: 0 0.15em;
+  display: inline-block;
+}
+
+/* ========== INTERSTITIAL ========== */
+.inter {
+  background: var(--crimson);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.inter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 10vw, 6rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 800px;
+}
+.inter-title .col {
+  color: var(--gold);
+  text-shadow: 2px 2px 0 var(--navy);
+}
+.inter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+/* Interstitial variant - navy */
+.inter-navy {
+  background: var(--navy);
+  color: var(--cream);
+}
+.inter-navy .inter-label { color: var(--gold); }
+.inter-navy .inter-title .col {
+  color: var(--crimson);
+  text-shadow: 2px 2px 0 var(--gold);
+}
+
+/* ========== ART SPREAD ========== */
+.art-spread {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.art-spread[data-illustration],
+.page[data-illustration].art-spread {
+  min-height: 100vh;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.art-credit {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
   letter-spacing: 0.1em;
-  opacity: 0.5;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+  z-index: 3;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
+/* Art spread CSS placeholder backgrounds */
+.art-pyramid {
+  background:
+    radial-gradient(circle at 20% 30%, var(--crimson) 0%, transparent 40%),
+    radial-gradient(circle at 75% 60%, var(--gold) 0%, transparent 35%),
+    radial-gradient(circle at 50% 80%, var(--crimson) 0%, transparent 25%),
+    linear-gradient(135deg, var(--navy) 0%, var(--black) 100%);
+}
+.art-pyramid::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(220,38,38,0.06) 20px, rgba(220,38,38,0.06) 21px),
+    repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(201,168,76,0.04) 20px, rgba(201,168,76,0.04) 21px);
+  z-index: 1;
+  pointer-events: none;
+}
+.art-pyramid::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--crimson) 2px, transparent 2px);
+  background-size: 8px 8px;
+  opacity: 0.2;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.art-futures {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(201,168,76,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgba(220,38,38,0.25) 0%, transparent 40%),
+    conic-gradient(from 45deg at 50% 50%, var(--navy) 0deg, var(--slate) 90deg, var(--black) 180deg, var(--navy) 270deg, var(--navy) 360deg);
+}
+.art-futures::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(201,168,76,0.05) 30px, rgba(201,168,76,0.05) 31px),
+    repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(220,38,38,0.03) 30px, rgba(220,38,38,0.03) 31px);
+  z-index: 1;
+  pointer-events: none;
+}
+.art-futures::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--gold) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+  opacity: 0.18;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.art-yshaped {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(220,38,38,0.35) 0%, transparent 45%),
+    radial-gradient(ellipse at 25% 75%, rgba(201,168,76,0.3) 0%, transparent 40%),
+    radial-gradient(ellipse at 75% 75%, rgba(201,168,76,0.3) 0%, transparent 40%),
+    linear-gradient(180deg, var(--black) 0%, var(--navy) 100%);
+}
+.art-yshaped::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(60deg, transparent, transparent 25px, rgba(220,38,38,0.04) 25px, rgba(220,38,38,0.04) 26px),
+    repeating-linear-gradient(-60deg, transparent, transparent 25px, rgba(201,168,76,0.03) 25px, rgba(201,168,76,0.03) 26px);
+  z-index: 1;
+  pointer-events: none;
+}
+.art-yshaped::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--cream) 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.12;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Decorative shapes for art pages */
+.shape {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.shape-circle {
+  border-radius: 50%;
+  border: 4px solid;
+}
+.shape-rect {
+  border: 4px solid;
+}
+.shape-diag {
+  height: 100%;
+  width: 60%;
+  transform: skewX(-15deg);
+  opacity: 0.15;
+}
+.shape-triangle {
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 140px solid;
+}
+
+/* ========== NEXT ISSUE ========== */
+.next-issue {
+  background: var(--gold);
+  color: var(--navy);
+  justify-content: center;
+  text-align: center;
+}
+.next-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-bottom: 1rem;
+  color: var(--navy);
+  opacity: 0.7;
+}
+.next-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  text-shadow: -2px 2px 0 var(--crimson);
+  color: var(--navy);
+}
+.next-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--navy);
+  opacity: 0.8;
+}
+
+/* ========== COLOPHON ========== */
+.colophon {
+  background: var(--navy);
+  color: var(--cream);
+  text-align: center;
+}
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--crimson);
+  margin-bottom: 1rem;
+}
+.col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  text-shadow: 2px 2px 0 var(--crimson);
+  color: var(--cream);
+}
+.col-text {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.95rem;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.85;
+}
+.col-text p { margin-bottom: 0.8rem; }
+.col-issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.col-issue {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+.col-issue.current {
+  background: var(--crimson);
+  color: var(--cream);
+  border-color: var(--crimson);
+  font-weight: 600;
+  opacity: 1;
+}
+
+a.col-issue { text-decoration: none; transition: opacity 0.2s, background 0.2s; cursor: pointer; }
+a.col-issue:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+a.col-issue.current:hover { opacity: 1; }
+.col-footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--gold);
+  margin-top: 2.5rem;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+/* Highlight span */
+.highlight {
+  background: var(--crimson);
+  color: var(--cream);
+  padding: 0.1em 0.3em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.highlight-gold {
+  background: var(--gold);
+  color: var(--navy);
+  padding: 0.1em 0.3em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Layer diagram */
+.layer-stack {
+  margin: 1.5rem 0;
+}
+.layer-item {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 0;
+}
+.layer-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  min-width: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+.layer-content {
+  padding: 1.2rem 1.5rem;
+  flex: 1;
+  border-left: 3px solid var(--gold);
+}
+.layer-content h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.layer-content p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .page { padding: 2.5rem 1.5rem; }
+  body { font-size: 16px; }
   .nav-dots { display: none; }
-  .reg-mark { display: none; }
-  .cover-issue, .cover-prologue, .cover-by, .cover-season { font-size: 0.5rem; }
-  .toc-item { flex-direction: column; gap: 0.5rem; }
+  .pq-box { padding: 2rem; }
+  .cover-title { font-size: clamp(3rem, 14vw, 8rem); }
+  .challenge-block { padding: 1.5rem; margin: 1rem 0; }
+  .mutation-block { padding: 1.2rem; margin: 1rem 0; }
+  .layer-num { font-size: 2rem; min-width: 2.5rem; }
 }
 
-/* PRINT */
+/* ========== PRINT ========== */
 @media print {
-  html, body { background: white; }
-  .nav-dots { display: none; }
   body::before { display: none; }
-  .page { padding: 0; min-height: auto; page-break-after: always; }
+  .page { page-break-after: always; page-break-inside: avoid; min-height: auto; }
+  .nav-dots { display: none; }
+  @page { size: A5; margin: 1.5cm; }
+  .art-spread { min-height: 50vh; }
+  .pullquote { min-height: auto; padding: 2rem; }
+}
+
+/* DISPATCH BACK NAV */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--cream, var(--white, #f0ebe0));
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--cream, var(--white, #f0ebe0));
+  color: var(--black, #0a0a0a);
 }
 </style>
 </head>
 <body>
-<div class="nav-dots" id="nav-dots"></div>
+<div class="dispatch-back"><a href="/dispatch/zines/">← All Issues</a></div>
 
-<!-- ===== COVER ===== -->
-<div class="page cover">
-  <div class="cover-illustration" data-illustration="true"></div>
-  <div class="reg-mark reg-tl"><div class="reg-cross"></div> TL</div>
-  <div class="reg-mark reg-tr"><div class="reg-cross"></div> TR</div>
-  <div class="reg-mark reg-bl"><div class="reg-cross"></div> BL</div>
-  <div class="reg-mark reg-br"><div class="reg-cross"></div> BR</div>
+<!-- NAV DOTS -->
+<div class="nav-dots" id="navDots"></div>
 
+<!-- ============================================================ -->
+<!-- PAGE 1: COVER -->
+<!-- ============================================================ -->
+<section class="page cover">
+  <div class="cover-illustration" data-illustration="cover-pyramid" style="background-image: url(/assets/dispatch/zines/issue-00/img-01.webp); background-size: cover; background-position: center;"></div>
+  <span class="cover-issue">Issue #00 / Prologue</span>
+  <span class="cover-prologue">Prologue</span>
+  <div class="cover-series">Dispatches from the Shift</div>
+  <h1 class="cover-title">
+    <span class="the">The</span>
+    <span class="pyramids">Pyramids</span>
+    <span class="crumble">Crumble</span>
+  </h1>
+  <div class="cover-sub">The shape of work to come</div>
+  <div class="cover-by">Words: Thordur Arnason<br>Chief Dispatcher: Lena Thorsmæhlum</div>
+  <div class="cover-season">Spring 2026</div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--gold);"></span>
+  <span class="reg-mark reg-br" style="color: var(--gold);">DTFS-00-2026</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 2: STAT -->
+<!-- ============================================================ -->
+<section class="page stat">
   <div class="page-in">
-    <div class="cover-issue">Issue #00</div>
-    <div class="cover-prologue">Prologue</div>
-    <div class="cover-by">Gervi Labs</div>
-    <div class="cover-season">Spring 2024</div>
-
-    <p class="cover-series">Dispatches from the Shift</p>
-    <h1 class="cover-title">
-      <span class="the">The</span>
-      <span class="pyramids">Pyramids</span>
-      <span class="crumble">Crumble</span>
-    </h1>
-    <p class="cover-sub">The shape of work to come. On AI rewriting the org chart before anyone noticed.</p>
+    <div class="stat-big"><span class="val">90 Minutes</span></div>
+    <div class="stat-sep">/</div>
+    <div class="stat-label">A 25-year-old drafted a credible corporate strategy with one AI copilot. That used to take teams weeks.</div>
   </div>
-</div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--gold);"></span>
+</section>
 
-<!-- ===== STATS PAGE ===== -->
-<div class="page stat">
+<!-- ============================================================ -->
+<!-- PAGE 3: TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+<section class="page toc">
   <div class="page-in">
-    <div class="stat-big">
-      <span class="val">01</span>
-    </div>
-    <div class="stat-sep">—</div>
-    <p class="stat-label">
-      The first in a series exploring the unheralded reorganizations already remaking how we work. How AI systems have started writing the org chart before executives realized it.
-    </p>
-  </div>
-</div>
-
-<!-- ===== TOC ===== -->
-<div class="page toc">
-  <div class="page-in">
-    <h2 class="toc-title">Contents</h2>
-
+    <h2 class="toc-title">Tracklist</h2>
     <div class="toc-item">
-      <div class="toc-num">1</div>
+      <span class="toc-num">01</span>
       <div class="toc-info">
-        <h3>The Invisible Hand</h3>
-        <p>How algorithmic routing reshapes team hierarchies</p>
+        <h3>The Pyramid</h3>
+        <p>What it was and why it broke</p>
       </div>
     </div>
-
     <div class="toc-item">
-      <div class="toc-num">2</div>
+      <span class="toc-num">02</span>
       <div class="toc-info">
-        <h3>The Problem with Transparency</h3>
-        <p>What happens when workflows become visible at scale</p>
+        <h3>Four Futures</h3>
+        <p>What's competing to replace the pyramid</p>
       </div>
     </div>
-
     <div class="toc-item">
-      <div class="toc-num">3</div>
+      <span class="toc-num">03</span>
       <div class="toc-info">
-        <h3>The Future Org</h3>
-        <p>Preparing leadership for continuous reorganization</p>
+        <h3>The New Genome</h3>
+        <p>Y-shaped professionals, three mutations</p>
+      </div>
+    </div>
+    <div class="toc-item" style="border-bottom: none;">
+      <span class="toc-num">04</span>
+      <div class="toc-info">
+        <h3>Five Exits</h3>
+        <p>Leaving work that doesn't compound</p>
       </div>
     </div>
   </div>
-</div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--navy);"></span>
+</section>
 
-<!-- ===== EDITOR NOTE ===== -->
-<div class="page editor">
+<!-- ============================================================ -->
+<!-- PAGE 4: EDITOR'S NOTE -->
+<!-- ============================================================ -->
+<section class="page editor">
   <div class="page-in">
-    <p class="editor-label">Editor's Note</p>
+    <div class="editor-label">Editor's Note</div>
     <div class="editor-body">
-      <p>For decades, the org chart has been a static artifact—updated quarterly, printed on the wall, sacred in its immobility. It represented order. Hierarchy. The pyramid that everyone understood.</p>
-      <p>That pyramid is crumbling. Not because of any deliberate reorganization, but because the systems we've built to manage information flow, route decisions, and coordinate work have started to make those decisions faster than humans can reorganize.</p>
-      <p>AI systems are rewriting the org chart in real time, and most leaders haven't noticed.</p>
-      <p>This is the first dispatch from that shift. We're not here to sound alarms, but to help you see what's already happening—and to ask better questions about what it means to lead an organization that reorganizes itself.</p>
-      <p class="editor-sig">— Gervi Labs Dispatch Desk</p>
+      <p>Before the SaaS stack collapsed, before cognitive surrender, before the junior trap -- there was the pyramid. The consulting model that turned raw intelligence into business wisdom through structured suffering.</p>
+      <p>For a hundred years it worked. Then AI arrived, and the walls started crumbling.</p>
+      <p>This is where the story begins.</p>
     </div>
+    <div class="editor-sig">-- Lena Thorsmaehlum, Editor in Chief</div>
   </div>
-</div>
+  <span class="reg-mark reg-tr" style="color: var(--crimson);">p.04</span>
+</section>
 
-<!-- ===== ARTICLE 1 ===== -->
-<div class="page article article-cream">
+<!-- ============================================================ -->
+<!-- PAGE 5: ARTICLE 1 — The Pyramid -->
+<!-- ============================================================ -->
+<section class="page article article-cream">
   <div class="page-in">
-    <p class="art-num">01</p>
-    <h2 class="art-title">The Invisible Hand</h2>
+    <div class="art-num">Article 01</div>
+    <h2 class="art-title">The Pyramid</h2>
     <div class="art-body">
-      <p><strong>Jamal's team used to report to Marketing.</strong> Now they don't—at least not in any formal sense.</p>
+      <p>I think we're witnessing the collapse of a 100-year-old knowledge work model.</p>
 
-      <p>When the demand generation platform started routing incoming leads directly to specialists, it didn't ask permission. It just looked at where leads were most likely to convert and sent them there. Within six months, Jamal's engineers (nominally "supporting" demand gen) were spending 90% of their time on lead-specific work. The org chart said they reported to Jamal. The actual flow of work said they answered to the AI system deciding where each lead should go.</p>
+      <p>The consulting pyramid we still use as the structural foundation in our operating models isn't just an org chart. It's a <em>knowledge distillation machine</em> that turns raw intelligence into business wisdom through structured suffering.</p>
+    </div>
 
-      <p>Jamal didn't realize his team had been reorganized until finance flagged the time allocation. By then, the structure was already so embedded that changing it back would require rewriting the entire lead-routing system.</p>
+    <div class="layer-stack">
+      <div class="layer-item" style="background: rgba(10,14,26,0.06); margin-bottom: 2px;">
+        <div class="layer-num" style="color: var(--crimson);">1</div>
+        <div class="layer-content" style="border-color: var(--crimson);">
+          <h4 style="color: var(--navy);">Information Processing</h4>
+          <p style="color: var(--black);">Juniors learned to turn chaos into structure. 80-hour weeks building models equals pattern recognition. Death by PowerPoint equals visual communication mastery.</p>
+        </div>
+      </div>
+      <div class="layer-item" style="background: rgba(10,14,26,0.1); margin-bottom: 2px;">
+        <div class="layer-num" style="color: var(--crimson);">2</div>
+        <div class="layer-content" style="border-color: var(--crimson);">
+          <h4 style="color: var(--navy);">Synthesis</h4>
+          <p style="color: var(--black);">Managers converted patterns into insight. Client management equals emotional intelligence. Team leadership equals human dynamics.</p>
+        </div>
+      </div>
+      <div class="layer-item" style="background: rgba(10,14,26,0.14);">
+        <div class="layer-num" style="color: var(--crimson);">3</div>
+        <div class="layer-content" style="border-color: var(--crimson);">
+          <h4 style="color: var(--navy);">Judgment</h4>
+          <p style="color: var(--black);">Senior leaders turned insights into decisions using relationship capital, contextual wisdom and experienced risk sense.</p>
+        </div>
+      </div>
+    </div>
 
-      <p><strong>This is happening everywhere.</strong></p>
-
-      <p>Systems designed to optimize for efficiency—routing, matching, recommendation, orchestration—don't recognize org charts. They recognize patterns. They find the shortest path between problem and solver, and they make that path frictionless. If that path doesn't match the hierarchy, they wear a new path anyway.</p>
-
-      <p>What used to take a reorganization—planning, announcement, resistance, change management—now happens at the speed of workflow. And because it happens in the flow of actual work, it's invisible to the formal structures that track it.</p>
-
-      <p>The people doing the work know their priorities have shifted. The system knows what it routed to them. But the org chart? The org chart is a historical record of what <em>used to be true.</em></p>
-
-      <p><strong>The first invisible reorganization happens when you stop asking the system where it routes work.</strong></p>
+    <div class="art-body" style="margin-top: 1.5rem;">
+      <p>This model served us well until suddenly it didn't.</p>
     </div>
   </div>
-</div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--navy);"></span>
+  <span class="reg-mark reg-br" style="color: var(--navy);">p.05</span>
+</section>
 
-<!-- ===== QUOTE PAGE ===== -->
-<div class="page pullquote">
+<!-- ============================================================ -->
+<!-- PAGE 6: ARTICLE 1 CONTINUED — Three Existential Challenges -->
+<!-- ============================================================ -->
+<section class="page article article-navy" style="padding-top: 3rem;">
   <div class="page-in">
-    <div class="pq-content">
-      "The org chart is a historical record of what used to be true."
+    <div class="art-num">Article 01 / continued</div>
+    <h2 class="art-title" style="font-size: clamp(1.8rem, 6vw, 3.5rem);">Three Existential Challenges</h2>
+
+    <div class="challenge-block cb-crimson">
+      <h3>1. The Experience Paradox</h3>
+      <p>AI hands juniors polished answers they never had to wrestle for. They gain output but not the scar tissue that tempers judgment, leaving a generation of consultants armed with confidence unbacked by experience.</p>
     </div>
-    <p class="pq-cite">— Dispatch #00</p>
-  </div>
-</div>
 
-<!-- ===== ARTICLE 2 ===== -->
-<div class="page article article-navy">
+    <div class="challenge-block cb-navy">
+      <h3>2. The Legitimacy Crisis</h3>
+      <p>If a $20 chatbot drafts a market-entry deck in seconds, the old 'nobody gets fired for hiring McKinsey' premium evaporates. When expertise is commoditized, the firm's badge stops being career insurance.</p>
+    </div>
+
+    <div class="challenge-block cb-dark">
+      <h3>3. The Cultural Extinction</h3>
+      <p>Kill the midnight slide-grind and you also kill the tribe: bullpen banter, mentorship moments, shared war stories. Without that crucible, a consultancy becomes just another talent platform with a logo.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-bl" style="color: var(--gold);">p.06</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 7: PULL QUOTE 1 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-black">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--gold), 3px 3px 0 rgba(220,38,38,0.5);">The consulting pyramid is <span class="inv-crimson">on hospice.</span></p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--crimson);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 8: INTERSTITIAL -->
+<!-- ============================================================ -->
+<section class="page inter">
+  <div class="page-in" style="max-width: 800px;">
+    <div class="inter-label">Dispatch Signal</div>
+    <h2 class="inter-title">This is not a ten percent efficiency story. <span class="col">It is closer to a white-collar bloodbath.</span></h2>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--navy);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 9: ARTICLE 2 — Four Futures -->
+<!-- ============================================================ -->
+<section class="page article article-black">
   <div class="page-in">
-    <p class="art-num">02</p>
-    <h2 class="art-title">The Problem with Transparency</h2>
+    <div class="art-num">Article 02</div>
+    <h2 class="art-title">Four Futures</h2>
     <div class="art-body">
-      <p><strong>Most AI systems are built to be visible.</strong> You can see where decisions are made, why they were made, what they routed to where. The data is there. The logic is traceable. In theory, anyone with access can audit the work.</p>
+      <p>I watched a 25-year-old draft a credible corporate strategy in 90 minutes with one AI copilot. That used to take teams weeks. The pyramid is not quietly evolving. <em>It is on hospice.</em> The idea that we can sprinkle AI on top and keep billing is denial backed by a tech budget.</p>
 
-      <p>In practice, almost no one does. And the ones who should be—the ones whose job is to understand organizational structure and function—are drowning in the volume.</p>
+      <p>Four futures competing to replace the pyramid:</p>
+    </div>
 
-      <p>A typical mid-sized company might have dozens of routing systems. Customer service bots. Demand gen platforms. Resource allocation engines. Matching algorithms. Each one routes work somewhere. Each one creates an invisible hierarchy of <em>where the actual work happens</em> versus <em>where the org chart says it should happen.</em></p>
+    <div class="challenge-block cb-gold">
+      <h3>1) The Great Inversion</h3>
+      <p>AI-native juniors create most of the value, while seniors orchestrate context, relationships and risk. Winners: firms brave enough to put 25-year-olds on the field. Losers: leaders who still believe spreadsheet prowess is a moat.</p>
+    </div>
 
-      <p>That gap widens when the systems start talking to each other. When the lead-routing system hands off to the resource-allocation system, which hands off to the project-matching engine, which hands off back to specialized routing—suddenly there's no single place to look to understand how work actually gets done.</p>
+    <div class="challenge-block cb-crimson">
+      <h3>2) The Expertise Graveyard</h3>
+      <p>Due diligence, market sizing and standard strategy decks collapse into prompts and reusable workflows. Winners: consultants who can also be decision coaches and, when needed, therapists. Losers: anyone whose edge is memorised frameworks.</p>
+    </div>
 
-      <p>And that's where the real reorganization happens. Not in the gaps between systems, but in the <strong>compounding effects of transparency that's too granular to act on.</strong></p>
+    <div class="challenge-block cb-navy">
+      <h3>3) The Star System</h3>
+      <p>A few rainmakers command outsized economics, while many assemble portfolio careers across shorter expert gigs. Winners: personal brands that outshine firm brands. Losers: linear career ladders.</p>
+    </div>
 
-      <p><strong>The second invisible reorganization happens when you have perfect data about organizational flow, and no framework for acting on it.</strong></p>
+    <div class="challenge-block cb-dark">
+      <h3>4) The Simulation Premium</h3>
+      <p>Some firms charge more for not using AI, turning hand-crafted artefacts into luxury goods. Winners: teams willing to monetise deliberate slowness. Losers: anyone still competing on hourly efficiency.</p>
     </div>
   </div>
-</div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--crimson);"></span>
+  <span class="reg-mark reg-br" style="color: var(--gold);">p.09</span>
+</section>
 
-<!-- ===== IMAGE PAGE ===== -->
-<div class="page image-page">
-  <div class="page-in">
-    <div class="img-container">
-      <img src="https://gervilabs.com/assets/dispatch/zines/issue-00/img-01.webp" alt="The Pyramids Crumble — visual representation">
-      <p class="img-caption">The topology of work, rendered invisible</p>
-    </div>
+<!-- ============================================================ -->
+<!-- PAGE 10: PULL QUOTE 2 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-cream">
+  <div class="pq-box pq-tilt-r pq-border" style="border-color: var(--navy); box-shadow: -6px 6px 0 var(--crimson);">
+    <p class="pq-text" style="color: var(--navy); text-shadow: -2px -2px 0 var(--crimson), 2px 2px 0 var(--gold);">In an age of <span class="em">infinite intelligence,</span> the only moat left is the ability to look a CEO in the eye and say <span class="inv">'you are wrong'</span></p>
+    <div class="pq-attr" style="color: var(--navy);">-- Thordur Arnason</div>
   </div>
-</div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--navy);"></span>
+</section>
 
-<!-- ===== ARTICLE 3 ===== -->
-<div class="page article article-slate">
+<!-- ============================================================ -->
+<!-- PAGE 11: ART SPREAD — Four Futures -->
+<!-- ============================================================ -->
+<section class="page art-spread art-futures" data-illustration="four-futures" style="background-image: url(/assets/dispatch/zines/issue-00/img-02.webp); background-size: cover; background-position: center;">
+  <!-- Decorative shapes -->
+  <div class="shape shape-circle" style="width: 200px; height: 200px; border-color: var(--gold); top: 15%; left: 10%; opacity: 0.25;"></div>
+  <div class="shape shape-circle" style="width: 120px; height: 120px; border-color: var(--crimson); top: 55%; right: 15%; opacity: 0.3;"></div>
+  <div class="shape shape-rect" style="width: 300px; height: 80px; border-color: var(--gold); bottom: 20%; left: 25%; opacity: 0.15; transform: rotate(5deg);"></div>
+  <div class="shape shape-diag" style="background: var(--crimson); left: 50%; opacity: 0.05;"></div>
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 12: ARTICLE 3 — The New Genome -->
+<!-- ============================================================ -->
+<section class="page article article-slate">
   <div class="page-in">
-    <p class="art-num">03</p>
-    <h2 class="art-title">The Future Org</h2>
+    <div class="art-num">Article 03</div>
+    <h2 class="art-title">The New Genome</h2>
     <div class="art-body">
-      <p><strong>So what do you do when your org chart is already obsolete?</strong></p>
+      <p>The T-shaped professional now feels quaint. The emerging pattern is the <em>Y-shaped professional</em>.</p>
 
-      <p>The traditional answer is reorganization. Audit the company. Understand how work really flows. Realign the structure to match reality. It's sound advice. It's also increasingly impractical—because by the time you've finished the audit, the flows have shifted again.</p>
+      <p><strong>Stem: hybrid vigour.</strong> Not 'AI plus human,' but AI <em>through</em> human. Prompting as performance. Judgment amplified, not replaced.</p>
 
-      <p>Some companies are starting to ask a different question: <strong>What if we stopped trying to predict the org chart and started designing for continuous reorganization?</strong></p>
+      <p><strong>Branch one: truth-telling.</strong> Courage to kill bad ideas early and to read what data hides.</p>
 
-      <p>This doesn't mean chaos. It means:</p>
+      <p><strong>Branch two: taste-making.</strong> Curating infinity into relevance. Knowing what to ignore. Making the ineffable billable through consistent discernment.</p>
+    </div>
+  </div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--gold);"></span>
+  <span class="reg-mark reg-br" style="color: var(--crimson);">p.12</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 13: ARTICLE 3 CONTINUED — Three Mutations -->
+<!-- ============================================================ -->
+<section class="page article article-navy" style="padding-top: 3rem;">
+  <div class="page-in">
+    <div class="art-num">Article 03 / continued</div>
+    <h2 class="art-title" style="font-size: clamp(1.8rem, 6vw, 3.5rem);">Three Mutations</h2>
+    <div class="art-body">
+      <p>Three mutations are spreading:</p>
+    </div>
+
+    <div class="mutation-block mb-crimson">
+      <h3>The Promptheus Complex</h3>
+      <p>Speaks to machines like a poet to a muse and gets systems to do things their creators did not plan.</p>
+      <div class="meta">Superpower: unconventional leverage. Kryptonite: explaining value to linear thinkers.</div>
+    </div>
+
+    <div class="mutation-block mb-gold">
+      <h3>The Synthesis Savant</h3>
+      <p>Sees the pattern in the patterns and surfaces the one truth that moves the decision.</p>
+      <div class="meta">Superpower: turning infinite intelligence into singular wisdom. Kryptonite: loneliness at 30,000 feet.</div>
+    </div>
+
+    <div class="mutation-block mb-cream">
+      <h3>The Reality Referee</h3>
+      <p>Calls out beautiful lies and grounds hallucinations in messy human truth.</p>
+      <div class="meta">Superpower: protecting leaders from their own cleverness. Kryptonite: being right too early, too often.</div>
+    </div>
+  </div>
+  <span class="reg-mark reg-bl" style="color: var(--gold);">p.13</span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 14: PULL QUOTE 3 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-crimson">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--gold), 3px 3px 0 var(--navy);"><span class="inv-gold">Fire yourself.</span> Use AI to do 80% of your role in 20% of the time. What remains is your <span class="em">actual value.</span></p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--navy);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 15: ART SPREAD — Y-Shaped -->
+<!-- ============================================================ -->
+<section class="page art-spread art-yshaped" data-illustration="y-shaped" style="background-image: url(/assets/dispatch/zines/issue-00/img-03.webp); background-size: cover; background-position: top center;">
+  <!-- Decorative shapes -->
+  <div class="shape shape-circle" style="width: 160px; height: 160px; border-color: var(--crimson); top: 20%; left: 15%; opacity: 0.25;"></div>
+  <div class="shape shape-circle" style="width: 100px; height: 100px; border-color: var(--gold); bottom: 25%; right: 20%; opacity: 0.3;"></div>
+  <div class="shape shape-rect" style="width: 200px; height: 60px; border-color: var(--crimson); top: 60%; left: 55%; opacity: 0.15; transform: rotate(-3deg);"></div>
+  <div class="shape shape-circle" style="width: 60px; height: 60px; border-color: var(--gold); top: 35%; right: 10%; opacity: 0.2;"></div>
+  <div class="shape shape-diag" style="background: var(--gold); right: 0; left: auto; width: 40%; opacity: 0.04;"></div>
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 16: INTERSTITIAL 2 -->
+<!-- ============================================================ -->
+<section class="page inter inter-navy">
+  <div class="page-in" style="max-width: 800px;">
+    <div class="inter-label">Dispatch Signal</div>
+    <h2 class="inter-title">The pyramid is dead. <span class="col">Long live the Y-shaped professional.</span></h2>
+  </div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--crimson);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 17: ARTICLE 4 — Five Exits -->
+<!-- ============================================================ -->
+<section class="page article article-cream">
+  <div class="page-in">
+    <div class="art-num">Article 04</div>
+    <h2 class="art-title">Five Exits</h2>
+    <div class="art-body">
+      <p>By exit I do not mean resignation. I mean <em>leaving work that does not compound</em>. Each exit starts small, then shifts incentives, measures and who holds the pen.</p>
 
       <ol>
-        <li><strong>Visibility into actual work flows</strong> — not self-reported time sheets, but real instrumentation of where decisions get routed and why</li>
-        <li><strong>Policies that accommodate flow</strong> — compensation, evaluation, career progression that doesn't assume a fixed hierarchy</li>
-        <li><strong>Regular microreorganizations</strong> — small, local shifts in reporting and responsibility that match the actual shape of the work, done quarterly or more often</li>
-        <li><strong>Leadership that embraces volatility</strong> — understanding that "your team" is now a dynamic set of collaborations, not a fixed roster</li>
+        <li><strong>Exit the deliverable, ship running systems.</strong> Move from static decks to live decision systems and agentic workflows. A document is a snapshot. A decision loop is a flow.</li>
+        <li><strong>Exit hourly billing, price the delta.</strong> Time-based revenue rewards slowness. Outcome-based revenue rewards leverage.</li>
+        <li><strong>Exit firm-first brand, platform your people.</strong> Clients hire people, not logos. Visibility compounds when experts publish in their own voice.</li>
+        <li><strong>Exit staff rotation, stand up field squads.</strong> Context is capital. Constant rotation destroys it. Keep the core intact.</li>
+        <li><strong>Exit IP hoarding, productise assets.</strong> If you never version it, you never improve it.</li>
       </ol>
 
-      <p>This is uncomfortable. Humans like stable hierarchies. They provide clarity. They tell you where you stand. They tell you where to go for decisions. They provide identity.</p>
-
-      <p><strong>None of that disappears in a continuous-reorganization model.</strong> It just becomes more fluid. More real-time. More honest about what the org actually is: a living system of work flows and decisions, not a static structure.</p>
-
-      <p>The companies that adapt first will have a massive advantage. The ones that don't will keep printing org charts and pretending they matter.</p>
-
-      <p><strong>The future org isn't an org chart at all. It's a live map of where work actually goes.</strong></p>
+      <p>Careers become less ladder and more <em>archipelago</em>. You move between islands of responsibility based on the loops you can own and the deltas you can price, not on years in a seat.</p>
     </div>
   </div>
-</div>
+  <span class="reg-mark reg-tl reg-cross" style="color: var(--navy);"></span>
+  <span class="reg-mark reg-br" style="color: var(--navy);">p.17</span>
+</section>
 
-<!-- ===== BACK MATTER ===== -->
-<div class="page back">
+<!-- ============================================================ -->
+<!-- PAGE 18: PULL QUOTE 4 -->
+<!-- ============================================================ -->
+<section class="page pullquote pq-navy">
+  <div class="pq-box pq-tilt-r pq-border" style="border-color: var(--gold); box-shadow: -6px 6px 0 var(--crimson);">
+    <p class="pq-text" style="text-shadow: -3px -3px 0 var(--gold), 3px 3px 0 rgba(220,38,38,0.4);">The firms that thrive will treat AI <span class="inv-gold">like oxygen,</span> not medicine.</p>
+    <div class="pq-attr">-- Thordur Arnason</div>
+  </div>
+  <span class="reg-mark reg-bl reg-cross" style="color: var(--gold);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 19: ART SPREAD — Pyramid -->
+<!-- ============================================================ -->
+<section class="page art-spread art-pyramid" data-illustration="cover-pyramid" style="background-image: url(/assets/dispatch/zines/issue-00/img-04.webp); background-size: cover; background-position: center;">
+  <!-- Decorative shapes -->
+  <div class="shape shape-circle" style="width: 180px; height: 180px; border-color: var(--gold); top: 20%; right: 15%; opacity: 0.2;"></div>
+  <div class="shape shape-rect" style="width: 250px; height: 70px; border-color: var(--crimson); bottom: 25%; left: 20%; opacity: 0.2; transform: rotate(-3deg);"></div>
+  <div class="shape shape-circle" style="width: 90px; height: 90px; border-color: var(--crimson); bottom: 15%; right: 25%; opacity: 0.25;"></div>
+  <div class="shape shape-diag" style="background: var(--gold); left: 0; width: 45%; opacity: 0.04;"></div>
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 20: NEXT ISSUE TEASER -->
+<!-- ============================================================ -->
+<section class="page next-issue">
+  <div class="page-in" style="text-align: center;">
+    <div class="next-label">Next Issue / #01</div>
+    <h2 class="next-title">The Four Horsemen</h2>
+    <p class="next-sub">The SaaSpocalypse and the fight for the control plane</p>
+  </div>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--navy);"></span>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAGE 21: COLOPHON -->
+<!-- ============================================================ -->
+<section class="page colophon">
   <div class="page-in">
-    <h3 class="back-header">Dispatches from the Shift</h3>
-    <div class="back-body">
-      <p>This is the first in a series of dispatches exploring how AI and automation are reorganizing work before anyone noticed.</p>
-      <p>Each dispatch is a deep look at one aspect of this shift—from the practical to the philosophical to the frightening.</p>
-      <p class="back-cta">Next dispatch coming May 2024</p>
+    <div class="col-label">Colophon</div>
+    <h2 class="col-title">Dispatches from the Shift</h2>
+    <div class="col-text">
+      <p>All texts by Thordur Arnason.</p>
+      <p>Originally published on LinkedIn, 2025&ndash;2026.</p>
+      <p>Assembled &amp; instigated by Lena Thorsmaehlum.</p>
+      <p>Art by The Synthetics.</p>
+      <p>Published by Gervi Labs.</p>
+      <p style="margin-top: 1rem; color: var(--crimson); font-weight: 600;">Two humans. Several synthetic collaborators.</p>
     </div>
+    <div class="col-issues">
+      <a class="col-issue current" href="/dispatch/zines/issue-00-the-pyramids-crumble.html">#00 The Pyramids Crumble</a>
+      <a class="col-issue" href="/dispatch/zines/issue-01-the-four-horsemen.html">#01 The Four Horsemen</a>
+      <a class="col-issue" href="/dispatch/zines/issue-02-the-finite-mind.html">#02 The Finite Mind</a>
+      <a class="col-issue" href="/dispatch/zines/issue-03-cognitive-surrender.html">#03 Cognitive Surrender</a>
+      <a class="col-issue" href="/dispatch/zines/issue-04-eating-the-seed-corn.html">#04 Eating the Seed Corn</a>
+      <a class="col-issue" href="/dispatch/zines/issue-05-the-rick-rubins.html">#05 The Rick Rubins</a>
+      <a class="col-issue" href="/dispatch/zines/issue-06-cyborgs-of-swing.html">#06 Cyborgs of Swing</a>
+    </div>
+    </div>
+    <div class="col-footer">gervilabs.com / Spring 2026<br><a href="/dispatch/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Synthetic Dispatch</a> · <a href="/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Gervi Labs</a></div>
   </div>
-</div>
+  <span class="reg-mark reg-bl" style="color: var(--gold);">DTFS-00-EOF</span>
+  <span class="reg-mark reg-tr reg-cross" style="color: var(--gold);"></span>
+</section>
 
-<footer>
-  Dispatches from the Shift — Issue #00 — © 2024 Gervi Labs
-</footer>
-
+<!-- ============================================================ -->
+<!-- JAVASCRIPT: Navigation -->
+<!-- ============================================================ -->
 <script>
-// Navigation dots functionality
 const pages = document.querySelectorAll('.page');
-const navDots = document.getElementById('nav-dots');
+const navContainer = document.getElementById('navDots');
+let currentPage = 0;
 
-pages.forEach((page, index) => {
-  const dot = document.createElement('button');
-  dot.classList.add('dot');
-  if (index === 0) dot.classList.add('active');
-  dot.addEventListener('click', () => {
-    page.scrollIntoView({ behavior: 'smooth' });
-  });
-  navDots.appendChild(dot);
+// Generate dots
+pages.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => scrollToPage(i));
+  navContainer.appendChild(dot);
 });
 
-// Update active dot on scroll
-window.addEventListener('scroll', () => {
-  let current = 0;
-  pages.forEach((page, index) => {
-    const rect = page.getBoundingClientRect();
-    if (rect.top < window.innerHeight / 2) {
-      current = index;
-    }
-  });
+const dots = document.querySelectorAll('.dot');
 
-  document.querySelectorAll('.dot').forEach((dot, index) => {
-    if (index === current) {
-      dot.classList.add('active');
-    } else {
-      dot.classList.remove('active');
+function updateDots() {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentPage);
+  });
+}
+
+function scrollToPage(index) {
+  currentPage = Math.max(0, Math.min(index, pages.length - 1));
+  pages[currentPage].scrollIntoView({ behavior: 'smooth' });
+  updateDots();
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    scrollToPage(currentPage + 1);
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    scrollToPage(currentPage - 1);
+  }
+});
+
+// IntersectionObserver for scroll tracking
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const index = [...pages].indexOf(entry.target);
+      if (index !== -1) {
+        currentPage = index;
+        updateDots();
+      }
     }
   });
-});
+}, { threshold: 0.5 });
+
+pages.forEach((page) => observer.observe(page));
 </script>
 </body>
 </html>

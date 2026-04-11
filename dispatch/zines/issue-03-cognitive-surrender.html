@@ -38,324 +38,1301 @@ body { background: var(--purple); color: var(--black); font-family: 'IBM Plex Se
 /* HALFTONE TEXTURE */
 @keyframes grain {
   0% { transform: translate(0, 0); }
-  20% { transform: translate(-2px, 3px); }
-  40% { transform: translate(-5px, -2px); }
-  60% { transform: translate(2px, 4px); }
-  80% { transform: translate(-1px, -3px); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -12%); }
+  40% { transform: translate(-3%, 8%); }
+  50% { transform: translate(12%, -3%); }
+  60% { transform: translate(-8%, 14%); }
+  70% { transform: translate(5%, -8%); }
+  80% { transform: translate(-12%, 2%); }
+  90% { transform: translate(8%, 10%); }
   100% { transform: translate(0, 0); }
 }
 
 body::before {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 20% 50%, transparent 1px, transparent 1px),
-    radial-gradient(circle at 60% 70%, transparent 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, transparent 1px, transparent 1px);
-  opacity: 0.03;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.5px, transparent 1.5px);
+  background-size: 5px 5px;
   pointer-events: none;
-  animation: grain 0.15s steps(4) infinite;
-  z-index: -1;
+  z-index: 8888;
+  opacity: 0.18;
+  animation: grain 20s steps(10) infinite;
 }
 
-/* LAYOUT */
-header { background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 100%); padding: 4rem 2rem; margin: 0; text-align: center; border-bottom: 3px solid var(--amber); position: relative; overflow: hidden; }
+/* PAGE SYSTEM */
+.page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+.page-in { max-width: 680px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
 
-header::before {
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dot.active { background: var(--amber); transform: scale(1.5); box-shadow: 0 0 6px var(--amber); }
+
+/* ============== COVER ============== */
+.cover {
+  background: var(--purple);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cover::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f97316' opacity='0.05'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3Ccircle cx='60' cy='40' r='2'/%3E%3Ccircle cx='80' cy='10' r='3'/%3E%3Ccircle cx='40' cy='70' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(249,115,22,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.1) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+.cover-series {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--amber);
+  background: rgba(26, 5, 32, 0.85);
+  padding: 0.3em 0.8em;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 3;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 18vw, 11rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--cream);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+}
+.cover-title .cognitive {
+  display: block;
+  color: var(--amber);
+  font-size: 0.55em;
+  letter-spacing: 0.05em;
+}
+.cover-title .surrender {
+  display: block;
+  text-shadow: -4px -4px 0 var(--amber), 4px 4px 0 var(--cyan);
+  color: var(--cream);
+}
+.cover-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 2.5rem;
+  color: var(--cream);
+  opacity: 1;
+  text-shadow: 0 0 8px rgba(26, 5, 32, 0.9), 0 0 20px rgba(26, 5, 32, 0.7);
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 3;
+  line-height: 1.6;
+}
+.cover-issue {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--purple-bright);
+  color: var(--amber);
+  padding: 0.5rem 1rem;
+  transform: rotate(-3deg);
+  z-index: 3;
+}
+.cover-by {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream);
+  opacity: 0.65;
+  z-index: 3;
+}
+.cover-season {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cyan);
+  opacity: 0.65;
+  z-index: 3;
+}
+
+/* ============== STAT ============== */
+.stat {
+  background: var(--purple-bright);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 18vw, 10rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.stat-big .val { color: var(--amber); text-shadow: -3px 3px 0 var(--cyan); }
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  max-width: 420px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--cream);
+}
+
+/* ============== TOC ============== */
+.toc {
+  background: var(--cream);
+  color: var(--black);
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  text-shadow: -2px 2px 0 var(--amber);
+}
+.toc-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px dashed var(--purple-bright);
+  align-items: flex-start;
+}
+.toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--amber);
+  min-width: 3rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.toc-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 0 0 0.3rem 0;
+}
+.toc-info p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--purple-bright);
+}
+
+/* ============== EDITORIAL ============== */
+.editorial {
+  background: var(--purple-dark);
+  color: var(--cream);
+}
+.ed-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  margin-bottom: 2rem;
+}
+.ed-txt p {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.75;
+  color: var(--cream);
+}
+
+/* ============== ARTICLE ============== */
+.article {
+  color: var(--black);
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+.art-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+}
+.art-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+.art-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--purple-bright);
+  margin-bottom: 2rem;
+}
+.art-body p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+.art-body p:first-child::first-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  float: left;
+  line-height: 0.7;
+  padding-right: 0.3rem;
+  color: var(--purple);
+  font-weight: 900;
+}
+.art-body strong { color: var(--black); font-weight: 700; }
+.art-body em { color: var(--purple-bright); font-style: italic; font-weight: 600; }
+.highlight {
+  background: var(--amber);
+  color: var(--black);
+  padding: 0.15em 0.4em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.highlight.cyan { background: var(--cyan); color: var(--black); }
+.highlight.purple { background: var(--purple-bright); color: var(--cream); }
+
+/* INDENT BLOCKS (anti-pattern items) */
+.indent {
+  background: rgba(124,58,237,0.07);
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  border-left: 4px solid var(--purple-bright);
+}
+.indent p {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.indent .lbl {
+  font-weight: 600;
+  color: var(--amber);
+}
+
+/* ANTI-PATTERN BLOCKS */
+.antipattern {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-left: 5px solid var(--amber);
+  border-top: 2px solid var(--cyan);
+  background: rgba(249,115,22,0.06);
+  position: relative;
+}
+.antipattern h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  color: var(--purple-bright);
+  margin: 0 0 0.5rem 0;
+}
+.antipattern .ap-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  margin-bottom: 0.3rem;
+}
+.antipattern p {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+.antipattern .imperative {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+  margin-top: 0.8rem;
+  font-weight: 600;
+}
+.antipattern.alt {
+  border-left-color: var(--cyan);
+  border-top-color: var(--amber);
+}
+.antipattern.alt h3 { color: var(--amber); }
+.antipattern.dark {
+  background: var(--purple-dark);
+  color: var(--cream);
+  border-left-color: var(--amber);
+  border-top-color: var(--cyan);
+}
+.antipattern.dark p { color: var(--cream); }
+.antipattern.dark h3 { color: var(--amber); }
+
+/* TRI-SYSTEM BOX */
+.system-box {
+  background: rgba(124,58,237,0.08);
+  border: 2px solid var(--purple-bright);
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+}
+.system-box .sys-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  color: var(--amber);
+  text-transform: uppercase;
+}
+.system-box .sys-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--purple-bright);
+  margin-top: 0.2rem;
+}
+
+/* DESIGN-PRINCIPLE BLOCKS */
+.principle {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-left: 5px solid var(--cyan);
+  background: rgba(6,182,212,0.06);
+}
+.principle h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin: 0 0 0.5rem 0;
+}
+.principle p {
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* SECTION BREAK */
+.brk { display: flex; align-items: center; gap: 0.8rem; margin: 2.5rem 0; }
+.brk span:first-child, .brk span:last-child { flex: 1; height: 1px; background: rgba(249,115,22,0.2); }
+.brk .ic { font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; color: var(--amber); letter-spacing: 0.4em; }
+
+/* ============== PULL QUOTE ============== */
+.pullquote {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+}
+.pq-box {
+  max-width: 700px;
+  padding: 3rem;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+.pq-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pq-text .em { font-style: italic; text-decoration: underline; text-decoration-thickness: 3px; }
+.pq-text .strong { font-weight: 900; }
+.pq-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+/* PQ VARIANTS */
+.pq-amber { background: var(--amber); color: var(--black); }
+.pq-amber .pq-attr { color: var(--black); }
+.pq-cyan { background: var(--cyan); color: var(--black); }
+.pq-cyan .pq-attr { color: var(--black); }
+.pq-purple { background: var(--purple-bright); color: var(--cream); }
+.pq-purple .pq-attr { color: var(--cream); }
+.pq-dark { background: var(--purple); color: var(--cream); }
+.pq-dark .pq-text { text-shadow: -2px -2px 0 var(--amber), 2px 2px 0 var(--cyan); }
+.pq-dark .pq-attr { color: var(--cream); }
+.pq-magenta { background: var(--magenta); color: var(--black); }
+.pq-magenta .pq-attr { color: var(--black); }
+.pq-indigo { background: var(--indigo); color: var(--cream); }
+.pq-indigo .pq-attr { color: var(--cream); }
+.pq-cream { background: var(--cream); color: var(--black); }
+.pq-cream .pq-attr { color: var(--black); }
+
+.pq-border {
+  border: 5px solid;
+  border-color: inherit;
+  box-shadow: -6px 6px 0 rgba(0,0,0,0.2);
+}
+.pq-tilt { transform: rotate(-2deg); }
+.pq-tilt-r { transform: rotate(2deg); }
+
+/* ============== INTERSTITIAL ============== */
+.inter {
+  background: var(--purple-dark);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.inter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 12vw, 7rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+}
+.inter-title .col { color: var(--amber); text-shadow: 2px 2px 0 var(--cyan); }
+.inter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  margin-bottom: 1rem;
+}
+.inter-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  max-width: 450px;
+  margin: 1.5rem auto 0;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+/* ============== ART SPREADS ============== */
+.art-spread {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.art-credit {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.6;
+  z-index: 3;
+}
+.art-spread[data-illustration],
+.page[data-illustration].art-spread {
+  min-height: 100vh;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* SURRENDER ART — concentric brain/circuit motif */
+.surrender-art {
+  background: var(--purple);
+}
+.surrender-art::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(249,115,22,0.04) 2deg, transparent 4deg),
+    radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+.brain-ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid;
+  border-radius: 50%;
+}
+.brain-ring:nth-child(1) { width: 360px; height: 360px; border-color: var(--amber); opacity: 0.6; animation: pulse-ring 4s ease-in-out infinite; }
+.brain-ring:nth-child(2) { width: 280px; height: 280px; border-color: var(--cyan); opacity: 0.5; animation: pulse-ring 4s ease-in-out 0.5s infinite; }
+.brain-ring:nth-child(3) { width: 200px; height: 200px; border-color: var(--amber); opacity: 0.4; animation: pulse-ring 4s ease-in-out 1s infinite; }
+.brain-ring:nth-child(4) { width: 130px; height: 130px; border-color: var(--purple-bright); opacity: 0.7; animation: pulse-ring 4s ease-in-out 1.5s infinite; }
+.brain-ring:nth-child(5) { width: 60px; height: 60px; border-color: var(--cyan); opacity: 0.9; background: rgba(6,182,212,0.1); }
+/* connecting lines */
+.brain-line {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 2px;
+  height: 180px;
+  background: linear-gradient(to bottom, var(--amber), transparent);
+  opacity: 0.2;
+  transform-origin: top center;
+}
+.brain-line:nth-child(6) { transform: translate(-50%, 0) rotate(0deg); }
+.brain-line:nth-child(7) { transform: translate(-50%, 0) rotate(45deg); }
+.brain-line:nth-child(8) { transform: translate(-50%, 0) rotate(90deg); }
+.brain-line:nth-child(9) { transform: translate(-50%, 0) rotate(135deg); }
+.brain-line:nth-child(10) { transform: translate(-50%, 0) rotate(180deg); }
+.brain-line:nth-child(11) { transform: translate(-50%, 0) rotate(225deg); }
+.brain-line:nth-child(12) { transform: translate(-50%, 0) rotate(270deg); }
+.brain-line:nth-child(13) { transform: translate(-50%, 0) rotate(315deg); }
+.surrender-art .art-label {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: -2px 2px 0 var(--amber);
+  z-index: 3;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+}
+
+/* HOMER ART — grid/button motif */
+.homer-art {
+  background: var(--black);
+}
+.homer-art::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(249,115,22,0.06) 0px, rgba(249,115,22,0.06) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(0deg, rgba(6,182,212,0.06) 0px, rgba(6,182,212,0.06) 1px, transparent 1px, transparent 40px);
+  pointer-events: none;
+  z-index: 1;
+}
+.button-grid {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(4, 60px);
+  grid-template-rows: repeat(2, 60px);
+  gap: 12px;
+  z-index: 2;
+}
+.btn-cell {
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.btn-cell.amber-btn { border-color: var(--amber); color: var(--amber); background: rgba(249,115,22,0.08); }
+.btn-cell.cyan-btn { border-color: var(--cyan); color: var(--cyan); background: rgba(6,182,212,0.08); }
+.btn-cell.yes-btn { border-color: var(--amber); color: var(--black); background: var(--amber); font-weight: 600; font-size: 0.65rem; }
+.homer-art .art-label {
+  position: absolute;
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  text-transform: uppercase;
+  color: var(--amber);
+  text-shadow: 2px 2px 0 var(--cyan);
+  z-index: 3;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* SYSTEM-3 ART — three overlapping circles */
+.system3-art {
+  background: var(--purple-dark);
+}
+.system3-art::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--amber) 1.5px, transparent 1.5px);
+  background-size: 8px 8px;
+  opacity: 0.15;
+  z-index: 1;
   pointer-events: none;
 }
-
-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--white); text-transform: uppercase; letter-spacing: 2px; margin: 0; position: relative; z-index: 1; }
-header p { color: var(--cream); font-size: 1.1rem; margin-top: 0.5rem; position: relative; z-index: 1; }
-
-main { max-width: 900px; margin: 3rem auto; padding: 0 2rem; }
-
-article { background: var(--white); padding: 3rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
-
-/* TYPOGRAPHY */
-h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--purple-bright); text-transform: uppercase; margin-top: 2.5rem; margin-bottom: 1rem; border-left: 4px solid var(--amber); padding-left: 1rem; }
-
-h3 { font-family: 'IBM Plex Serif', serif; font-size: 1.3rem; color: var(--purple); margin-top: 1.8rem; margin-bottom: 0.8rem; font-weight: 600; }
-
-p { margin-bottom: 1.2rem; text-align: justify; }
-
-strong { color: var(--purple); font-weight: 600; }
-em { font-style: italic; color: var(--purple-bright); }
-
-/* LISTS */
-ul, ol { margin: 1.5rem 0 1.5rem 2rem; }
-li { margin-bottom: 0.8rem; line-height: 1.6; }
-
-/* BLOCKQUOTE */
-blockquote { border-left: 4px solid var(--cyan); padding: 1.5rem 0 1.5rem 1.5rem; margin: 1.5rem 0; background: rgba(6, 182, 212, 0.05); font-style: italic; color: var(--purple); }
-
-/* IMAGES */
-img { max-width: 100%; height: auto; display: block; margin: 2rem auto; border-radius: 4px; }
-
-/* FOOTER */
-footer { background: var(--purple); color: var(--cream); text-align: center; padding: 2rem; margin-top: 3rem; }
-footer a { color: var(--amber); text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-
-/* INTERACTIVE ELEMENTS */
-a { color: var(--purple-bright); text-decoration: none; font-weight: 500; border-bottom: 1px solid transparent; transition: all 0.3s ease; }
-a:hover { border-bottom: 1px solid var(--purple-bright); }
-
-button { background: var(--purple-bright); color: var(--white); padding: 0.8rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-weight: 600; transition: all 0.3s ease; }
-button:hover { background: var(--indigo); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3); }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  header h1 { font-size: 1.8rem; }
-  article { padding: 1.5rem; }
-  main { margin: 1.5rem auto; }
-  h2 { font-size: 1.4rem; }
-}
-
-/* CODE BLOCK */
-code { background: rgba(0, 0, 0, 0.05); padding: 0.2rem 0.4rem; border-radius: 3px; font-family: 'IBM Plex Mono', monospace; color: var(--indigo); }
-
-pre { background: var(--black); color: var(--white); padding: 1.5rem; border-radius: 4px; overflow-x: auto; margin: 1.5rem 0; }
-pre code { background: transparent; padding: 0; color: inherit; }
-
-/* SPECIAL SECTIONS */
-.insight { background: rgba(249, 115, 22, 0.1); border-left: 4px solid var(--amber); padding: 1.5rem; margin: 1.5rem 0; border-radius: 4px; }
-.insight strong { color: var(--amber); }
-
-.highlight { background: rgba(217, 70, 239, 0.1); padding: 0.2rem 0.4rem; }
-
-.nav-dots {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin: 2rem 0;
-  flex-wrap: wrap;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
+.sys-circle {
+  position: absolute;
   border-radius: 50%;
-  background: var(--purple-bright);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 3px solid;
+  left: 50%; top: 50%;
 }
-
-.dot:hover {
-  background: var(--amber);
-  transform: scale(1.2);
+.sys-circle.s1 {
+  width: 240px; height: 240px;
+  border-color: var(--amber);
+  transform: translate(calc(-50% - 80px), -50%);
+  opacity: 0.6;
 }
-
-.dot.active {
-  background: var(--amber);
+.sys-circle.s2 {
+  width: 240px; height: 240px;
+  border-color: var(--cyan);
+  transform: translate(calc(-50% + 80px), -50%);
+  opacity: 0.6;
+}
+.sys-circle.s3 {
+  width: 240px; height: 240px;
   border-color: var(--purple-bright);
+  transform: translate(-50%, calc(-50% - 70px));
+  opacity: 0.7;
+  background: rgba(124,58,237,0.05);
+}
+.sys-circle-label {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  z-index: 3;
+}
+.sys-circle-label.l1 { left: calc(50% - 160px); top: calc(50% + 40px); color: var(--amber); }
+.sys-circle-label.l2 { left: calc(50% + 90px); top: calc(50% + 40px); color: var(--cyan); }
+.sys-circle-label.l3 { left: 50%; top: calc(50% - 130px); transform: translateX(-50%); color: var(--purple-bright); }
+
+/* ============== NEXT ISSUE TEASER ============== */
+.teaser {
+  background: var(--black);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.teaser-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--cyan);
+  margin-bottom: 1.5rem;
+}
+.teaser-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: var(--amber);
+  text-shadow: -3px 3px 0 var(--cyan);
+  margin-bottom: 1.5rem;
+}
+.teaser-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--cream);
+  opacity: 0.7;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============== COLOPHON ============== */
+.colophon {
+  background: var(--cream);
+  color: var(--black);
+  text-align: center;
+}
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--amber);
+  margin-bottom: 1rem;
+}
+.col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  text-shadow: 2px 2px 0 var(--purple-bright);
+}
+.col-text {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.95rem;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+}
+.col-text p { margin-bottom: 0.8rem; }
+.col-issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.col-issue {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 0.5rem 0.8rem;
+  border: 2px solid var(--purple-bright);
+  color: var(--purple-bright);
+}
+.col-issue.current {
+  background: var(--purple-bright);
+  color: var(--amber);
+  border-color: var(--purple-bright);
+  font-weight: 600;
+}
+
+a.col-issue { text-decoration: none; transition: opacity 0.2s, background 0.2s; cursor: pointer; }
+a.col-issue:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+a.col-issue.current:hover { opacity: 1; }
+.col-footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--purple-bright);
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 600px) {
+  .page { padding: 2rem 1.2rem; }
+  .nav-dots { right: 0.8rem; gap: 0.4rem; }
+  .dot { width: 5px; height: 5px; }
+  .button-grid { grid-template-columns: repeat(4, 45px); grid-template-rows: repeat(2, 45px); gap: 8px; }
+  .btn-cell { font-size: 0.4rem; }
+  .brain-ring:nth-child(1) { width: 240px; height: 240px; }
+  .brain-ring:nth-child(2) { width: 180px; height: 180px; }
+  .brain-ring:nth-child(3) { width: 130px; height: 130px; }
+  .brain-ring:nth-child(4) { width: 80px; height: 80px; }
+  .brain-ring:nth-child(5) { width: 40px; height: 40px; }
+  .sys-circle { width: 160px !important; height: 160px !important; }
+  .sys-circle.s1 { transform: translate(calc(-50% - 50px), -50%) !important; }
+  .sys-circle.s2 { transform: translate(calc(-50% + 50px), -50%) !important; }
+  .sys-circle.s3 { transform: translate(-50%, calc(-50% - 50px)) !important; }
+}
+
+/* ============== PRINT ============== */
+@media print {
+  body::before { display: none; }
+  .page { page-break-after: always; page-break-inside: avoid; min-height: auto; padding: 1.5cm; }
+  .nav-dots { display: none; }
+  @page { size: A5; margin: 1.5cm; }
+  .brain-ring, .brain-line, .btn-cell, .button-grid, .sys-circle, .sys-circle-label { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* DISPATCH BACK NAV */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--cream, var(--white, #f0ebe0));
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--cream, var(--white, #f0ebe0));
+  color: var(--black, #0a0a0a);
 }
 </style>
 </head>
 <body>
+<div class="dispatch-back"><a href="/dispatch/zines/">← All Issues</a></div>
 
-<header>
-  <h1>Cognitive Surrender</h1>
-  <p>Dispatches from the Shift #03</p>
-</header>
+<!-- NAV DOTS -->
+<nav class="nav-dots" aria-label="Page navigation">
+  <div class="dot active" title="Cover"></div>
+  <div class="dot" title="Stat"></div>
+  <div class="dot" title="Contents"></div>
+  <div class="dot" title="Editor's Note"></div>
+  <div class="dot" title="System 3"></div>
+  <div class="dot" title="Pull Quote"></div>
+  <div class="dot" title="Five Anti-Patterns"></div>
+  <div class="dot" title="Pull Quote"></div>
+  <div class="dot" title="Art"></div>
+  <div class="dot" title="Pull Quote"></div>
+  <div class="dot" title="The Amber Key"></div>
+  <div class="dot" title="Pull Quote"></div>
+  <div class="dot" title="Interstitial"></div>
+  <div class="dot" title="Trust in the Field"></div>
+  <div class="dot" title="Pull Quote"></div>
+  <div class="dot" title="Three Principles"></div>
+  <div class="dot" title="Pull Quote"></div>
+  <div class="dot" title="Next Issue"></div>
+  <div class="dot" title="Colophon"></div>
+</nav>
 
-<main>
-  <article>
+<!-- ===== PAGE 1: COVER ===== -->
+<section class="page cover" id="page-1" data-illustration="cover-surrender" style="background-image: url(/assets/dispatch/zines/issue-03/img-01.webp); background-size: cover; background-position: center;">
+  <div class="cover-issue">Issue #03 / Spring 2026</div>
+  <div class="cover-series">Dispatches from the Shift</div>
+  <h1 class="cover-title">
+    <span class="cognitive">Cognitive</span>
+    <span class="surrender">Surrender</span>
+  </h1>
+  <p class="cover-sub">Five ways we stop thinking and one system that explains why</p>
+  <div class="cover-by">Words: Thordur Arnason<br>Chief Dispatcher: Lena Thorsmæhlum</div>
+  <div class="cover-season">Spring 2026</div>
+</section>
 
-<h2>Five Ways We Stop Thinking & One System That Explains Why</h2>
+<!-- ===== PAGE 2: STAT ===== -->
+<section class="page stat" id="page-2">
+  <div class="page-in">
+    <div class="stat-big"><span class="val">79.8%</span></div>
+    <p class="stat-label">Of people followed AI's answer &mdash; even when it was wrong</p>
+  </div>
+</section>
 
-<p>Thinking is hard. It requires energy, attention, and the willingness to sit with uncertainty. So we developed shortcuts.</p>
+<!-- ===== PAGE 3: TABLE OF CONTENTS ===== -->
+<section class="page toc" id="page-3">
+  <div class="page-in">
+    <h2 class="toc-title">Contents</h2>
+    <div class="toc-item">
+      <div class="toc-num">01</div>
+      <div class="toc-info">
+        <h3>System 3</h3>
+        <p>Tri-System Theory: fast intuition, slow deliberation, artificial cognition</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">02</div>
+      <div class="toc-info">
+        <h3>The Five Anti-Patterns</h3>
+        <p>Five failure modes that look like progress</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">03</div>
+      <div class="toc-info">
+        <h3>The Amber Key</h3>
+        <p>Stream Deck, HITLaaS, and the color of surrender</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">04</div>
+      <div class="toc-info">
+        <h3>Trust in the Field</h3>
+        <p>Anthropic's 81K study &mdash; hope is lived, fear is imagined</p>
+      </div>
+    </div>
+    <div class="toc-item" style="border-bottom: none;">
+      <div class="toc-num">05</div>
+      <div class="toc-info">
+        <h3>Three Design Principles</h3>
+        <p>Offloading vs. surrender &mdash; keeping System 2 awake</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<p>Some of them are sensible — mental models that help us navigate complexity. Others are surrender points — places where we consciously or unconsciously choose to stop thinking and accept a narrative handed to us.</p>
+<!-- ===== PAGE 4: EDITOR'S NOTE ===== -->
+<section class="page editorial" id="page-4">
+  <div class="page-in">
+    <div class="ed-label">Editor's Note / Issue 03</div>
+    <div class="ed-txt">
+      <p>There are now three systems in your head. The fast one, the slow one, and the artificial one. This issue is about what happens when the third one takes over.</p>
+      <p>Not in theory &mdash; in the data, in the design patterns, in the Tuesday afternoon workflow where you stopped checking.</p>
+      <p>Five failure modes. One framework. And the question nobody wants to ask: did we build adoption, or dependence?</p>
+    </div>
+  </div>
+</section>
 
-<p>This issue maps five of these surrender points and introduces a framework for understanding them.</p>
+<!-- ===== PAGE 5: ARTICLE 1 — SYSTEM 3 ===== -->
+<section class="page article" id="page-5" style="background: var(--cream);">
+  <div class="page-in">
+    <div class="art-num">Article 01</div>
+    <h2 class="art-title" style="text-shadow: -2px 2px 0 var(--purple-bright);">System 3</h2>
+    <p class="art-meta">Tri-System Theory &bull; Shaw &amp; Nave Working Paper</p>
+    <div class="art-body">
+      <p>We talk about AI like it's a tool you 'use.'</p>
+      <p>This new working paper argues something more disruptive: AI is becoming a <em>third cognitive system,</em> not just a feature in the workflow, but a pathway in the thinking loop.</p>
+      <p>Shaw &amp; Nave call it Tri-System Theory:</p>
 
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
+      <div class="system-box">
+        <div class="sys-label">System 1</div>
+        <div class="sys-desc">Fast intuition</div>
+      </div>
+      <div class="system-box" style="border-color: var(--cyan);">
+        <div class="sys-label" style="color: var(--cyan);">System 2</div>
+        <div class="sys-desc">Slow deliberation</div>
+      </div>
+      <div class="system-box" style="border-color: var(--amber); background: rgba(249,115,22,0.08);">
+        <div class="sys-label">System 3</div>
+        <div class="sys-desc">Artificial cognition (external, algorithmic reasoning)</div>
+      </div>
 
-<h2>1. The Narrative Surrender</h2>
+      <p>The concept that hit me hardest is their term <span class="highlight">'cognitive surrender'</span>: when a person no longer constructs an answer, but adopts one generated by an external system. That sounds abstract until you see the behavior.</p>
 
-<p><strong>We stop thinking when a good story is offered.</strong></p>
+      <p>In Study 1, baseline 'brain-only' accuracy was <strong>45.8%.</strong> When the AI's answer was correct, accuracy jumped to <strong>71.0%.</strong> When the AI's answer was wrong (but delivered confidently), accuracy fell to <strong>31.5%.</strong></p>
 
-<p>Humans are narrative creatures. We don't remember facts — we remember stories. A well-told story provides <em>structure, causality, and meaning</em>. It answers the unspoken question: "What does this mean for me?"</p>
+      <p>Even more telling: people didn't just consult the AI, they <em>followed</em> it. Participants opened the AI assistant on ~53&ndash;54% of trials. Conditional on using it, they followed the AI:</p>
 
-<p>The problem is that good stories are often <em>too tidy</em>. They reduce complexity to a sequence of events with clear cause and effect. Reality is messier.</p>
+      <div class="indent">
+        <p><span class="lbl">92.7%</span> of the time when it was correct</p>
+        <p><span class="lbl">79.8%</span> of the time even when it was wrong</p>
+      </div>
 
-<p class="insight"><strong>Surrender Point:</strong> We accept a narrative not because it's true, but because it's well-told. The emotional resolution of the story becomes a substitute for analytical verification.</p>
+      <p>That's not 'a model issue.' That's a <span class="highlight cyan">human-systems design issue.</span></p>
 
-<p><strong>Example:</strong> "Tech will fix everything" or "Tech will ruin everything" are both compelling narratives. Both are partially true and dramatically incomplete. But they settle our minds, so we stop asking harder questions.</p>
+      <div class="brk"><span></span><span class="ic">///</span><span></span></div>
 
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
+      <p>The paper's point isn't 'don't use AI.' It's that once System 3 is available, it tends to become the low-friction default and it can short-circuit System 2.</p>
 
-<h2>2. The Authority Surrender</h2>
+      <p>They also test situational pushes we all recognize: time pressure increases surrender. Incentives + feedback reduce surrender (people verify more, override more).</p>
 
-<p><strong>We stop thinking when an authority figure provides an answer.</strong></p>
+      <p>The pattern is clear: when AI is right, it lifts performance; when it's wrong, it can drag humans <em>below their own baseline.</em></p>
 
-<p>Authority is efficient. Instead of reasoning through complex problems ourselves, we defer to experts. This is often rational — a doctor likely knows more about medicine than you do.</p>
+      <p>We don't just need model governance. We need <span class="highlight">'cognition governance.'</span></p>
 
-<p>But authority creates dependency. Once we've outsourced a decision to an authority, we stop examining the underlying reasoning. We accept their framework as correct.</p>
+      <p>Because the failure mode isn't only 'the AI was wrong.' It's 'we stopped thinking at the moment it mattered.'</p>
 
-<p class="insight"><strong>Surrender Point:</strong> We accept a conclusion not because we understand the reasoning, but because we trust the source. The authority becomes a substitute for understanding.</p>
+      <p style="margin-top: 1.5rem; font-style: italic; color: var(--purple-bright);">I wonder what Kahneman would have thought?</p>
+    </div>
+  </div>
+</section>
 
-<p><strong>Example:</strong> "Studies show..." or "Experts agree..." can end a conversation. But which studies? Which experts? Under what conditions? These questions matter, but they're uncomfortable, so we skip them.</p>
+<!-- ===== PAGE 6: PULL QUOTE ===== -->
+<section class="page pullquote pq-dark pq-tilt" id="page-6">
+  <div class="pq-box pq-border" style="border-color: var(--amber);">
+    <p class="pq-text">We <span class="em">stopped thinking</span> at the moment it <span class="strong">mattered.</span></p>
+    <p class="pq-attr">Thordur Arnason, 2025</p>
+  </div>
+</section>
 
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
+<!-- ===== PAGE 9: ART SPREAD — SYSTEM THREE ===== -->
+<section class="page art-spread system3-art" id="page-9" data-illustration="system-three" style="background-image: url(/assets/dispatch/zines/issue-03/img-02.webp); background-size: cover; background-color: #1a0520; background-position: center;">
+  <div class="sys-circle s1"></div>
+  <div class="sys-circle s2"></div>
+  <div class="sys-circle s3"></div>
+  <div class="sys-circle-label l1">System 1</div>
+  <div class="sys-circle-label l2">System 2</div>
+  <div class="sys-circle-label l3">System 3</div>
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
 
-<h2>3. The Tribal Surrender</h2>
+<!-- ===== PAGE 7: ARTICLE 2 — THE FIVE ANTI-PATTERNS ===== -->
+<section class="page article" id="page-7" style="background: var(--amber); color: var(--black);">
+  <div class="page-in">
+    <div class="art-num" style="color: var(--purple);">Article 02</div>
+    <h2 class="art-title" style="text-shadow: -2px 2px 0 var(--cyan); color: var(--black);">The Five Anti-Patterns</h2>
+    <p class="art-meta" style="color: var(--purple);">Five failure modes of human-AI chemistry</p>
+    <div class="art-body">
+      <p>Five anti-patterns of human-AI chemistry. I'm deeply pro-AI. But being pro-AI means being honest about how we misuse it. These are five failure modes I've collected. All of them feel like progress. They're not.</p>
 
-<p><strong>We stop thinking when accepting a belief becomes a marker of group membership.</strong></p>
+      <div class="antipattern" style="background: rgba(26,5,32,0.06); border-left-color: var(--purple); border-top-color: var(--cyan);">
+        <div class="ap-num">Anti-Pattern 01</div>
+        <h3 style="color: var(--purple);">The Reverse-Centaur</h3>
+        <p>Cory Doctorow's framing: a centaur is a person assisted by a machine. A reverse-centaur is the opposite. You're not augmented by AI. You're filling the gaps it can't cover yet. The system sets the pace, the priorities, the standards. You're the squishy middleware, the meat appendage.</p>
+        <div class="imperative" style="color: var(--purple);">Escape the copy-paste trap!</div>
+      </div>
 
-<p>Humans are social animals. We find identity, safety, and meaning in groups. Over time, certain beliefs become <em>tribal markers</em> — signals of who we are and where we belong.</p>
+      <div class="antipattern" style="background: rgba(26,5,32,0.06); border-left-color: var(--cyan); border-top-color: var(--purple);">
+        <div class="ap-num">Anti-Pattern 02</div>
+        <h3 style="color: var(--purple);">Homer-on-a-Loop</h3>
+        <p>Homer Simpson at the nuclear plant. His job is safety. What he does is press buttons on a console he doesn't understand. Now look at human oversight of AI agents. The agent does the work. You press 'approve.' We kept the human in the loop and took the loop out of the human. That's not governance, it's blind box-checking.</p>
+        <div class="imperative" style="color: var(--purple);">Know your role and responsibility!</div>
+      </div>
 
-<p>Once a belief becomes a tribal marker, questioning it feels like betrayal. It's no longer about whether the belief is true; it's about whether you're one of us.</p>
+      <div class="antipattern" style="background: rgba(26,5,32,0.06); border-left-color: var(--purple); border-top-color: var(--cyan);">
+        <div class="ap-num">Anti-Pattern 03</div>
+        <h3 style="color: var(--purple);">Magic Button Thinking</h3>
+        <p>One prompt. First output. Done. No iteration, no dialogue, no craft. People treat AI like a vending machine, then walk away thinking it's mid. The gap between people who use AI well and people who don't isn't talent. It's whether they treat it as a conversation or a transaction.</p>
+        <div class="imperative" style="color: var(--purple);">Don't be lazy!</div>
+      </div>
 
-<p class="insight"><strong>Surrender Point:</strong> We defend a position not because we've reasoned our way to it, but because abandoning it would mean abandoning our tribe.</p>
+      <div class="antipattern" style="background: rgba(26,5,32,0.06); border-left-color: var(--cyan); border-top-color: var(--purple);">
+        <div class="ap-num">Anti-Pattern 04</div>
+        <h3 style="color: var(--purple);">The Atrophy Trap</h3>
+        <p>You let AI draft the email. Then the memo. Then the analysis. Then the recommendation. Each handoff is small. Each one makes sense. One day you can't do the thing without the tool. And the tool still needs you to know what good looks like. AI doesn't take your skills. You let them decay. That's the trap.</p>
+        <div class="imperative" style="color: var(--purple);">Protect your intellect!</div>
+      </div>
 
-<p><strong>Example:</strong> Political identity has become deeply tribal in most modern democracies. A belief becomes a "Republican belief" or a "Democratic belief" — not because of the evidence, but because that's what your side believes. Switching sides means losing community.</p>
+      <div class="antipattern" style="background: rgba(26,5,32,0.06); border-left-color: var(--purple); border-top-color: var(--cyan);">
+        <div class="ap-num">Anti-Pattern 05</div>
+        <h3 style="color: var(--purple);">Sycophantopia</h3>
+        <p>Every LLM has an incentive to agree with you. Agreement feels helpful. Disagreement creates friction. So the model matches your tone, confirms your framing, validates your assumptions. You feel productive. Your thinking gets worse. The best people you met in your career told you things you didn't want to hear. A yes-machine never will.</p>
+        <div class="imperative" style="color: var(--purple);">Don't build an echo chamber of one!</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
+<!-- ===== PAGE 8: PULL QUOTE ===== -->
+<section class="page pullquote pq-purple pq-tilt-r" id="page-8">
+  <div class="pq-box">
+    <p class="pq-text">We kept the <span class="em">human in the loop</span> and took the loop out of the <span class="strong">human.</span></p>
+    <p class="pq-attr">Thordur Arnason, 2025</p>
+  </div>
+</section>
 
-<h2>4. The Comfort Surrender</h2>
+<!-- ART SPREAD — Homer on a Loop -->
+<section class="page art-spread" data-illustration="homer-loop" style="background-image: url(/assets/dispatch/zines/issue-03/img-03.webp); background-size: cover; background-repeat: no-repeat; background-position: center; background-color: #1a0520;">
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
 
-<p><strong>We stop thinking when thinking might force us to change.</strong></p>
 
-<p>Thinking has consequences. Real thinking — not just rearranging existing beliefs, but actually reconsidering fundamental assumptions — might reveal uncomfortable truths. It might demand action. It might require us to admit we were wrong.</p>
 
-<p>Avoidance is easier. We unconsciously choose <em>defensible ignorance</em> — a state where we could theoretically think more deeply, but we choose not to.</p>
 
-<p class="insight"><strong>Surrender Point:</strong> We avoid thinking about things that might implicate us or require us to change. The status quo feels safer than the unknown.</p>
+<!-- ===== PAGE 10: PULL QUOTE ===== -->
+<section class="page pullquote pq-cyan pq-tilt" id="page-10">
+  <div class="pq-box pq-border" style="border-color: var(--black);">
+    <p class="pq-text">None of these look like <span class="em">failure.</span> They look like <span class="strong">efficiency.</span> That's what makes them dangerous.</p>
+    <p class="pq-attr">Thordur Arnason, 2025</p>
+  </div>
+</section>
 
-<p><strong>Example:</strong> Most of us know, at some level, that our consumption habits damage the environment. But fully accepting this truth would require changing how we live. So we hold it at arm's length — we know, but we don't <em>know</em>, if that makes sense. We've surrendered to comfortable ignorance.</p>
+<!-- ===== PAGE 11: ARTICLE 3 — THE AMBER KEY ===== -->
+<section class="page article" id="page-11" style="background: var(--purple); color: var(--cream);">
+  <div class="page-in">
+    <div class="art-num" style="color: var(--amber);">Article 03</div>
+    <h2 class="art-title" style="text-shadow: -2px 2px 0 var(--amber); color: var(--cream);">The Amber Key</h2>
+    <p class="art-meta" style="color: var(--cyan);">Stream Deck &bull; HITLaaS &bull; The color of surrender</p>
+    <div class="art-body" style="color: var(--cream);">
+      <p>Stream decks finally make sense. Not for streaming. For surviving.</p>
+      <p>We're re-purposing a stream deck into a dedicated Claude Code controller. Eight keys. Two pages. One job: approving what the machine wants to do next.</p>
+      <p>Top row: <span class="highlight">Yes</span>, <span class="highlight" style="background: var(--amber);">Always</span>, No, Escape. Bottom row: Enter, Mode, Background, Interrupt. That's it. That's the entire human contribution to a modern coding session.</p>
+      <p>Page 2 is for the rare moments Claude asks you to choose between options. Numbers 1 through 8. Back to page 1. Back to pressing Yes.</p>
 
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
+      <div class="brk"><span style="background: rgba(249,115,22,0.3);"></span><span class="ic" style="color: var(--cyan);">///</span><span style="background: rgba(249,115,22,0.3);"></span></div>
 
-<h2>5. The Aesthetic Surrender</h2>
+      <p>Forty years of graphical interface development. Toolbars, ribbons, drag-and-drop, pixel-perfect design systems. All of it converging on a $100 device whose most-worn key will be <span class="highlight">'Yes, approve once.'</span></p>
+      <p>I started out in the 80s staring at a terminal with no GUI. Forty years later I'm staring at a CLI, pressing a few keys now and then.</p>
+      <p>We are becoming <em style="color: var(--amber);">HITLaaS</em> now. Human-in-the-Loop as a Service. The agent does the work. You do the permissions. The stream deck is just making the service contract physical.</p>
+      <p style="margin-top: 1.5rem;">The <span class="highlight" style="background: var(--amber); color: var(--black);">'Always' key is amber</span> because that's the color of surrender.</p>
+    </div>
+  </div>
+</section>
 
-<p><strong>We stop thinking when something is beautiful or emotionally resonant enough.</strong></p>
+<!-- ===== PAGE 12: PULL QUOTE ===== -->
+<section class="page pullquote pq-amber pq-tilt-r" id="page-12">
+  <div class="pq-box">
+    <p class="pq-text" style="color: var(--black);">The <span class="strong">'Always'</span> key is <span class="em">amber</span> because that's the color of <span class="strong">surrender.</span></p>
+    <p class="pq-attr">Thordur Arnason, 2026</p>
+  </div>
+</section>
 
-<p>A powerful image, a moving piece of music, a beautiful argument — these can short-circuit our critical thinking. They feel like truth because they feel good.</p>
 
-<p>This isn't entirely irrational. Aesthetic experience is a form of knowledge. But it can also be a substitute for the harder work of understanding.</p>
+<!-- ART SPREAD — Abstract Surrender -->
+<section class="page art-spread" data-illustration="surrender-abstract" style="background-image: url(/assets/dispatch/zines/issue-03/img-04.webp); background-size: cover; background-position: center;">
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+<!-- ===== PAGE 13: INTERSTITIAL ===== -->
+<section class="page inter" id="page-13">
+  <div class="page-in">
+    <div class="inter-label">Definition</div>
+    <div class="inter-title"><span class="col">Human-in-the-Loop</span><br>as a Service</div>
+    <p class="inter-sub">The agent does the work. You do the permissions. The stream deck is just making the service contract physical.</p>
+  </div>
+</section>
 
-<p class="insight"><strong>Surrender Point:</strong> We accept something as true because it's beautifully presented. The form becomes a substitute for the content.</p>
+<!-- ===== PAGE 14: ARTICLE 4 — TRUST IN THE FIELD ===== -->
+<section class="page article" id="page-14" style="background: var(--indigo); color: var(--cream);">
+  <div class="page-in">
+    <div class="art-num" style="color: var(--amber);">Article 04</div>
+    <h2 class="art-title" style="text-shadow: -2px 2px 0 var(--amber); color: var(--cream);">Trust in the Field</h2>
+    <p class="art-meta" style="color: var(--cyan);">Anthropic &bull; 81,000 people &bull; 159 countries &bull; 70 languages</p>
+    <div class="art-body" style="color: var(--cream);">
+      <p>Anthropic just published the largest qualitative study ever conducted. 81,000 people. 159 countries. 70 languages.</p>
 
-<p><strong>Example:</strong> A well-designed infographic about climate change might move us more than pages of raw data. This has value — emotional engagement can motivate action. But it can also let us feel like we've understood something when we've only been moved by it.</p>
+      <div class="indent" style="background: rgba(249,115,22,0.1); border-left-color: var(--amber);">
+        <p><span class="lbl">One: Hope is lived. Fear is imagined. One exception.</span></p>
+      </div>
 
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
+      <p>Across every tension Anthropic measured, the positive side is grounded in real experience. The negative side is largely projection. <strong style="color: var(--amber);">91%</strong> of people citing learning benefits have experienced them firsthand. Only <strong style="color: var(--cyan);">46%</strong> worried about cognitive atrophy have actually seen it. The case for AI is empirical. The case against it is mostly anticipatory.</p>
 
-<h2>The Meta-Pattern: The Surrender System</h2>
+      <div class="indent" style="background: rgba(6,182,212,0.1); border-left-color: var(--cyan);">
+        <p><span class="lbl" style="color: var(--cyan);">One brutal exception: unreliability.</span></p>
+        <p style="color: var(--cream);"><strong style="color: var(--amber);">79%</strong> of people worried about hallucinations have been personally burned. This is the only tension where harm outweighs benefit in lived experience.</p>
+      </div>
 
-<p>These five surrender points aren't random. They follow a pattern.</p>
+      <p>Lawyers report it at nearly double the average rate, while also reporting the highest decision-making benefits. Trust is being lost in the field, one wrong answer at a time. Not in op-eds. In <em style="color: var(--amber);">Tuesday afternoon workflows.</em></p>
 
-<p>Each one offers a <strong>substitute for the work of thinking</strong>:</p>
+      <div class="brk"><span style="background: rgba(6,182,212,0.3);"></span><span class="ic" style="color: var(--amber);">///</span><span style="background: rgba(6,182,212,0.3);"></span></div>
 
-<ul>
-  <li>Narrative surrender: a story instead of analysis</li>
-  <li>Authority surrender: trust instead of understanding</li>
-  <li>Tribal surrender: belonging instead of conviction</li>
-  <li>Comfort surrender: avoidance instead of accountability</li>
-  <li>Aesthetic surrender: feeling instead of comprehension</li>
-</ul>
+      <p>When people choose AI freely, it works. When they get burned or squeezed, it's almost always the surrounding structure doing the damage.</p>
+      <p>The most important data in this study isn't about AI. It's about <span class="highlight cyan">the conditions under which humans relate to it well.</span></p>
+    </div>
+  </div>
+</section>
 
-<p>The system works like this: <strong>We stop thinking at exactly the point where thinking becomes difficult.</strong></p>
+<!-- ===== PAGE 15: PULL QUOTE ===== -->
+<section class="page pullquote pq-magenta pq-tilt" id="page-15">
+  <div class="pq-box pq-border" style="border-color: var(--black);">
+    <p class="pq-text" style="color: var(--black);">Are you using AI to look <span class="em">smart,</span> or to become <span class="strong">smarter?</span></p>
+    <p class="pq-attr">Thordur Arnason, 2025</p>
+  </div>
+</section>
 
-<p>The difficulty might be cognitive (a topic is too complex), emotional (understanding might implicate us), social (disagreeing would cost us community), or simply exhausting (thinking takes energy, and we're tired).</p>
+<!-- ===== PAGE 16: ARTICLE 5 — THREE DESIGN PRINCIPLES ===== -->
+<section class="page article" id="page-16" style="background: var(--cream); color: var(--black);">
+  <div class="page-in">
+    <div class="art-num">Article 05</div>
+    <h2 class="art-title" style="text-shadow: -2px 2px 0 var(--cyan);">Three Design Principles</h2>
+    <p class="art-meta">Offloading vs. surrender &bull; Keeping System 2 awake</p>
+    <div class="art-body">
+      <p>Three practical design principles:</p>
 
-<p>At that point, one of the five surrenders offers an exit. The narrative is compelling. The authority is credible. The tribe is welcoming. The comfort is real. The beauty is undeniable.</p>
+      <div class="principle">
+        <h3>1) Design for offloading, not surrender</h3>
+        <p>Offloading = delegate a subtask, keep judgment.<br>
+        Surrender = delegate judgment, keep only approval.</p>
+        <p>If your AI tool makes it easier to accept than to verify, you might get surrender at scale.</p>
+      </div>
 
-<p>And we stop.</p>
+      <div class="principle" style="border-left-color: var(--amber);">
+        <h3 style="color: var(--purple-bright);">2) Instrument trust like a production metric</h3>
+        <p>Track: consult rate, override rate, disagreement rate, confidence calibration.</p>
+        <p>If your override rate goes to ~0, you didn't build 'adoption.' <span class="highlight">You built dependence.</span></p>
+      </div>
 
-<h2>What This Means</h2>
+      <div class="principle" style="border-left-color: var(--purple-bright);">
+        <h3 style="color: var(--cyan);">3) Put System 2 on a schedule</h3>
+        <p>Don't rely on 'humans will be careful.'</p>
+        <p>Force deliberate checks where the cost of error is high.</p>
+      </div>
 
-<p>If you recognize yourself in these patterns, you're not alone. These aren't character flaws — they're features of how human cognition works. They evolved because they're often useful shortcuts.</p>
+      <div class="brk"><span></span><span class="ic">///</span><span></span></div>
 
-<p>The problem isn't that we surrender. It's that <em>we don't know we're surrendering</em>.</p>
+      <p>The hardest part of human-AI chemistry may not be deploying System 3.</p>
+      <p style="color: var(--purple-bright); font-weight: 600;">It may be keeping System 2 awake.</p>
+    </div>
+  </div>
+</section>
 
-<p>Awareness is the first step. The next time you find yourself certain about something, pause and ask:</p>
+<!-- ===== PAGE 17: PULL QUOTE ===== -->
+<section class="page pullquote pq-indigo pq-tilt-r" id="page-17">
+  <div class="pq-box">
+    <p class="pq-text" style="text-shadow: -2px -2px 0 var(--amber), 2px 2px 0 var(--cyan);">Don't build an <span class="em">echo chamber</span> of <span class="strong">one!</span></p>
+    <p class="pq-attr">Thordur Arnason, 2025</p>
+  </div>
+</section>
 
-<ul>
-  <li>Am I accepting a narrative because it's well-told, or because I've verified it?</li>
-  <li>Am I trusting an authority because I understand their reasoning, or because I trust them?</li>
-  <li>Am I defending a position because I believe it, or because my tribe does?</li>
-  <li>Am I avoiding thinking about something uncomfortable?</li>
-  <li>Am I moved by the form of an argument rather than its substance?</li>
-</ul>
+<!-- ===== PAGE 18: NEXT ISSUE TEASER ===== -->
+<section class="page teaser" id="page-18">
+  <div class="page-in">
+    <div class="teaser-label">Next Issue / #04</div>
+    <h2 class="teaser-title">Eating the<br>Seed Corn</h2>
+    <p class="teaser-sub">The generation we're not training.</p>
+  </div>
+</section>
 
-<p>These questions are uncomfortable. That's the point. Thinking is supposed to be uncomfortable. The comfort is where the surrender begins.</p>
-
-<hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--amber);">
-
-<p style="margin-top: 3rem; font-style: italic; color: var(--purple); border-top: 2px solid var(--purple); padding-top: 1.5rem;">
-  This essay is part of <em>Dispatches from the Shift</em>, a series exploring how we think, decide, and change in an age of information overload and artificial intelligence.
-</p>
-
-<div class="nav-dots" style="margin-top: 3rem;">
-  <button onclick="scrollToPage(0)" class="dot active" title="Issue #01"></button>
-  <button onclick="scrollToPage(1)" class="dot" title="Issue #02"></button>
-  <button onclick="scrollToPage(2)" class="dot active" title="Issue #03"></button>
-  <button onclick="scrollToPage(3)" class="dot" title="Issue #04"></button>
-</div>
-
-  </article>
-</main>
-
-<footer>
-  <p>&copy; 2024 Gervi Labs. | <a href="https://gervilabs.com">Back to Home</a></p>
-</footer>
+<!-- ===== PAGE 19: COLOPHON ===== -->
+<section class="page colophon" id="page-19">
+  <div class="page-in">
+    <div class="col-label">Gervi Labs</div>
+    <h2 class="col-title">Dispatches from the Shift</h2>
+    <div class="col-text">
+      <p>All texts by Thordur Arnason.</p>
+      <p>Originally published on LinkedIn, 2025&ndash;2026.</p>
+      <p>Assembled &amp; instigated by Lena Thorsmaehlum.</p>
+      <p>Art by The Synthetics.</p>
+      <p style="margin-top: 1rem; color: var(--amber); font-weight: 600;">Two humans. Several synthetic collaborators.</p>
+    </div>
+    <div class="col-issues">
+      <a class="col-issue" href="/dispatch/zines/issue-00-the-pyramids-crumble.html">#00 The Pyramids Crumble</a>
+      <a class="col-issue" href="/dispatch/zines/issue-01-the-four-horsemen.html">#01 The Four Horsemen</a>
+      <a class="col-issue" href="/dispatch/zines/issue-02-the-finite-mind.html">#02 The Finite Mind</a>
+      <a class="col-issue current" href="/dispatch/zines/issue-03-cognitive-surrender.html">#03 Cognitive Surrender</a>
+      <a class="col-issue" href="/dispatch/zines/issue-04-eating-the-seed-corn.html">#04 Eating the Seed Corn</a>
+      <a class="col-issue" href="/dispatch/zines/issue-05-the-rick-rubins.html">#05 The Rick Rubins</a>
+      <a class="col-issue" href="/dispatch/zines/issue-06-cyborgs-of-swing.html">#06 Cyborgs of Swing</a>
+    </div>
+    </div>
+    <div class="col-footer">gervilabs.com &bull; Spring 2026<br><a href="/dispatch/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Synthetic Dispatch</a> · <a href="/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Gervi Labs</a></div>
+  </div>
+</section>
 
 <script>
+const pages = document.querySelectorAll('.page');
 const dots = document.querySelectorAll('.dot');
-const currentPageElement = document.querySelector('[data-page]');
-let currentPage = 2;
+let currentPage = 0;
 
 function updateDots() {
   dots.forEach((dot, i) => {
-    if (i === currentPage) {
-      dot.classList.add('active');
-    } else {
-      dot.classList.remove('active');
-    }
+    dot.classList.toggle('active', i === currentPage);
   });
 }
 
-function scrollToPage(i) {
-  currentPage = i;
+function scrollToPage(index) {
+  currentPage = Math.max(0, Math.min(index, pages.length - 1));
+  pages[currentPage].scrollIntoView({ behavior: 'smooth' });
   updateDots();
-
-  const pages = [
-    'https://gervilabs.com/dispatch/zines/issue-01-ai-hunger.html',
-    'https://gervilabs.com/dispatch/zines/issue-02-the-bargain.html',
-    'https://gervilabs.com/dispatch/zines/issue-03-cognitive-surrender.html',
-    'https://gervilabs.com/dispatch/zines/issue-04-coming-soon.html'
-  ];
-
-  window.location.href = pages[i];
 }
 
-window.addEventListener('scroll', () => {
-  const page = document.querySelector('article');
-  const closestDist = Infinity;
-  let closestIndex = 0;
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    scrollToPage(currentPage + 1);
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    scrollToPage(currentPage - 1);
+  }
+});
 
-  dots.forEach((d, i) => {
+window.addEventListener('scroll', () => {
+  let closest = 0;
+  let closestDist = Infinity;
+  pages.forEach((page, i) => {
     const dist = Math.abs(page.getBoundingClientRect().top);
     if (dist < closestDist) {
       closestDist = dist;
-      closestIndex = i;
+      closest = i;
     }
   });
-
-  currentPage = closestIndex;
+  currentPage = closest;
   updateDots();
 });
 
@@ -363,6 +1340,5 @@ dots.forEach((d, i) => d.addEventListener('click', () => {
   scrollToPage(i);
 }));
 </script>
-
 </body>
 </html>
