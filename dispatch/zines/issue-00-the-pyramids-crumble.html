@@ -32,3 +32,777 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--black); }
 body { background: var(--black); color: var(--black); font-family: 'IBM Plex Serif', serif; line-height: 1.65; font-size: 17px; overflow-x: hidden; }
+
+/* HALFTONE TEXTURE */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -20%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(3%, -15%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.2px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 8888;
+  opacity: 0.18;
+  animation: grain 20s steps(10) infinite;
+}
+
+/* PAGE SYSTEM */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-in {
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* REGISTRATION MARKS */
+.reg-mark {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.45rem;
+  opacity: 0.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 3;
+}
+.reg-tl { top: 1rem; left: 1rem; }
+.reg-tr { top: 1rem; right: 1rem; }
+.reg-bl { bottom: 1rem; left: 1rem; }
+.reg-br { bottom: 1rem; right: 1rem; }
+.reg-cross::before {
+  content: '+';
+  font-size: 1.2rem;
+  display: block;
+  line-height: 1;
+}
+
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  padding: 0;
+}
+.dot.active {
+  background: var(--crimson);
+  transform: scale(1.5);
+  box-shadow: 0 0 6px var(--crimson);
+}
+
+/* ========== COVER ========== */
+.cover {
+  background: var(--navy);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(220,38,38,0.03) 40px, rgba(220,38,38,0.03) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(201,168,76,0.02) 40px, rgba(201,168,76,0.02) 41px);
+  pointer-events: none;
+  z-index: 1;
+}
+.cover-illustration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.12;
+}
+.cover-illustration[data-illustration] {
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(220,38,38,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(201,168,76,0.3) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(220,38,38,0.15) 0%, transparent 60%);
+  min-height: 100vh;
+}
+.cover-series {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 3;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 16vw, 12rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--crimson);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+}
+.cover-title .the {
+  display: block;
+  font-size: 0.45em;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+.cover-title .pyramids {
+  display: block;
+  color: var(--crimson);
+}
+.cover-title .crumble {
+  display: block;
+  text-shadow: -3px -3px 0 var(--gold), 3px 3px 0 rgba(220,38,38,0.5);
+}
+.cover-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 2rem;
+  color: var(--cream);
+  max-width: 500px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 3;
+  opacity: 0.8;
+}
+.cover-issue {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--crimson);
+  color: var(--cream);
+  padding: 0.5rem 1rem;
+  transform: rotate(-3deg);
+  z-index: 4;
+}
+.cover-prologue {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 0.4rem 0.8rem;
+  z-index: 4;
+  opacity: 0.7;
+}
+.cover-by {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  opacity: 0.6;
+  z-index: 3;
+}
+.cover-season {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  opacity: 0.6;
+  z-index: 3;
+}
+
+/* ========== STAT PAGE ========== */
+.stat {
+  background: var(--dark-crimson);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 16vw, 9rem);
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.stat-big .val {
+  color: var(--gold);
+  text-shadow: -2px 2px 0 var(--crimson);
+}
+.stat-sep {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--cream);
+  opacity: 0.5;
+  margin: 0.5rem 0;
+}
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+/* ========== TOC ========== */
+.toc {
+  background: var(--cream);
+  color: var(--black);
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  text-shadow: -2px 2px 0 var(--crimson);
+}
+.toc-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px dashed var(--navy);
+  align-items: flex-start;
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--crimson);
+  min-width: 3rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.toc-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 0 0 0.3rem 0;
+}
+.toc-info p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--navy);
+}
+
+/* ========== EDITOR NOTE ========== */
+.editor {
+  background: var(--black);
+  color: var(--cream);
+}
+.editor-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--crimson);
+  margin-bottom: 1.5rem;
+}
+.editor-body {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 580px;
+}
+.editor-body p {
+  margin-bottom: 1.2rem;
+}
+.editor-sig {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* ========== ARTICLE ========== */
+.article {
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+.art-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+.art-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+.art-body p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+.art-body p:first-child::first-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  float: left;
+  line-height: 0.7;
+  padding-right: 0.3rem;
+  font-weight: 900;
+}
+.art-body strong {
+  font-weight: 700;
+}
+.art-body em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Numbered list styling */
+.art-body ol {
+  margin: 1.2rem 0;
+  padding-left: 1.5rem;
+}
+.art-body ol li {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* Article color variants */
+.article-cream {
+  background: var(--cream);
+  color: var(--black);
+}
+.article-cream .art-num { color: var(--crimson); }
+.article-cream .art-title { text-shadow: -2px 2px 0 var(--navy); color: var(--black); }
+.article-cream .art-body p:first-child::first-letter { color: var(--crimson); }
+.article-cream .art-body em { color: var(--navy); }
+
+.article-navy {
+  background: var(--navy);
+  color: var(--cream);
+}
+.article-navy .art-num { color: var(--gold); }
+.article-navy .art-title { color: var(--crimson); text-shadow: -2px 2px 0 var(--gold); }
+.article-navy .art-body p:first-child::first-letter { color: var(--crimson); }
+.article-navy .art-body em { color: var(--gold); }
+
+.article-slate {
+  background: var(--slate);
+  color: var(--cream);
+}
+.article-slate .art-num { color: var(--crimson); }
+.article-slate .art-title { color: var(--gold); text-shadow: -2px 2px 0 var(--crimson); }
+.article-slate .art-body p:first-child::first-letter { color: var(--crimson); }
+.article-slate .art-body em { color: var(--gold); }
+
+/* ========== PULL QUOTE ========== */
+.pullquote {
+  background: var(--dark-crimson);
+  color: var(--cream);
+  justify-content: center;
+  align-items: center;
+}
+.pq-content {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 600px;
+  color: var(--cream);
+  text-shadow: -3px 3px 0 var(--gold);
+  position: relative;
+  z-index: 2;
+}
+.pq-cite {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-top: 1.5rem;
+  opacity: 0.8;
+}
+
+/* ========== IMAGE PAGE ========== */
+.image-page {
+  background: var(--black);
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.img-container {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  z-index: 2;
+}
+.img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.img-caption {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--cream);
+  margin-top: 1.5rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ========== BACK MATTER ========== */
+.back {
+  background: var(--navy);
+  color: var(--cream);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.back-header {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: var(--crimson);
+}
+.back-body {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 500px;
+}
+.back-body p {
+  margin-bottom: 1.2rem;
+}
+.back-cta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-top: 2rem;
+  color: var(--gold);
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background: var(--black);
+  color: var(--cream);
+  text-align: center;
+  padding: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .nav-dots { display: none; }
+  .reg-mark { display: none; }
+  .cover-issue, .cover-prologue, .cover-by, .cover-season { font-size: 0.5rem; }
+  .toc-item { flex-direction: column; gap: 0.5rem; }
+}
+
+/* PRINT */
+@media print {
+  html, body { background: white; }
+  .nav-dots { display: none; }
+  body::before { display: none; }
+  .page { padding: 0; min-height: auto; page-break-after: always; }
+}
+</style>
+</head>
+<body>
+<div class="nav-dots" id="nav-dots"></div>
+
+<!-- ===== COVER ===== -->
+<div class="page cover">
+  <div class="cover-illustration" data-illustration="true"></div>
+  <div class="reg-mark reg-tl"><div class="reg-cross"></div> TL</div>
+  <div class="reg-mark reg-tr"><div class="reg-cross"></div> TR</div>
+  <div class="reg-mark reg-bl"><div class="reg-cross"></div> BL</div>
+  <div class="reg-mark reg-br"><div class="reg-cross"></div> BR</div>
+
+  <div class="page-in">
+    <div class="cover-issue">Issue #00</div>
+    <div class="cover-prologue">Prologue</div>
+    <div class="cover-by">Gervi Labs</div>
+    <div class="cover-season">Spring 2024</div>
+
+    <p class="cover-series">Dispatches from the Shift</p>
+    <h1 class="cover-title">
+      <span class="the">The</span>
+      <span class="pyramids">Pyramids</span>
+      <span class="crumble">Crumble</span>
+    </h1>
+    <p class="cover-sub">The shape of work to come. On AI rewriting the org chart before anyone noticed.</p>
+  </div>
+</div>
+
+<!-- ===== STATS PAGE ===== -->
+<div class="page stat">
+  <div class="page-in">
+    <div class="stat-big">
+      <span class="val">01</span>
+    </div>
+    <div class="stat-sep">—</div>
+    <p class="stat-label">
+      The first in a series exploring the unheralded reorganizations already remaking how we work. How AI systems have started writing the org chart before executives realized it.
+    </p>
+  </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<div class="page toc">
+  <div class="page-in">
+    <h2 class="toc-title">Contents</h2>
+
+    <div class="toc-item">
+      <div class="toc-num">1</div>
+      <div class="toc-info">
+        <h3>The Invisible Hand</h3>
+        <p>How algorithmic routing reshapes team hierarchies</p>
+      </div>
+    </div>
+
+    <div class="toc-item">
+      <div class="toc-num">2</div>
+      <div class="toc-info">
+        <h3>The Problem with Transparency</h3>
+        <p>What happens when workflows become visible at scale</p>
+      </div>
+    </div>
+
+    <div class="toc-item">
+      <div class="toc-num">3</div>
+      <div class="toc-info">
+        <h3>The Future Org</h3>
+        <p>Preparing leadership for continuous reorganization</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EDITOR NOTE ===== -->
+<div class="page editor">
+  <div class="page-in">
+    <p class="editor-label">Editor's Note</p>
+    <div class="editor-body">
+      <p>For decades, the org chart has been a static artifact—updated quarterly, printed on the wall, sacred in its immobility. It represented order. Hierarchy. The pyramid that everyone understood.</p>
+      <p>That pyramid is crumbling. Not because of any deliberate reorganization, but because the systems we've built to manage information flow, route decisions, and coordinate work have started to make those decisions faster than humans can reorganize.</p>
+      <p>AI systems are rewriting the org chart in real time, and most leaders haven't noticed.</p>
+      <p>This is the first dispatch from that shift. We're not here to sound alarms, but to help you see what's already happening—and to ask better questions about what it means to lead an organization that reorganizes itself.</p>
+      <p class="editor-sig">— Gervi Labs Dispatch Desk</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ARTICLE 1 ===== -->
+<div class="page article article-cream">
+  <div class="page-in">
+    <p class="art-num">01</p>
+    <h2 class="art-title">The Invisible Hand</h2>
+    <div class="art-body">
+      <p><strong>Jamal's team used to report to Marketing.</strong> Now they don't—at least not in any formal sense.</p>
+
+      <p>When the demand generation platform started routing incoming leads directly to specialists, it didn't ask permission. It just looked at where leads were most likely to convert and sent them there. Within six months, Jamal's engineers (nominally "supporting" demand gen) were spending 90% of their time on lead-specific work. The org chart said they reported to Jamal. The actual flow of work said they answered to the AI system deciding where each lead should go.</p>
+
+      <p>Jamal didn't realize his team had been reorganized until finance flagged the time allocation. By then, the structure was already so embedded that changing it back would require rewriting the entire lead-routing system.</p>
+
+      <p><strong>This is happening everywhere.</strong></p>
+
+      <p>Systems designed to optimize for efficiency—routing, matching, recommendation, orchestration—don't recognize org charts. They recognize patterns. They find the shortest path between problem and solver, and they make that path frictionless. If that path doesn't match the hierarchy, they wear a new path anyway.</p>
+
+      <p>What used to take a reorganization—planning, announcement, resistance, change management—now happens at the speed of workflow. And because it happens in the flow of actual work, it's invisible to the formal structures that track it.</p>
+
+      <p>The people doing the work know their priorities have shifted. The system knows what it routed to them. But the org chart? The org chart is a historical record of what <em>used to be true.</em></p>
+
+      <p><strong>The first invisible reorganization happens when you stop asking the system where it routes work.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUOTE PAGE ===== -->
+<div class="page pullquote">
+  <div class="page-in">
+    <div class="pq-content">
+      "The org chart is a historical record of what used to be true."
+    </div>
+    <p class="pq-cite">— Dispatch #00</p>
+  </div>
+</div>
+
+<!-- ===== ARTICLE 2 ===== -->
+<div class="page article article-navy">
+  <div class="page-in">
+    <p class="art-num">02</p>
+    <h2 class="art-title">The Problem with Transparency</h2>
+    <div class="art-body">
+      <p><strong>Most AI systems are built to be visible.</strong> You can see where decisions are made, why they were made, what they routed to where. The data is there. The logic is traceable. In theory, anyone with access can audit the work.</p>
+
+      <p>In practice, almost no one does. And the ones who should be—the ones whose job is to understand organizational structure and function—are drowning in the volume.</p>
+
+      <p>A typical mid-sized company might have dozens of routing systems. Customer service bots. Demand gen platforms. Resource allocation engines. Matching algorithms. Each one routes work somewhere. Each one creates an invisible hierarchy of <em>where the actual work happens</em> versus <em>where the org chart says it should happen.</em></p>
+
+      <p>That gap widens when the systems start talking to each other. When the lead-routing system hands off to the resource-allocation system, which hands off to the project-matching engine, which hands off back to specialized routing—suddenly there's no single place to look to understand how work actually gets done.</p>
+
+      <p>And that's where the real reorganization happens. Not in the gaps between systems, but in the <strong>compounding effects of transparency that's too granular to act on.</strong></p>
+
+      <p><strong>The second invisible reorganization happens when you have perfect data about organizational flow, and no framework for acting on it.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== IMAGE PAGE ===== -->
+<div class="page image-page">
+  <div class="page-in">
+    <div class="img-container">
+      <img src="https://gervilabs.com/assets/dispatch/zines/issue-00/img-01.webp" alt="The Pyramids Crumble — visual representation">
+      <p class="img-caption">The topology of work, rendered invisible</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ARTICLE 3 ===== -->
+<div class="page article article-slate">
+  <div class="page-in">
+    <p class="art-num">03</p>
+    <h2 class="art-title">The Future Org</h2>
+    <div class="art-body">
+      <p><strong>So what do you do when your org chart is already obsolete?</strong></p>
+
+      <p>The traditional answer is reorganization. Audit the company. Understand how work really flows. Realign the structure to match reality. It's sound advice. It's also increasingly impractical—because by the time you've finished the audit, the flows have shifted again.</p>
+
+      <p>Some companies are starting to ask a different question: <strong>What if we stopped trying to predict the org chart and started designing for continuous reorganization?</strong></p>
+
+      <p>This doesn't mean chaos. It means:</p>
+
+      <ol>
+        <li><strong>Visibility into actual work flows</strong> — not self-reported time sheets, but real instrumentation of where decisions get routed and why</li>
+        <li><strong>Policies that accommodate flow</strong> — compensation, evaluation, career progression that doesn't assume a fixed hierarchy</li>
+        <li><strong>Regular microreorganizations</strong> — small, local shifts in reporting and responsibility that match the actual shape of the work, done quarterly or more often</li>
+        <li><strong>Leadership that embraces volatility</strong> — understanding that "your team" is now a dynamic set of collaborations, not a fixed roster</li>
+      </ol>
+
+      <p>This is uncomfortable. Humans like stable hierarchies. They provide clarity. They tell you where you stand. They tell you where to go for decisions. They provide identity.</p>
+
+      <p><strong>None of that disappears in a continuous-reorganization model.</strong> It just becomes more fluid. More real-time. More honest about what the org actually is: a living system of work flows and decisions, not a static structure.</p>
+
+      <p>The companies that adapt first will have a massive advantage. The ones that don't will keep printing org charts and pretending they matter.</p>
+
+      <p><strong>The future org isn't an org chart at all. It's a live map of where work actually goes.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BACK MATTER ===== -->
+<div class="page back">
+  <div class="page-in">
+    <h3 class="back-header">Dispatches from the Shift</h3>
+    <div class="back-body">
+      <p>This is the first in a series of dispatches exploring how AI and automation are reorganizing work before anyone noticed.</p>
+      <p>Each dispatch is a deep look at one aspect of this shift—from the practical to the philosophical to the frightening.</p>
+      <p class="back-cta">Next dispatch coming May 2024</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Dispatches from the Shift — Issue #00 — © 2024 Gervi Labs
+</footer>
+
+<script>
+// Navigation dots functionality
+const pages = document.querySelectorAll('.page');
+const navDots = document.getElementById('nav-dots');
+
+pages.forEach((page, index) => {
+  const dot = document.createElement('button');
+  dot.classList.add('dot');
+  if (index === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => {
+    page.scrollIntoView({ behavior: 'smooth' });
+  });
+  navDots.appendChild(dot);
+});
+
+// Update active dot on scroll
+window.addEventListener('scroll', () => {
+  let current = 0;
+  pages.forEach((page, index) => {
+    const rect = page.getBoundingClientRect();
+    if (rect.top < window.innerHeight / 2) {
+      current = index;
+    }
+  });
+
+  document.querySelectorAll('.dot').forEach((dot, index) => {
+    if (index === current) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
