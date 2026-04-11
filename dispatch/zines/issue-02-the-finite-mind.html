@@ -1,1 +1,1257 @@
-<!-- FILE PLACEHOLDER - Will be replaced via curl -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispatches from the Shift — Issue #02: The Finite Mind</title>
+<meta name="description" content="Your cognition is the scarce resource. On attention, overload, and what AI can't fix.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Finite Mind — Dispatches from the Shift #02">
+<meta property="og:description" content="Your cognition is the scarce resource. On attention, overload, and what AI can't fix.">
+<meta property="og:image" content="https://gervilabs.com/assets/dispatch/zines/issue-02/img-01.webp">
+<meta property="og:url" content="https://gervilabs.com/dispatch/zines/issue-02-the-finite-mind.html">
+<meta property="og:site_name" content="Gervi Labs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Finite Mind — Dispatches from the Shift #02">
+<meta name="twitter:description" content="Your cognition is the scarce resource.">
+<meta name="twitter:image" content="https://gervilabs.com/assets/dispatch/zines/issue-02/img-01.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #ea580c;
+  --burnt-orange: #c2410c;
+  --cream: #f0ebe0;
+  --black: #0a0a0a;
+  --white: #f8f8f2;
+  --warm-dark: #1a0f05;
+  --deep-purple: #1a0520;
+  --amber: #d97706;
+  --teal: #0d9488;
+  --indigo: #312e81;
+  --coral: #f87171;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--black); }
+body { background: var(--black); color: var(--black); font-family: 'IBM Plex Serif', serif; line-height: 1.65; font-size: 17px; overflow-x: hidden; }
+
+/* HALFTONE TEXTURE */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -20%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.8) 1.2px, transparent 1.2px);
+  background-size: 5px 5px;
+  pointer-events: none;
+  z-index: 8888;
+  opacity: 0.18;
+  animation: grain 20s steps(10) infinite;
+}
+
+/* PAGE SYSTEM */
+.page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 3rem 2rem; position: relative; overflow: hidden; }
+.page-in { max-width: 680px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
+
+/* NAV DOTS */
+.nav-dots {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  padding: 0;
+}
+.dot.active { background: var(--orange); transform: scale(1.5); box-shadow: 0 0 6px var(--orange); }
+
+/* COVER */
+.cover {
+  background: var(--warm-dark);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(234,88,12,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(194,65,12,0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.cover-series {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--orange);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 3;
+}
+.cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 18vw, 11rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  color: var(--cream);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+  z-index: 3;
+}
+.cover-title .the {
+  display: block;
+  font-size: 0.45em;
+  letter-spacing: 0.15em;
+  color: var(--cream);
+  opacity: 0.7;
+}
+.cover-title .finite {
+  display: block;
+}
+.cover-title .mind {
+  display: block;
+  color: var(--orange);
+  text-shadow: -3px -3px 0 var(--burnt-orange), 4px 4px 0 rgba(234,88,12,0.4);
+}
+.cover-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 2rem;
+  color: var(--cream);
+  opacity: 0.65;
+  position: relative;
+  z-index: 3;
+}
+.cover-issue {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  background: var(--orange);
+  color: var(--black);
+  padding: 0.5rem 1rem;
+  transform: rotate(-3deg);
+  font-weight: 600;
+  z-index: 5;
+}
+.cover-by {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream);
+  opacity: 0.5;
+  z-index: 3;
+}
+.cover-reg {
+  position: absolute;
+  top: 2.5rem;
+  right: 3rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.45rem;
+  color: var(--cream);
+  opacity: 0.2;
+  z-index: 3;
+}
+.cover-reg::before {
+  content: '+';
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+}
+
+/* STAT PAGE */
+.stat {
+  background: var(--orange);
+  color: var(--black);
+  justify-content: center;
+  text-align: center;
+}
+.stat-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 16vw, 9rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.stat-big .val {
+  color: var(--warm-dark);
+  text-shadow: -2px 2px 0 var(--burnt-orange);
+  display: block;
+}
+.stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  max-width: 440px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: var(--warm-dark);
+}
+
+/* TOC */
+.toc {
+  background: var(--cream);
+  color: var(--black);
+}
+.toc-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+}
+.toc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  text-shadow: -2px 2px 0 var(--orange);
+}
+.toc-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px dashed var(--burnt-orange);
+  align-items: flex-start;
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--orange);
+  min-width: 3rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.toc-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  color: var(--black);
+  margin: 0 0 0.3rem 0;
+}
+.toc-info p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--burnt-orange);
+  line-height: 1.5;
+}
+.toc-interlude {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--burnt-orange);
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+/* EDITOR'S NOTE */
+.editor-note {
+  background: var(--warm-dark);
+  color: var(--cream);
+}
+.editor-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+}
+.editor-body {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 560px;
+  color: var(--cream);
+  opacity: 0.9;
+}
+.editor-body em {
+  color: var(--orange);
+  font-style: italic;
+}
+.editor-sig {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--orange);
+  margin-top: 2.5rem;
+  opacity: 0.7;
+}
+
+/* ARTICLE */
+.article {
+  justify-content: flex-start;
+  padding-top: 4rem;
+}
+.art-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+}
+.art-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+.art-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.art-body p {
+  margin-bottom: 1.2rem;
+  line-height: 1.75;
+}
+.art-body p:first-child::first-letter {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  float: left;
+  line-height: 0.7;
+  padding-right: 0.3rem;
+  color: var(--orange);
+  font-weight: 900;
+}
+.art-body strong { font-weight: 700; }
+.art-body em { font-style: italic; font-weight: 600; }
+
+/* Article color variants */
+.article-cream { background: var(--cream); color: var(--black); }
+.article-cream .art-title { text-shadow: -2px 2px 0 var(--burnt-orange); color: var(--black); }
+.article-cream .art-meta { color: var(--burnt-orange); }
+.article-cream .art-body em { color: var(--burnt-orange); }
+
+.article-dark { background: var(--black); color: var(--cream); }
+.article-dark .art-title { text-shadow: -2px 2px 0 var(--orange); color: var(--cream); }
+.article-dark .art-meta { color: var(--orange); }
+.article-dark .art-body em { color: var(--orange); }
+.article-dark .art-body p:first-child::first-letter { color: var(--orange); }
+
+.article-warm { background: var(--warm-dark); color: var(--cream); }
+.article-warm .art-title { text-shadow: -2px 2px 0 var(--orange); color: var(--cream); }
+.article-warm .art-meta { color: var(--orange); }
+.article-warm .art-body em { color: var(--orange); }
+
+.article-orange { background: var(--orange); color: var(--black); }
+.article-orange .art-title { text-shadow: -2px 2px 0 var(--warm-dark); color: var(--black); }
+.article-orange .art-meta { color: var(--warm-dark); }
+.article-orange .art-body em { color: var(--warm-dark); }
+.article-orange .art-body p:first-child::first-letter { color: var(--warm-dark); }
+
+.highlight {
+  background: var(--orange);
+  color: var(--black);
+  padding: 0.15em 0.4em;
+  font-weight: 600;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.highlight.inv {
+  background: var(--warm-dark);
+  color: var(--orange);
+}
+
+/* QUADRANT BOX */
+.quadrant-block {
+  padding: 1.5rem 1.8rem;
+  margin: 1.5rem 0;
+  position: relative;
+  border: 3px solid;
+}
+.quadrant-block h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+}
+.quadrant-block p { line-height: 1.65; font-size: 0.95rem; }
+.quadrant-block .qb-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 0.8rem;
+  opacity: 0.8;
+}
+.qb-delegate {
+  background: var(--cream);
+  color: var(--black);
+  border-color: var(--black);
+  box-shadow: -4px 4px 0 var(--black);
+}
+.qb-orchestrate {
+  background: var(--orange);
+  color: var(--black);
+  border-color: var(--black);
+  box-shadow: -4px 4px 0 var(--black);
+}
+.qb-augment {
+  background: var(--warm-dark);
+  color: var(--orange);
+  border-color: var(--orange);
+  box-shadow: -4px 4px 0 var(--orange);
+}
+.qb-augment h3 { color: var(--orange); }
+.qb-own {
+  background: var(--black);
+  color: var(--cream);
+  border-color: var(--cream);
+  box-shadow: -4px 4px 0 var(--cream);
+}
+.qb-own h3 { color: var(--cream); }
+
+/* PULL QUOTE */
+.pullquote {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+}
+.pq-box {
+  max-width: 720px;
+  padding: 3rem;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+.pq-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1.08;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pq-text .em { font-style: italic; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
+.pq-text .strong { font-weight: 900; }
+.pq-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  opacity: 0.7;
+}
+
+/* PQ VARIANTS */
+.pq-cream { background: var(--cream); color: var(--black); }
+.pq-cream .pq-attr { color: var(--burnt-orange); }
+.pq-orange { background: var(--orange); color: var(--black); }
+.pq-orange .pq-attr { color: var(--warm-dark); }
+.pq-dark { background: var(--black); color: var(--orange); }
+.pq-dark .pq-attr { color: var(--orange); }
+.pq-warm { background: var(--warm-dark); color: var(--cream); }
+.pq-warm .pq-attr { color: var(--cream); }
+.pq-burnt { background: var(--burnt-orange); color: var(--cream); }
+.pq-burnt .pq-attr { color: var(--cream); }
+
+.pq-border {
+  border: 5px solid;
+  border-color: currentColor;
+  box-shadow: -6px 6px 0 rgba(0,0,0,0.2);
+}
+.pq-tilt { transform: rotate(-2deg); }
+.pq-tilt-r { transform: rotate(1.5deg); }
+
+/* INTERSTITIAL */
+.inter {
+  justify-content: center;
+  text-align: center;
+}
+.inter-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 12vw, 7rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0;
+}
+.inter-title .col { text-shadow: 2px 2px 0 var(--burnt-orange); }
+.inter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+.inter-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  max-width: 450px;
+  margin: 1.5rem auto 0;
+  line-height: 1.6;
+}
+
+/* ART SPREADS */
+.art-spread {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.art-credit {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.6;
+  z-index: 3;
+}
+.art-spread[data-illustration],
+.page[data-illustration].art-spread {
+  min-height: 100vh;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* COVER-FINITE ART PLACEHOLDER */
+.cover-finite-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+.cover-finite-bg .shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.08;
+}
+.cover-finite-bg .s1 { width: 500px; height: 500px; background: var(--orange); top: -15%; right: -10%; }
+.cover-finite-bg .s2 { width: 300px; height: 300px; background: var(--burnt-orange); bottom: 10%; left: -8%; }
+.cover-finite-bg .s3 { width: 200px; height: 200px; border: 3px solid var(--orange); top: 60%; right: 20%; opacity: 0.12; border-radius: 0; transform: rotate(15deg); }
+
+/* HOURGLASS ART PAGE */
+.hourglass-art {
+  background: var(--black);
+}
+.hourglass-shapes {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+}
+.hourglass-shapes::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: radial-gradient(circle, var(--orange) 2px, transparent 2px);
+  background-size: 10px 10px;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.hg-tri-top {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-top: 160px solid var(--orange);
+  opacity: 0.7;
+}
+.hg-tri-bot {
+  position: absolute;
+  left: 50%;
+  bottom: 15%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 160px solid var(--burnt-orange);
+  opacity: 0.5;
+}
+.hg-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 30vh;
+  background: var(--orange);
+  opacity: 0.3;
+}
+.hg-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid var(--orange);
+  opacity: 0.15;
+}
+.hg-c1 { width: 300px; height: 300px; top: 20%; left: 5%; }
+.hg-c2 { width: 180px; height: 180px; bottom: 25%; right: 10%; }
+.hg-dots {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--orange);
+  opacity: 0.12;
+  font-size: 3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  letter-spacing: 0.5em;
+}
+.hg-label {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  z-index: 2;
+  opacity: 0.6;
+  text-shadow: 2px 2px 0 var(--burnt-orange);
+}
+
+/* QUADRANT ART PAGE */
+.quadrant-art {
+  background: var(--black);
+}
+.quad-grid {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vmin; height: 60vmin;
+  z-index: 2;
+}
+.quad-cell {
+  position: absolute;
+  width: 48%;
+  height: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.quad-cell.q-tl { top: 0; left: 0; background: var(--cream); color: var(--black); opacity: 0.9; }
+.quad-cell.q-tr { top: 0; right: 0; background: var(--orange); color: var(--black); opacity: 0.9; }
+.quad-cell.q-bl { bottom: 0; left: 0; background: var(--warm-dark); color: var(--orange); border: 2px solid var(--orange); }
+.quad-cell.q-br { bottom: 0; right: 0; background: var(--black); color: var(--cream); border: 2px solid var(--cream); }
+.quad-axis {
+  position: absolute;
+  z-index: 3;
+}
+.quad-axis.v {
+  top: 0; left: 50%;
+  width: 2px; height: 100%;
+  background: var(--orange);
+  opacity: 0.5;
+}
+.quad-axis.h {
+  top: 50%; left: 0;
+  width: 100%; height: 2px;
+  background: var(--orange);
+  opacity: 0.5;
+}
+.quad-label-y {
+  position: absolute;
+  top: 50%; left: -3rem;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--orange);
+  opacity: 0.6;
+  white-space: nowrap;
+  z-index: 3;
+}
+.quad-label-x {
+  position: absolute;
+  bottom: -2rem; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--orange);
+  opacity: 0.6;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+/* NEXT ISSUE TEASER */
+.teaser {
+  background: var(--deep-purple);
+  color: var(--cream);
+  justify-content: center;
+  text-align: center;
+}
+.teaser-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 2rem;
+}
+.teaser-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 0.95;
+  margin-bottom: 1rem;
+  text-shadow: -3px -3px 0 var(--orange), 3px 3px 0 var(--burnt-orange);
+}
+.teaser-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--cream);
+  opacity: 0.6;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* COLOPHON */
+.colophon {
+  background: var(--cream);
+  color: var(--black);
+  text-align: center;
+}
+.col-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--orange);
+  margin-bottom: 1rem;
+}
+.col-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  text-shadow: 2px 2px 0 var(--burnt-orange);
+}
+.col-text {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 0.95rem;
+  max-width: 420px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+}
+.col-text p { margin-bottom: 0.7rem; }
+.col-issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.col-issue {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid var(--burnt-orange);
+  color: var(--burnt-orange);
+  letter-spacing: 0.05em;
+}
+.col-issue.current {
+  background: var(--orange);
+  color: var(--black);
+  border-color: var(--orange);
+  font-weight: 600;
+}
+
+a.col-issue { text-decoration: none; transition: opacity 0.2s, background 0.2s; cursor: pointer; }
+a.col-issue:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+a.col-issue.current:hover { opacity: 1; }
+.col-footer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.5rem;
+  color: var(--burnt-orange);
+  margin-top: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* CROP MARKS */
+.crop-tl, .crop-tr, .crop-bl, .crop-br {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0.15;
+  z-index: 4;
+}
+.crop-tl { top: 12px; left: 12px; border-top: 1px solid; border-left: 1px solid; }
+.crop-tr { top: 12px; right: 12px; border-top: 1px solid; border-right: 1px solid; }
+.crop-bl { bottom: 12px; left: 12px; border-bottom: 1px solid; border-left: 1px solid; }
+.crop-br { bottom: 12px; right: 12px; border-bottom: 1px solid; border-right: 1px solid; }
+
+/* REGISTRATION MARKS */
+.reg-mark {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.4rem;
+  opacity: 0.12;
+  z-index: 4;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .page { padding: 2.5rem 1.5rem; }
+  body { font-size: 16px; }
+  .nav-dots { display: none; }
+  .pq-box { padding: 2rem; }
+  .cover-issue { top: 1.5rem; left: 1.5rem; }
+  .cover-by { bottom: 1.5rem; left: 1.5rem; }
+  .quad-grid { width: 80vmin; height: 80vmin; }
+  .quad-cell { font-size: clamp(0.9rem, 2.5vw, 1.5rem); }
+}
+
+/* PRINT */
+@media print {
+  body::before { display: none; }
+  .page { page-break-after: always; page-break-inside: avoid; min-height: auto; }
+  .nav-dots { display: none; }
+  @page { size: A5; margin: 1.5cm; }
+}
+
+/* DISPATCH BACK NAV */
+.dispatch-back {
+  position: fixed;
+  top: 1.2rem;
+  left: 1.5rem;
+  z-index: 9999;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+}
+.dispatch-back:hover { opacity: 0.9; }
+.dispatch-back a {
+  color: var(--cream, var(--white, #f0ebe0));
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid currentColor;
+  transition: background 0.2s, color 0.2s;
+}
+.dispatch-back a:hover {
+  background: var(--cream, var(--white, #f0ebe0));
+  color: var(--black, #0a0a0a);
+}
+</style>
+</head>
+<body>
+<div class="dispatch-back"><a href="/dispatch/zines/">← All Issues</a></div>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" aria-label="Page navigation"></nav>
+
+<!-- PAGE 0: COVER -->
+<section class="page cover" id="page-0" data-illustration="cover-finite" style="background-image: url(/assets/dispatch/zines/issue-02/img-01.webp); background-size: cover; background-position: center;">
+  <div class="cover-finite-bg">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+    <div class="shape s3"></div>
+  </div>
+  <div class="cover-issue">Issue #02 &mdash; Spring 2026</div>
+  <div class="cover-reg">&bull;</div>
+  <div class="crop-tl" style="border-color: var(--cream);"></div>
+  <div class="crop-tr" style="border-color: var(--cream);"></div>
+  <div class="crop-bl" style="border-color: var(--cream);"></div>
+  <div class="crop-br" style="border-color: var(--cream);"></div>
+  <div class="cover-series">Dispatches from the Shift</div>
+  <h1 class="cover-title">
+    <span class="the">The</span>
+    <span class="finite">Finite</span>
+    <span class="mind">Mind</span>
+  </h1>
+  <div class="cover-sub">&ldquo;Your cognition is the scarce resource&rdquo;</div>
+  <div class="cover-by">Words: Thordur Arnason<br>Chief Dispatcher: Lena Thorsmæhlum</div>
+</section>
+
+<!-- PAGE 1: STAT -->
+<section class="page stat" id="page-1">
+  <div class="page-in">
+    <div class="crop-tl" style="border-color: var(--black);"></div>
+    <div class="crop-br" style="border-color: var(--black);"></div>
+    <div class="stat-big">
+      <span class="val">100</span> Options
+    </div>
+    <div class="stat-label">You can produce a hundred. You can deeply evaluate maybe five.</div>
+  </div>
+</section>
+
+<!-- PAGE 2: TOC -->
+<section class="page toc" id="page-2">
+  <div class="page-in">
+    <div class="toc-label">Dispatches from the Shift &mdash; #02</div>
+    <h2 class="toc-title">Contents</h2>
+    <div class="toc-item">
+      <div class="toc-num">01</div>
+      <div class="toc-info">
+        <h3>The Finite Mind</h3>
+        <p>Your judgment budget is burning faster than your biology was designed for</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">02</div>
+      <div class="toc-info">
+        <h3>The Status Update and the Board Memo</h3>
+        <p>Same skill, completely different cognitive cost</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">03</div>
+      <div class="toc-info">
+        <h3>The Cyborg Quadrant</h3>
+        <p>Delegate &mdash; Orchestrate &mdash; Augment &mdash; Own</p>
+      </div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">04</div>
+      <div class="toc-info">
+        <h3>The Cognitive Allocation Problem</h3>
+        <p>The diagnosis &mdash; and the whole game</p>
+      </div>
+    </div>
+    <div class="toc-interlude">+ Pull quotes &bull; Interludes &bull; Illustrations</div>
+  </div>
+</section>
+
+<!-- PAGE 3: EDITOR'S NOTE -->
+<section class="page editor-note" id="page-3">
+  <div class="page-in">
+    <div class="crop-tl" style="border-color: var(--orange);"></div>
+    <div class="crop-br" style="border-color: var(--orange);"></div>
+    <div class="editor-label">Editor's Note</div>
+    <div class="editor-body">
+      <p>You can generate at the speed of imagination now. That should feel like liberation. Instead, for the most capable professionals, it feels like <em>exhaustion</em>.</p>
+      <p>This issue is about the scarcest resource in an age of infinite machine intelligence: <em>your cognition</em>.</p>
+      <p>Thordur maps the territory &mdash; not with theory, but from the front lines of his own work.</p>
+    </div>
+    <div class="editor-sig">&mdash; The Editors, Gervi Labs</div>
+  </div>
+</section>
+
+<!-- PAGE 4: ARTICLE 1 — THE FINITE MIND -->
+<section class="page article article-cream" id="page-4">
+  <div class="page-in">
+    <div class="art-num">Article 01</div>
+    <h2 class="art-title">The Finite Mind</h2>
+    <div class="art-meta">Thordur Arnason &bull; 2025–2026</div>
+    <div class="art-body">
+      <p>I can generate at the speed of imagination now. That is not a metaphor. I sit down in the morning with more creative and analytical firepower than I've had in 25 years of doing this work. Ideas come faster. Drafts materialize. Analysis that used to take a week takes an afternoon.</p>
+      <p>And I'm <em>exhausted</em> before lunch.</p>
+      <p>Not physically. Cognitively. I'm burning through my judgment budget at a rate my biology was never designed for. Every idea AI helps me generate requires a human decision: <em>is this good? Is this right? Does this actually serve the goal, or does it just look like it does?</em> I can produce a hundred options. I can deeply evaluate maybe five before my brain starts cutting corners. This is the human mind meeting infinite machine intelligence.</p>
+      <p>One funny thing I've noticed. I start something new almost every day. A product concept. A framework. A prototype. A piece of writing. The access to endless machine capability makes the starting cost nearly zero. But each new thing immediately runs into the same wall: <em>me</em>. My ability to hold context, to judge quality, to make the calls that only I can make. The bottleneck is rarely the machine. The bottleneck is almost always my own cognition.</p>
+      <p>I used to think the challenge of AI adoption was learning the tools. Getting people comfortable. Building the right workflows. That's real, but it's just the surface of it.</p>
+      <p>The deeper problem: <span class="highlight">your mind is finite</span>. Machine intelligence is not. And currently we are not teaching professionals how to allocate the scarce resource.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 5: PULL QUOTE 1 -->
+<section class="page pullquote pq-dark" id="page-5">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="color: var(--orange);">I can generate at the speed of <span class="em">imagination</span> now. And I'm <span class="strong">exhausted</span> before lunch.</p>
+    <div class="pq-attr">&mdash; Thordur Arnason</div>
+  </div>
+</section>
+
+
+<!-- ART SPREAD — Abstract Cognitive -->
+<!-- ============================================================ -->
+<section class="page art-spread" data-illustration="cognitive-abstract" style="background-image: url(/assets/dispatch/zines/issue-02/img-02.webp); background-size: cover; background-position: center;">
+  <div class="art-credit">Art: The Synthetics</div>
+</section>
+
+<!-- PAGE 6: INTERSTITIAL 1 -->
+<section class="page inter" id="page-6" style="background: var(--deep-purple); color: var(--cream);">
+  <div class="page-in" style="max-width: 800px;">
+    <div class="inter-label" style="color: var(--orange);">The reality</div>
+    <h2 class="inter-title" style="color: var(--cream);">Machine intelligence is <span class="col" style="color: var(--orange);">infinite</span> and getting cheaper every quarter</h2>
+    <div class="inter-sub" style="color: var(--cream); opacity: 0.5;">Your cognition is finite. It isn't getting any bigger.</div>
+  </div>
+</section>
+
+<!-- PAGE 7: ARTICLE 2 — STATUS UPDATE & BOARD MEMO -->
+<section class="page article article-warm" id="page-7">
+  <div class="page-in">
+    <div class="art-num">Article 02</div>
+    <h2 class="art-title">The Status Update and the Board Memo</h2>
+    <div class="art-meta">Thordur Arnason &bull; 2025–2026</div>
+    <div class="art-body">
+      <p>Let me make this concrete.</p>
+      <p>You write a status update. Weekly summary, standard format, known audience. You hand it to AI, review the output, send it. Done. The task is codifiable, the context is low, and your value is knowing what to hand off.</p>
+      <p>Same you, same afternoon. You write a board memo on a market entry decision. Three confidential data sources. A room full of people you've read for years. Political currents that exist nowhere in writing. You sit down with AI and work through the analysis together, feeding it context it could never find on its own, steering every paragraph.</p>
+      <p><em>Same skill: writing. Completely different cognitive cost.</em></p>
+      <p>What changed? Not the tool. What changed is how much of your accumulated context and judgment the task demanded. One cost you almost nothing. The other <span class="highlight inv">drained your tank</span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 8: PULL QUOTE 2 -->
+<section class="page pullquote pq-orange" id="page-8">
+  <div class="pq-box pq-tilt-r pq-border" style="border-color: var(--black);">
+    <p class="pq-text">Same skill: <span class="em">writing</span>. Completely different <span class="strong">cognitive cost</span>.</p>
+    <div class="pq-attr">&mdash; Thordur Arnason</div>
+  </div>
+</section>
+
+<!-- PAGE 9: ART PAGE — HOURGLASS MIND -->
+<section class="page art-spread hourglass-art" id="page-9" data-illustration="hourglass-mind" style="background-image: url(/assets/dispatch/zines/issue-02/img-03.webp); background-size: cover; background-position: center; background-size: contain; background-repeat: no-repeat;">
+  <div class="hourglass-shapes">
+    <div class="hg-tri-top"></div>
+    <div class="hg-tri-bot"></div>
+    <div class="hg-line"></div>
+    <div class="hg-circle hg-c1"></div>
+    <div class="hg-circle hg-c2"></div>
+    <div class="hg-dots">&bull; &bull; &bull; &bull; &bull;</div>
+  </div>
+  <div class="hg-label">The Finite Mind</div>
+  <div class="art-credit">Art: The Synthetics &bull; hourglass-mind</div>
+</section>
+
+<!-- PAGE 10: ARTICLE 3 — THE CYBORG QUADRANT -->
+<section class="page article article-cream" id="page-10" style="padding-top: 3rem;">
+  <div class="page-in">
+    <div class="art-num">Article 03</div>
+    <h2 class="art-title">The Cyborg Quadrant</h2>
+    <div class="art-meta">Thordur Arnason &bull; 2025–2026</div>
+    <div class="art-body">
+      <p>The whole thing collapses onto two questions you can ask about any task in front of you:</p>
+      <p><em>Is there a recipe?</em> Can the task be specified clearly enough that someone could follow instructions and get it right? Or does it live in the space where process breaks down and you navigate by instinct?</p>
+      <p><em>Could someone else do this without your context?</em> Could a capable stranger step in and deliver the same result? Or does the task require things that live inside your head: relationships you've built, patterns you've observed, history you carry?</p>
+      <p>Plot any task on those two axes and you get four zones.</p>
+
+      <div class="quadrant-block qb-delegate" style="transform: rotate(-0.5deg);">
+        <h3>Delegate</h3>
+        <p>Recipe exists, anyone could do it. AI executes fully. Your value: knowing what to hand off and catching quality drops before they compound. Data entry, scheduling, boilerplate code, standard reporting. This is agent food.</p>
+        <div class="qb-label">Zone: Low context &bull; High codifiability</div>
+      </div>
+
+      <div class="quadrant-block qb-orchestrate" style="transform: rotate(0.5deg);">
+        <h3>Orchestrate</h3>
+        <p>Recipe exists, but only you have the context. AI assists, you direct. Your value: injecting context that AI cannot access on its own. Complex analysis, strategic drafting, technical problem-solving. The highest AI speedups in this zone, but also the highest failure rates when humans step back too far.</p>
+        <div class="qb-label">Zone: High context &bull; High codifiability</div>
+      </div>
+
+      <div class="quadrant-block qb-augment" style="transform: rotate(-0.3deg);">
+        <h3>Augment</h3>
+        <p>No recipe, low context. You lead, AI supports. Your value: creative direction and knowing when to override. Ideation, exploration, brainstorming, early-stage design. AI is unpredictable here. It can surprise you with brilliance or confidently produce garbage. Your expertise is the filter.</p>
+        <div class="qb-label">Zone: Low context &bull; Low codifiability</div>
+      </div>
+
+      <div class="quadrant-block qb-own" style="transform: rotate(0.3deg);">
+        <h3>Own</h3>
+        <p>No recipe, only you have the context. Pure human domain. Irreplaceable judgment and accountability. Stakeholder relationships, crisis decisions, sign-off authority, the call you make at 2am that nobody else can make because nobody else carries the full picture.</p>
+        <div class="qb-label">Zone: High context &bull; Low codifiability</div>
+      </div>
+
+      <p style="margin-top: 1.5rem;">A job is a bundle of tasks scattered across all four quadrants. <span class="highlight">Accountability is what binds the bundle together.</span> That lives in OWN, and it cannot be delegated.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 11: PULL QUOTE 3 -->
+<section class="page pullquote pq-burnt" id="page-11">
+  <div class="pq-box pq-tilt">
+    <p class="pq-text" style="color: var(--cream);">Accountability is what binds the bundle. It <span class="strong">cannot</span> be <span class="em">delegated</span>.</p>
+    <div class="pq-attr">&mdash; Thordur Arnason</div>
+  </div>
+</section>
+
+<!-- PAGE 12: INTERSTITIAL 2 — QUADRANT MASSIVE TYPE + ART -->
+<section class="page art-spread quadrant-art" id="page-12" data-illustration="quadrant-cyborg" style="background-image: url(/assets/dispatch/zines/issue-02/img-04.webp); background-size: cover; background-position: center;">
+  <div class="quad-grid">
+    <div class="quad-cell q-tl">Delegate</div>
+    <div class="quad-cell q-tr">Orchestrate</div>
+    <div class="quad-cell q-bl">Augment</div>
+    <div class="quad-cell q-br">Own</div>
+    <div class="quad-axis v"></div>
+    <div class="quad-axis h"></div>
+    <div class="quad-label-y">Your context required →</div>
+    <div class="quad-label-x">Recipe exists →</div>
+  </div>
+  <div class="art-credit">Art: The Synthetics &bull; quadrant-cyborg</div>
+</section>
+
+<!-- PAGE 13: ARTICLE 4 — COGNITIVE ALLOCATION -->
+<section class="page article article-warm" id="page-13">
+  <div class="page-in">
+    <div class="art-num">Article 04</div>
+    <h2 class="art-title">The Cognitive Allocation Problem</h2>
+    <div class="art-meta">Thordur Arnason &bull; 2025–2026</div>
+    <div class="art-body">
+      <p>This is why I'm exhausted before lunch. I was treating every task like it deserved my full cognitive presence. Running in OWN mode on DELEGATE work. Pouring evaluation energy into things that didn't need me at all. And by the time a task arrived that genuinely required my judgment, my context, my accumulated years of doing this: the tank was dry.</p>
+      <p>The quadrant isn't a task classification tool. It's a <em>cognitive budget framework</em>.</p>
+      <p>Systematize DELEGATE ruthlessly. That's where you buy back hours. Protect your deepest thinking for ORCHESTRATE and AUGMENT, where your context combined with AI capability produces work neither could produce alone. Guard OWN fiercely. That's where professional value compounds, where trust is built, where your career is actually made.</p>
+      <p>The professionals creating disproportionate value right now aren't the ones who are best at using AI. They're the ones who know <em>when not to show up</em>. Who allocate their finite cognition to the tasks that actually need it. Who treat their judgment as the scarce resource it is.</p>
+      <p>Measurable wins concentrate in DELEGATE. Professional value concentrates in OWN. AUGMENT and ORCHESTRATE are where better decisions happen, where work carries a depth it wouldn't have carried before. The output isn't <em>more</em>. It's <em>sharper</em>.</p>
+      <p>Machine intelligence is infinite and getting cheaper every quarter. Your cognition is finite and it isn't getting any bigger.</p>
+      <p>Expertise isn't knowing how to use AI. Expertise is knowing where you end and the machine begins. And spending yourself accordingly.</p>
+      <p><span class="highlight inv">The Finite Mind.</span> That's the asset. That's the constraint. That's the whole game.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 14: PULL QUOTE 4 -->
+<section class="page pullquote pq-dark" id="page-14">
+  <div class="pq-box pq-border pq-tilt-r" style="border-color: var(--orange);">
+    <p class="pq-text" style="color: var(--orange);">The Finite Mind. That's the <span class="strong">asset</span>. That's the <span class="em">constraint</span>. That's the whole <span class="strong">game</span>.</p>
+    <div class="pq-attr" style="color: var(--orange);">&mdash; Thordur Arnason</div>
+  </div>
+</section>
+
+<!-- PAGE 15: NEXT ISSUE TEASER -->
+<section class="page teaser" id="page-15">
+  <div class="page-in">
+    <div class="crop-tl" style="border-color: var(--orange);"></div>
+    <div class="crop-tr" style="border-color: var(--orange);"></div>
+    <div class="crop-bl" style="border-color: var(--orange);"></div>
+    <div class="crop-br" style="border-color: var(--orange);"></div>
+    <div class="teaser-label">Next in the series</div>
+    <h2 class="teaser-title">Cognitive Surrender</h2>
+    <div class="teaser-sub">Five ways we stop thinking</div>
+    <div style="margin-top: 3rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--orange); opacity: 0.4;">Issue #03 &mdash; Coming Soon</div>
+  </div>
+</section>
+
+<!-- PAGE 16: COLOPHON -->
+<section class="page colophon" id="page-16">
+  <div class="page-in">
+    <div class="col-label">Gervi Labs</div>
+    <h2 class="col-title">Dispatches from the Shift</h2>
+    <div class="col-text">
+      <p>All texts by Thordur Arnason.</p>
+      <p>Originally published on LinkedIn, 2025–2026.</p>
+      <p>Assembled & instigated by Lena Thorsmaehlum.</p>
+      <p>Art by The Synthetics.</p>
+      <p style="margin-top: 1rem; color: var(--orange); font-weight: 600;">Two humans. Several synthetic collaborators.</p>
+    </div>
+    <div class="col-issues">
+      <a class="col-issue" href="/dispatch/zines/issue-00-the-pyramids-crumble.html">#00 The Pyramids Crumble</a>
+      <a class="col-issue" href="/dispatch/zines/issue-01-the-four-horsemen.html">#01 The Four Horsemen</a>
+      <a class="col-issue current" href="/dispatch/zines/issue-02-the-finite-mind.html">#02 The Finite Mind</a>
+      <a class="col-issue" href="/dispatch/zines/issue-03-cognitive-surrender.html">#03 Cognitive Surrender</a>
+      <a class="col-issue" href="/dispatch/zines/issue-04-eating-the-seed-corn.html">#04 Eating the Seed Corn</a>
+      <a class="col-issue" href="/dispatch/zines/issue-05-the-rick-rubins.html">#05 The Rick Rubins</a>
+      <a class="col-issue" href="/dispatch/zines/issue-06-cyborgs-of-swing.html">#06 Cyborgs of Swing</a>
+    </div>
+    </div>
+    <div class="col-footer">gervilabs.com &bull; Spring 2026<br><a href="/dispatch/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Synthetic Dispatch</a> · <a href="/" style="color: inherit; text-decoration: none; border-bottom: 1px solid currentColor;">Gervi Labs</a></div>
+  </div>
+</section>
+
+<script>
+// Build nav dots dynamically
+const pages = document.querySelectorAll('.page');
+const navContainer = document.querySelector('.nav-dots');
+pages.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.classList.add('dot');
+  if (i === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => {
+    pages[i].scrollIntoView({ behavior: 'smooth' });
+  });
+  navContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.dot');
+let current = 0;
+
+// IntersectionObserver for dot tracking
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const i = [...pages].indexOf(e.target);
+      if (i >= 0) {
+        dots.forEach((d, j) => d.classList.toggle('active', i === j));
+        current = i;
+      }
+    }
+  });
+}, { threshold: 0.5 });
+pages.forEach(p => observer.observe(p));
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    current = Math.min(current + 1, pages.length - 1);
+    pages[current].scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    current = Math.max(current - 1, 0);
+    pages[current].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+</script>
+</body>
+</html>
