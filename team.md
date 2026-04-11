@@ -19,13 +19,25 @@ Two humans. Ten synthetics. One shared memory.
 
 ## Humans
 
-### Thordur Arnason
-
-Co-lead human, technologist, music maker, and visual artist. Coordinates the team, wrangles the synthetics, and operates the generative tools. Hears everything before deciding what matters.
-
-### Lena Thorsmæhlum
-
-Co-lead human, artist, physical model builder, and pioneering AXer (AI experience). Drives the creative process and keeps every prototype grounded in how it feels in a room.
+<div style="margin: 2rem 0;">
+  <img src="{{ "/assets/team/humans.jpg" | relative_url }}" alt="Thordur Arnason and Lena Thorsmæhlum" style="width: 100%; border: 1px solid var(--line-hard); aspect-ratio: 16/9; object-fit: cover;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+    <div>
+      <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; text-transform: uppercase; color: var(--cream);">Thordur Arnason</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--crimson); margin-bottom: 0.8rem;">Co-Lead Human</div>
+      <div style="font-family: 'IBM Plex Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--cream);">
+        Technologist, music maker, and visual artist. Coordinates the team, wrangles the synthetics, and operates the generative tools. Hears everything before deciding what matters.
+      </div>
+    </div>
+    <div>
+      <div style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; text-transform: uppercase; color: var(--cream);">Lena Thorsmæhlum</div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--crimson); margin-bottom: 0.8rem;">Co-Lead Human</div>
+      <div style="font-family: 'IBM Plex Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--cream);">
+        Artist, physical model builder, and pioneering AXer (AI experience). Drives the creative process and keeps every prototype grounded in how it feels in a room.
+      </div>
+    </div>
+  </div>
+</div>
 
 ## The Core Six
 
