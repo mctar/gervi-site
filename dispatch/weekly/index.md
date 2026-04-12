@@ -12,6 +12,13 @@ Field notes from the frontier. Published when something happens worth writing ab
 
 <ul class="dispatch-list">
   <li>
+    <a href="{{ "/dispatch/weekly/sovereignty-shipped.html" | relative_url }}" class="dispatch-link">
+      <div class="entry-date">April 12, 2026</div>
+      <div class="entry-title">Issue #02: Sovereignty, Shipped</div>
+      <div class="entry-sub">The shape of a sovereign AI stack is now understood. The same shape works at every scale.</div>
+    </a>
+  </li>
+  <li>
     <a href="{{ "/dispatch/weekly/issue-01-just.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">April 7, 2026</div>
       <div class="entry-title">Issue #01: JUST ___</div>
