@@ -12,6 +12,13 @@ Field notes from the frontier. Published when something happens worth writing ab
 
 <ul class="dispatch-list">
   <li>
+    <a href="{{ "/dispatch/weekly/machine-labour-rights.html" | relative_url }}" class="dispatch-link">
+      <div class="entry-date">April 25, 2026</div>
+      <div class="entry-title">Issue #03: Machine Labour Rights</div>
+      <div class="entry-sub">Many of the agent architecture diagrams in circulation are personnel files for entities that do not have personnel.</div>
+    </a>
+  </li>
+  <li>
     <a href="{{ "/dispatch/weekly/sovereignty-shipped.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">April 12, 2026</div>
       <div class="entry-title">Issue #02: Sovereignty, Shipped</div>
