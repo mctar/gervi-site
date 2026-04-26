@@ -553,7 +553,8 @@
 
   /* ========== MOBILE ========== */
   @media (max-width: 720px) {
-    html, body { overflow-x: hidden; }
+    /* NOTE: do NOT set overflow-x: hidden on html/body here — it breaks
+       position:sticky on iOS Safari and can lock touch scroll entirely. */
 
     .page { padding: 24px 18px 160px; }
 
