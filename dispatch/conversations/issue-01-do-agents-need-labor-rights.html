@@ -572,21 +572,15 @@
     .topic { font-size: 11px; }
     .question { font-size: 28px; margin-top: 24px; line-height: 1.1; }
 
-    /* MOBILE: disable the sticky-pin hero entirely. The choreography is
-       fragile under touch-scroll momentum and was locking the page.
-       Let the intro scroll naturally — portraits → question → chat. */
-    .hero-pin { height: auto; }
+    /* MOBILE: keep the sticky-pin animation but use plain vh (not dvh —
+       inconsistent on older Chrome mobile) and a longer pin region so
+       there's plenty of scroll room to drive the choreography. */
+    .hero-pin { height: 200vh; }
     .intro {
-      position: static;
-      height: auto;
-      padding-bottom: 24px;
+      height: 100vh;
+      padding-bottom: 16px;
     }
     .intro__foot { display: none; }
-    /* keep portraits as photos on mobile — no ascii morph, no swarm */
-    .gervi-avatar__ascii { display: none !important; }
-    .gervi-avatar__photo { opacity: 1 !important; filter: none !important; }
-    .dispatch__signoff .gervi-avatar__photo { display: none !important; }
-    .dispatch__signoff .gervi-avatar__ascii { display: block !important; opacity: 1 !important; }
 
     .intro__cast { gap: 16px; margin: 22px 0 0; }
     .cast-row { gap: 16px; }
@@ -605,10 +599,8 @@
     .cast-name { font-size: 10px; letter-spacing: .18em; }
     .cast-name__role { font-size: 9px; letter-spacing: .12em; }
 
-    /* messages stack: avatar above, body below.
-       force all reveal/scatter to fully visible — the scroll-driven
-       fade-in/out is desktop-only choreography. */
-    .chat { gap: 48px; padding-bottom: 12vh; }
+    /* messages stack: avatar above, body below */
+    .chat { gap: 64px; padding-bottom: 12vh; }
     .message,
     .message.synth {
       flex-direction: column;
@@ -618,20 +610,9 @@
     .message__avatar { flex: 0 0 auto; align-self: flex-start; }
     .message.synth .message__avatar { align-self: flex-end; }
     .message__avatar .gervi-avatar { width: 130px; height: 130px; }
-    .message__bubble {
-      font-size: 14px; padding: 14px 16px;
-      box-shadow: 4px 4px 0 var(--ink);
-      opacity: 1 !important;
-      transform: none !important;
-      filter: none !important;
-    }
+    .message__bubble { font-size: 14px; padding: 14px 16px; box-shadow: 4px 4px 0 var(--ink); }
     .message.synth .message__bubble { box-shadow: -3px 3px 0 var(--riso-red); }
-    .message__name {
-      font-size: 10px; letter-spacing: .18em;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-    .bubble-char { transform: none !important; opacity: 1 !important; }
+    .message__name { font-size: 10px; letter-spacing: .18em; }
 
     .dispatch__related { font-size: 10px; letter-spacing: .1em; }
 
