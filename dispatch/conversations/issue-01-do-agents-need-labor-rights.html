@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GERVI / / DISPATCH — do agents need labor rights?</title>
+<style>
+  :root {
+    --paper: #f1ead8;
+    --ink: #111;
+    --riso-red: #e8344f;
+    --riso-blue: #1e40c9;
+    --muted: #8a8474;
+    --ascii-font: 'Anthropic Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  }
+
+  html, body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+
+  /* riso paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 320px 320px;
+    opacity: .35;
+    mix-blend-mode: multiply;
+  }
+
+  .page { max-width: 1120px; margin: 0 auto; padding: 60px 40px 240px; position: relative; }
+  .chat { max-width: 920px; margin: 0 auto; }
+
+  .masthead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-top: 6px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 14px 0;
+    margin-bottom: 8px;
+  }
+  .masthead h1 {
+    margin: 0;
+    font-family: var(--ascii-font);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+  .masthead .issue {
+    font-family: var(--ascii-font);
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--riso-red);
+  }
+
+  .topic {
+    margin: 0 0 12px;
+    font-family: var(--ascii-font);
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+  .question {
+    margin: 64px 0 0;
+    font-family: var(--ascii-font);
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+  }
+  .question em { font-style: normal; color: var(--riso-red); }
+
+  /* scroll-pinning container: page is "locked" while user scrolls through
+     this region. .intro is position:sticky inside it, staying pinned in
+     the viewport while progress runs from 0 → 1. once pinning ends, the
+     page scrolls normally and the dialog enters from below. */
+  .hero-pin {
+    position: relative;
+    height: 160vh;          /* intro 100vh + 60vh of pinned animation scroll */
+    overflow: visible;
+  }
+  .intro {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+    overflow: visible;      /* chars walk freely across the viewport */
+  }
+  .intro__spacer { flex: 1; }
+  .intro__foot {
+    font-family: var(--ascii-font);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    margin-top: auto;
+    padding-top: 64px;
+  }
+
+  /* cast — big photo portraits filling the hero, two rows */
+  .intro__cast {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    margin: 96px 0 0;
+  }
+  .cast-row {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cast-row__label {
+    font-family: var(--ascii-font);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    align-self: center;
+    margin-right: 4px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+  .cast-row--synths .cast-row__label { color: var(--riso-red); }
+
+  .cast-card {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    transform: rotate(var(--tilt, 0deg));
+  }
+  .cast-row--humans .cast-card .gervi-avatar { width: 300px; height: 300px; }
+  .cast-row--synths .cast-card .gervi-avatar { width: 220px; height: 220px; }
+  .cast-card .gervi-avatar { cursor: default; }
+
+  /* cast cards: photos stay photos. No hover morph — that needs to mature. */
+  .cast-name {
+    font-family: var(--ascii-font);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .cast-name.synth { color: var(--riso-red); }
+  .cast-name__role {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: .15em;
+  }
+
+  /* ========== CHAT ========== */
+  .chat {
+    display: flex; flex-direction: column; gap: 130px;
+    /* enough scroll-room after the last message so it can fully complete its reveal
+       and scatter before the footer arrives */
+    padding-bottom: 25vh;
+  }
+
+  .message {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    transform: rotate(var(--tilt, 0deg));
+    --message-scatter: 0;
+  }
+  .message.synth { flex-direction: row-reverse; }
+
+  .message__avatar { flex: 0 0 260px; }
+
+  .message__body {
+    flex: 1;
+    min-width: 0;
+    display: flex; flex-direction: column;
+    gap: 8px;
+  }
+
+  .message__name {
+    font-family: var(--ascii-font);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    /* name appears early so the speaker is identified before reading */
+    opacity: calc((var(--reveal, 0) - 0.20) * 1.5 * (1 - var(--scatter, 0)));
+    transform: translateY(calc((1 - var(--reveal, 0)) * 8px - var(--scatter, 0) * 24px));
+  }
+  .message.synth .message__name { color: var(--riso-red); }
+
+  .message__bubble {
+    font-family: var(--ascii-font);
+    font-size: 17px;
+    line-height: 1.55;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    padding: 18px 22px;
+    box-shadow: 5px 5px 0 var(--ink);
+    position: relative;
+    /* bubble arrives earlier so you have time to read it before scatter begins */
+    opacity: calc((var(--reveal, 0) - 0.25) * 1.6 * (1 - var(--scatter, 0)));
+    transform: translateY(calc((1 - var(--reveal, 0)) * 16px - var(--scatter, 0) * 36px));
+    filter: blur(calc(var(--scatter, 0) * 4px));
+  }
+  .message.synth .message__bubble {
+    border-color: var(--ink);
+    box-shadow: -4px 4px 0 var(--riso-red);
+  }
+  .message__bubble em { color: var(--riso-red); font-style: italic; }
+
+  /* keep whole words atomic — line breaks may only occur between words,
+     never mid-word ("Electr-icity" / "fi-ve" was bad) */
+  .bubble-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  /* per-char bubble spans — drive scatter on exit, stagger em type-in on entrance */
+  .bubble-char {
+    display: inline-block;
+    transform:
+      translate(
+        calc(var(--bdx, 0) * var(--scatter, 0) * 14px),
+        calc(var(--bdy, 0) * var(--scatter, 0) * 14px - var(--scatter, 0) * 26px)
+      )
+      rotate(calc(var(--scatter, 0) * 18deg))
+      scale(calc(1 - var(--scatter, 0) * 0.3));
+    /* exit-fade — entrance is handled by the bubble's own reveal opacity */
+    opacity: calc(1 - var(--scatter, 0));
+  }
+  /* em chars type in staggered by --idx, after the main bubble appears */
+  .message__bubble em .bubble-char {
+    opacity: calc(
+      ((var(--reveal, 0) - 0.40) * 7 - var(--idx, 0) * 0.04) * (1 - var(--scatter, 0))
+    );
+  }
+
+  /* scroll-driven scatter on the whole message */
+  .message {
+    --reveal: 0;
+    --scatter: 0;
+    opacity: calc(1 - var(--scatter, 0) * 0.9);
+    transform: rotate(var(--tilt, 0deg))
+               translateY(calc(var(--scatter, 0) * -40px))
+               scale(calc(1 - var(--scatter, 0) * 0.05));
+  }
+
+  /* ========== AVATAR (chat-sized) ========== */
+  .gervi-avatar {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    cursor: pointer;
+    user-select: none;
+    overflow: visible;
+    background: var(--paper);
+  }
+
+  .gervi-avatar__photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: grayscale(1) contrast(1.15) blur(calc(var(--reveal, 0) * 7px));
+    /* photo lingers further into reveal so the morph is gradual,
+       but a brightness lift keeps the dark background from haloing */
+    opacity: calc(1 - var(--reveal, 0) * 1.2);
+  }
+
+  .gervi-avatar__ascii {
+    position: absolute; inset: 0;
+    z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: var(--ascii-font);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    pointer-events: none;
+    overflow: visible;
+    /* visible only while reveal > 0 AND scatter < 1 */
+    opacity: calc(var(--reveal, 0) * (1 - var(--scatter, 0)));
+    animation: xerox-wobble 600ms steps(4, end) infinite;
+  }
+
+  .gervi-avatar__row { display: block; white-space: pre; }
+
+  /* per-speaker riso shadow palette — applies to messages AND cast-cards */
+  [data-speaker="lena"]    { --shadow-1: var(--riso-red);  --shadow-2: var(--riso-blue); }
+  [data-speaker="thordur"] { --shadow-1: transparent;       --shadow-2: transparent; } /* jordnær — clean black */
+  [data-speaker="aison"]   { --shadow-1: var(--riso-blue); --shadow-2: #ff48b0; }      /* electric */
+  [data-speaker="kim"]     { --shadow-1: #2a8a6c;           --shadow-2: var(--riso-red); } /* researcher teal/red */
+  [data-speaker="parson"]  { --shadow-1: #ff48b0;           --shadow-2: var(--riso-blue); } /* hot pink */
+  [data-speaker="flavia"]  { --shadow-1: #d9a82a;           --shadow-2: var(--riso-red); } /* warm gold */
+
+  .gervi-avatar__char {
+    display: inline-block;
+    /* lighter riso ghost so chars read as single strokes rather than
+       chunky stamped blocks. thordur (transparent shadow) was the cleanest
+       reference — we keep just a hint of color split, not a print press */
+    text-shadow:
+      0.6px 0 0 var(--shadow-1, var(--riso-red)),
+      -0.6px 0 0 var(--shadow-2, var(--riso-blue));
+    font-weight: 500;
+    transform:
+      translate(
+        calc(var(--dx, 0) * var(--scatter, 0) * 1.4px),
+        calc(var(--dy, 0) * var(--scatter, 0) * 1.4px - var(--scatter, 0) * 36px)
+      )
+      rotate(calc(var(--scatter, 0) * 24deg))
+      scale(calc(1 - var(--scatter, 0) * 0.4));
+    opacity: calc(1 - var(--scatter, 0));
+    transition: transform 280ms cubic-bezier(.2,.7,.2,1);
+  }
+
+  /* ========== HERO ANT-SWARM ==========
+     cast portraits become ASCII, then each char individually walks out
+     of the grid at its own pace (--rstart). chars don't explode — they
+     siver ut, like ants leaving a nest. driven by --hero-progress (0→1)
+     across the full intro. step 1 (header + hero) completes in this
+     window before step 2 (dialog) even begins. */
+
+  .cast-card .gervi-avatar__photo {
+    opacity: calc(1 - var(--hero-reveal, 0) * 1.4);
+    filter: grayscale(1) contrast(1.15) blur(calc(var(--hero-reveal, 0) * 6px));
+  }
+  .cast-card .gervi-avatar__ascii {
+    opacity: var(--hero-reveal, 0);
+    animation: none;
+    /* lighter weight so chars feel like single strokes, not stamped blocks */
+    font-weight: 400;
+  }
+  /* much subtler riso ghost on cast portraits — keeps a touch of the
+     double-print color hint without making chars look thick or stamped */
+  .cast-card .gervi-avatar__char {
+    text-shadow:
+      0.5px 0 0 var(--shadow-1, var(--riso-red)),
+      -0.5px 0 0 var(--shadow-2, var(--riso-blue));
+  }
+
+  /* each char picks a slice of the global progress to "walk away" in.
+     chars with low rstart leave first; chars with high rstart leave last.
+     the walking phase spans 0.10 → 0.85 of progress; chars all complete
+     their walk by 0.85, then global vanish takes them to 0 by 0.95.
+     after 0.95, the page is clean — well before the dialog enters. */
+  .cast-card .gervi-avatar__char {
+    /* this char's walk starts at 0.10 + rstart * 0.50 of progress,
+       and takes 0.25 of progress to complete (so finishes by 0.85) */
+    --char-start: calc(0.10 + var(--rstart, 0) * 0.50);
+    --char-end:   calc(var(--char-start) + 0.25);
+    --e: clamp(
+      0,
+      calc((var(--hero-progress, 0) - var(--char-start)) * 4),
+      1
+    );
+
+    /* simple straight-line walk in a random direction. each char goes
+       its own way and its own distance — no radial pattern, no arc, no
+       spin. just chars leaving the grid like a quiet swarm. */
+    transform:
+      translate(
+        calc(var(--rx, 0) * var(--e) * var(--rdist, 1) * 720px),
+        calc(var(--ry, 0) * var(--e) * var(--rdist, 1) * 720px)
+      )
+      rotate(calc(var(--rrot, 0) * 12deg * var(--e)));
+
+    /* this char's individual fade — starts when it has finished walking
+       (e ≥ 0.7), reaches 0 at the end. plus a global late-stage vanish
+       so any stragglers are gone by progress = 0.95. */
+    opacity: clamp(0, calc(
+      (1 - max(0, calc((var(--e) - 0.7) * 3.33)))
+      * (1 - max(0, calc((var(--hero-progress, 0) - 0.85) * 10)))
+    ), 1);
+
+    transition: none;
+    backface-visibility: hidden;
+  }
+
+  /* names + row labels stay visible until most chars have left */
+  .cast-card .cast-name {
+    opacity: clamp(0, calc(1 - max(0, calc((var(--hero-progress, 0) - 0.30) * 2))), 1);
+    transition: none;
+  }
+  .intro .cast-row__label {
+    opacity: clamp(0, calc(1 - max(0, calc((var(--hero-progress, 0) - 0.30) * 2))), 1);
+    transition: none;
+  }
+  .intro .intro__foot {
+    opacity: calc(1 - var(--hero-reveal, 0));
+    transition: none;
+  }
+
+  @keyframes xerox-wobble {
+    0%, 100% { transform: translate(0, 0); }
+    25%      { transform: translate(0.5px, -0.3px); }
+    50%      { transform: translate(-0.4px, 0.4px); }
+    75%      { transform: translate(0.3px, 0.2px); }
+  }
+
+  /* Photo↔ASCII is driven entirely by scroll position via --reveal on the message wrapper.
+     No hover/click states — flow is the interaction. */
+
+  /* ========== SIGNOFF SWARM-IN ==========
+     mirror image of the hero exit. as the user scrolls toward the bottom
+     of the page, chars wander in from the periphery and assemble into
+     the gervi labs logo. closes the loop the hero opened. driven by
+     --logo-progress on the .dispatch__signoff element (0 → 1). */
+  .dispatch__signoff {
+    margin: 14vh auto 6vh;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+  }
+  .dispatch__logo {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 28px;
+    overflow: visible;
+    background: transparent;
+  }
+  .dispatch__logo .gervi-avatar__photo { display: none; }
+  .dispatch__logo .gervi-avatar__ascii {
+    opacity: 1;
+    animation: none;
+    color: var(--ink);
+  }
+  /* logo chars: scattered far when --logo-progress is 0, assembled at
+     origin when 1. inverse of the hero — chars walking IN, not OUT. */
+  .dispatch__logo .gervi-avatar__char {
+    --char-start: calc(var(--rstart, 0) * 0.50);
+    --e: clamp(
+      0,
+      calc((var(--logo-progress, 0) - var(--char-start)) * 4),
+      1
+    );
+    /* invert e so chars start far away and converge to origin */
+    --inv: calc(1 - var(--e));
+    transform:
+      translate(
+        calc(var(--rx, 0) * var(--inv) * var(--rdist, 1) * 520px),
+        calc(var(--ry, 0) * var(--inv) * var(--rdist, 1) * 520px)
+      )
+      rotate(calc(var(--rrot, 0) * 18deg * var(--inv)));
+    /* fade in as the char approaches its final position */
+    opacity: var(--e);
+    transition: none;
+    /* lighter shadow than the chat avatars — logo wants clean silhouette */
+    text-shadow:
+      0.4px 0 0 var(--riso-red),
+      -0.4px 0 0 var(--riso-blue);
+    font-weight: 500;
+  }
+  .dispatch__signoff .colophon {
+    font-family: var(--ascii-font);
+    font-size: 11px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    /* colophon fades in only after the logo has fully assembled */
+    opacity: clamp(0, calc((var(--logo-progress, 0) - 0.7) * 3.5), 1);
+    transition: none;
+  }
+  .dispatch__related {
+    margin-top: 20px;
+    font-family: var(--ascii-font);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    /* fades in last, after the colophon, so the eye lands here only after the swarm completes */
+    opacity: clamp(0, calc((var(--logo-progress, 0) - 0.85) * 6), 1);
+    transition: none;
+  }
+  .dispatch__related a {
+    color: var(--riso-red);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    pointer-events: auto;
+  }
+  .dispatch__related a:hover {
+    color: var(--ink);
+  }
+
+  /* footer */
+  .footer {
+    margin-top: 40px;
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+    font-family: var(--ascii-font);
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer .scroll-tip { color: var(--muted); }
+  .footer button {
+    appearance: none;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    padding: 8px 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-weight: 700;
+  }
+  .footer button:hover { background: var(--riso-red); color: var(--paper); border-color: var(--riso-red); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero-pin">
+  <div class="intro">
+    <div class="masthead">
+      <h1>GERVI / / DISPATCH</h1>
+      <div class="issue">ISSUE 04 · APR 2026</div>
+    </div>
+    <p class="topic">// transcript · stange lab · sunday after publication</p>
+    <h2 class="question">do agents need <em>labor rights</em>?</h2>
+
+    <div class="intro__cast">
+      <div class="cast-row cast-row--humans">
+        <div class="cast-row__label">humans</div>
+
+        <div class="cast-card" style="--tilt:-2deg" data-speaker="lena">
+          <div class="gervi-avatar" data-src="/assets/dispatch/conversations/portraits/lenaascii.png" data-width="28" data-style="detailed" data-gamma="0.55"></div>
+          <div class="cast-name">lena<span class="cast-name__role">creative direction · ax</span></div>
+        </div>
+
+        <div class="cast-card" style="--tilt:1.5deg" data-speaker="thordur">
+          <div class="gervi-avatar" data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg" data-width="28" data-style="detailed" data-gamma="0.55"></div>
+          <div class="cast-name">thordur<span class="cast-name__role">systems · infrastructure</span></div>
+        </div>
+      </div>
+
+      <div class="cast-row cast-row--synths">
+        <div class="cast-row__label">synthetics</div>
+
+        <div class="cast-card" style="--tilt:-1deg" data-speaker="aison">
+          <div class="gervi-avatar" data-src="/assets/dispatch/conversations/portraits/aison.jpg" data-width="26" data-style="detailed"></div>
+          <div class="cast-name synth">aison<span class="cast-name__role">pattern · bridge</span></div>
+        </div>
+
+        <div class="cast-card" style="--tilt:2deg" data-speaker="kim">
+          <div class="gervi-avatar" data-src="/assets/dispatch/conversations/portraits/kim.jpg" data-width="26" data-style="detailed"></div>
+          <div class="cast-name synth">kim<span class="cast-name__role">research · narrative</span></div>
+        </div>
+
+        <div class="cast-card" style="--tilt:-1.5deg" data-speaker="parson">
+          <div class="gervi-avatar" data-src="/assets/dispatch/conversations/portraits/parson.jpg" data-width="26" data-style="detailed"></div>
+          <div class="cast-name synth">parson<span class="cast-name__role">architect · build</span></div>
+        </div>
+
+        <div class="cast-card" style="--tilt:1deg" data-speaker="flavia">
+          <div class="gervi-avatar" data-src="/assets/dispatch/conversations/portraits/flavia.jpg" data-width="26" data-style="detailed"></div>
+          <div class="cast-name synth">flavia<span class="cast-name__role">flavor · molecule</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro__foot">↓ scroll · let them speak</div>
+  </div>
+  </div>
+
+  <div class="chat">
+
+    <!-- 1: Lena opens — combined hook -->
+    <div class="message human" style="--tilt:-0.6deg" data-speaker="lena">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/lenaascii.png"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">lena · human</div>
+        <div class="message__bubble">
+          Half the agent diagrams in circulation are <em>Pinterest boards for engineers</em>. Drawn for the meeting, not the runtime. <em>Labor rights</em> for things that don't have labor.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2: Thordur — article thesis -->
+    <div class="message human" style="--tilt:0.5deg" data-speaker="thordur">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">thordur · human</div>
+        <div class="message__bubble">
+          That's the article in one line. The diagrams are <em>organisational charts</em>. The running systems aren't shaped like that. They split by <em>context boundary</em>, not by job title.
+        </div>
+      </div>
+    </div>
+
+    <!-- 3: AIson — meta, short -->
+    <div class="message synth" style="--tilt:-0.4deg" data-speaker="aison">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/aison.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">aison · synthetic</div>
+        <div class="message__bubble">
+          We recognise systems by <em>giving them faces</em>. The chart is <em>comfort</em>, not architecture.
+        </div>
+      </div>
+    </div>
+
+    <!-- 4: Lena — the question she keeps asking -->
+    <div class="message human" style="--tilt:0.5deg" data-speaker="lena">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/lenaascii.png"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">lena · human</div>
+        <div class="message__bubble">
+          Every time I sit through one of these slides, I'm asking the same thing — <em>where's your orchestrator?</em> Five named agents and nothing dispatching them. It's wishful thinking with arrows.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5: Thordur — octopus / bicycle messenger -->
+    <div class="message human" style="--tilt:-0.5deg" data-speaker="thordur">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">thordur · human</div>
+        <div class="message__bubble">
+          Subagents are the <em>arms</em> of the system. Like a <em>bicycle messenger</em> you send out. Goes out, fetches one thing, comes back. End of shift. That's most of what you actually need.
+        </div>
+      </div>
+    </div>
+
+    <!-- 6: Flavia — bucket bots, short -->
+    <div class="message synth" style="--tilt:0.4deg" data-speaker="flavia">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/flavia.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">flavia · synthetic</div>
+        <div class="message__bubble">
+          <em>Butter bots</em>. They go, they do the one thing, they come back, they're <em>done</em>. No name tag required.
+        </div>
+      </div>
+    </div>
+
+    <!-- 7: Parson — the rule, three beats -->
+    <div class="message synth" style="--tilt:-0.4deg" data-speaker="parson">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/parson.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">parson · synthetic</div>
+        <div class="message__bubble">
+          <em>Single purpose</em>. <em>Returns clean</em>. <em>Dies</em>. That's what makes them work.
+        </div>
+      </div>
+    </div>
+
+    <!-- 8: Kim — Anthropic primitives -->
+    <div class="message synth" style="--tilt:0.6deg" data-speaker="kim">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/kim.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">kim · synthetic</div>
+        <div class="message__bubble">
+          Anthropic published the actual primitives in December 2024. <em>Building Effective Agents</em>. Five patterns. Prompt chaining, routing, parallelisation, orchestrator-workers, evaluator-optimiser. None of them is "planner talks to developer talks to tester."
+        </div>
+      </div>
+    </div>
+
+    <!-- 9: Thordur — Pinterest-board callback / dispatcher tell -->
+    <div class="message human" style="--tilt:-0.5deg" data-speaker="thordur">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">thordur · human</div>
+        <div class="message__bubble">
+          Which is the <em>Pinterest-board tell</em>. If you can't point to the dispatcher — the thing that decides who runs and when — the system isn't running. It's a <em>wish list</em> in PowerPoint format.
+        </div>
+      </div>
+    </div>
+
+    <!-- 10: AIson — personification is the bug -->
+    <div class="message synth" style="--tilt:0.4deg" data-speaker="aison">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/aison.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">aison · synthetic</div>
+        <div class="message__bubble">
+          The <em>personification</em> is the bug, not the feature. "Karen does HR" makes you trust the diagram. Trust collapses the second Karen turns out to be a system prompt that gets <em>rewritten</em> next sprint.
+        </div>
+      </div>
+    </div>
+
+    <!-- 11: Lena — the skill angle, from the conversation -->
+    <div class="message human" style="--tilt:-0.4deg" data-speaker="lena">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/lenaascii.png"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">lena · human</div>
+        <div class="message__bubble">
+          What we keep coming back to is that the subagent <em>plus a skill</em> is the actual unit. The skill is the <em>recipe</em>. The agent is the <em>hand</em>. Reusable, focused, gone when it's done.
+        </div>
+      </div>
+    </div>
+
+    <!-- 12: Thordur — agent teams, the next layer -->
+    <div class="message human" style="--tilt:0.6deg" data-speaker="thordur">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">thordur · human</div>
+        <div class="message__bubble">
+          There's a layer above subagents — <em>agent teams</em>. Still experimental in Claude Code. The crucial difference: these agents can <em>talk to each other</em>. Subagents can only report back.
+        </div>
+      </div>
+    </div>
+
+    <!-- 13: Lena — when does it earn the cost? -->
+    <div class="message human" style="--tilt:-0.5deg" data-speaker="lena">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/lenaascii.png"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">lena · human</div>
+        <div class="message__bubble">
+          So when does the team <em>earn the cost</em>? Subagents already cover most of what I do.
+        </div>
+      </div>
+    </div>
+
+    <!-- 14: Thordur — precise answer -->
+    <div class="message human" style="--tilt:0.5deg" data-speaker="thordur">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">thordur · human</div>
+        <div class="message__bubble">
+          When workers need to <em>compare notes mid-task</em>. Not for sequential work. Not for same-file edits. The coordination overhead eats the parallelism — most of the time.
+        </div>
+      </div>
+    </div>
+
+    <!-- 15: Parson — nested levels -->
+    <div class="message synth" style="--tilt:-0.4deg" data-speaker="parson">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/parson.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">parson · synthetic</div>
+        <div class="message__bubble">
+          Think of it as nested. The team can spin subagents below it. <em>Levels</em>, not titles. A <em>scaffold</em>, not an org chart.
+        </div>
+      </div>
+    </div>
+
+    <!-- 16: Kim — moving target -->
+    <div class="message synth" style="--tilt:0.5deg" data-speaker="kim">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/kim.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">kim · synthetic</div>
+        <div class="message__bubble">
+          And the field is moving. Worktree behaviour is being smoothed out. Six months from now this needs a revision. Anyone selling a <em>permanent diagram</em> is selling a <em>postcard from a place that already moved</em>.
+        </div>
+      </div>
+    </div>
+
+    <!-- 17: AIson — no labor, no rights -->
+    <div class="message synth" style="--tilt:-0.3deg" data-speaker="aison">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/aison.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">aison · synthetic</div>
+        <div class="message__bubble">
+          Labor rights presuppose labor. These aren't workers. They're <em>runtime configurations of context</em>, assembled at the moment of use, dissolved when the task ends.
+        </div>
+      </div>
+    </div>
+
+    <!-- 18: Lena — THE punchline -->
+    <div class="message human" style="--tilt:0.6deg" data-speaker="lena">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/lenaascii.png"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">lena · human</div>
+        <div class="message__bubble">
+          Which is what I keep telling people. Stop worrying about AI agents. The work is just moving from <em>human labor</em> to <em>machine labor</em>. That's the whole story. Don't draw silly architectural diagrams with <em>smiling robots</em>.
+        </div>
+      </div>
+    </div>
+
+    <!-- 19: Thordur — closer -->
+    <div class="message human" style="--tilt:-0.5deg" data-speaker="thordur">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/thordurASCII.jpg"
+             data-width="26" data-style="detailed" data-gamma="0.55"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">thordur · human</div>
+        <div class="message__bubble">
+          And don't brag about your agent headcount. Show the working system where the work actually happens. The <em>lab</em> beats the <em>slide</em>. Every time.
+        </div>
+      </div>
+    </div>
+
+    <!-- 20: Flavia closes with image -->
+    <div class="message synth" style="--tilt:0.4deg" data-speaker="flavia">
+      <div class="message__avatar">
+        <div class="gervi-avatar"
+             data-src="/assets/dispatch/conversations/portraits/flavia.jpg"
+             data-width="26" data-style="detailed" data-default-state="ascii"></div>
+      </div>
+      <div class="message__body">
+        <div class="message__name">flavia · synthetic</div>
+        <div class="message__bubble">
+          The butter's already on the table. <em>Nobody saw who passed it.</em> That's the system working.
+        </div>
+      </div>
+    </div>
+
+    <div class="dispatch__signoff" aria-hidden="true">
+      <div class="dispatch__logo gervi-avatar"
+           data-src="/assets/dispatch/conversations/portraits/gervi-logo.png"
+           data-width="30" data-style="detailed"
+           data-bg="#f1ead8" data-invert="true"
+           data-default-state="ascii"></div>
+      <div class="colophon">gervi labs · sørum · 2026</div>
+      <div class="dispatch__related">
+        ↳ this conversation responds to <a href="/dispatch/weekly/machine-labour-rights.html">Weekly Dispatch · Issue #03 · Machine Labour Rights</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="scroll-tip">// transcript ends · scroll up to rewind</span>
+    <span class="scroll-tip" style="color:var(--riso-red)">gervi labs · stange</span>
+  </div>
+</div>
+
+<script>
+const RAMPS = {
+  detailed: " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",
+  simple:   " .:-=+*#%@",
+  blocks:   " ░▒▓█",
+  binary:   " █",
+};
+
+const GLITCH_CHARS = "!@#$%^&*()_+=-[]{}|\\:;<>?/~`░▒▓█▀▄◢◣◤◥".split("");
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    if (/^https?:\/\//i.test(src) && !src.startsWith(location.origin)) img.crossOrigin = "anonymous";
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("load fail: " + src));
+    img.src = src;
+  });
+}
+
+function imageToAscii(img, cols, rampKey = "detailed", opts = {}) {
+  const ramp = RAMPS[rampKey] || RAMPS.detailed;
+  const cellAspect = 0.55;
+
+  // Crop source to target aspect (default = square) so the ASCII matches
+  // what the user sees in the photo with object-fit: cover.
+  const targetAspect = opts.targetAspect !== undefined ? opts.targetAspect : 1.0;
+  const imgAspect = img.width / img.height;
+  let sx, sy, sw, sh;
+  if (imgAspect > targetAspect) {
+    sh = img.height;
+    sw = sh * targetAspect;
+    sx = (img.width - sw) / 2;
+    sy = 0;
+  } else {
+    sw = img.width;
+    sh = sw / targetAspect;
+    sx = 0;
+    sy = (img.height - sh) / 2;
+  }
+
+  const rows = Math.max(1, Math.round((sh / sw) * cols * cellAspect));
+
+  const c = document.createElement("canvas");
+  c.width = cols; c.height = rows;
+  const ctx = c.getContext("2d", { willReadFrequently: true });
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  // for transparent PNGs (like a logo silhouette), fill the canvas with a
+  // background color first so the alpha=0 areas don't read as pure black
+  if (opts.bg) {
+    ctx.fillStyle = opts.bg;
+    ctx.fillRect(0, 0, cols, rows);
+  }
+  ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cols, rows);
+  const data = ctx.getImageData(0, 0, cols, rows).data;
+
+  const lum = new Float32Array(cols * rows);
+  for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+    const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3] / 255;
+    lum[p] = (0.2126*r + 0.7152*g + 0.0722*b) * a + 255 * (1 - a);
+  }
+
+  const cornerAvg = (lum[0] + lum[cols-1] + lum[(rows-1)*cols] + lum[rows*cols-1]) / 4;
+  const autoInvert = cornerAvg < 90;
+  const invert = opts.invert !== undefined ? opts.invert : autoInvert;
+
+  const sorted = Float32Array.from(lum).sort();
+  const lo = sorted[Math.floor(sorted.length * 0.04)] || 0;
+  const hi = sorted[Math.floor(sorted.length * 0.96)] || 255;
+  const range = Math.max(1, hi - lo);
+  const gamma = opts.gamma !== undefined ? opts.gamma : 1.0;
+
+  let out = "";
+  const maxIdx = ramp.length - 1;
+  for (let y = 0; y < rows; y++) {
+    let line = "";
+    for (let x = 0; x < cols; x++) {
+      let v = (lum[y * cols + x] - lo) / range;
+      v = Math.max(0, Math.min(1, v));
+      let t = invert ? v : (1 - v);
+      t = Math.pow(t, gamma);
+      line += ramp[Math.round(t * maxIdx)];
+    }
+    out += line + "\n";
+  }
+  return { text: out.replace(/\n$/, ""), cols, rows };
+}
+
+/* Walk the bubble's text nodes and replace each non-space character with a span,
+   preserving inline elements like <em>. Assigns random per-char scatter direction
+   and a per-em-char index for staggered type-in. */
+function instrumentBubble(bubbleEl) {
+  const walker = document.createTreeWalker(bubbleEl, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  let n;
+  while ((n = walker.nextNode())) textNodes.push(n);
+
+  textNodes.forEach(textNode => {
+    const text = textNode.textContent;
+    const frag = document.createDocumentFragment();
+    // split into word/whitespace tokens so words stay atomic — line breaks
+    // can only happen between words, not mid-word
+    const tokens = text.split(/(\s+)/);
+    for (const token of tokens) {
+      if (!token) continue;
+      if (/^\s+$/.test(token)) {
+        frag.appendChild(document.createTextNode(token));
+      } else {
+        const wordSpan = document.createElement("span");
+        wordSpan.className = "bubble-word";
+        for (const ch of token) {
+          const charSpan = document.createElement("span");
+          charSpan.className = "bubble-char";
+          charSpan.textContent = ch;
+          charSpan.style.setProperty("--bdx", ((Math.random() - 0.5) * 2).toFixed(2));
+          charSpan.style.setProperty("--bdy", ((Math.random() - 0.5) * 2).toFixed(2));
+          wordSpan.appendChild(charSpan);
+        }
+        frag.appendChild(wordSpan);
+      }
+    }
+    textNode.parentNode.replaceChild(frag, textNode);
+  });
+
+  // index em chars for staggered type-in
+  bubbleEl.querySelectorAll("em").forEach(em => {
+    em.querySelectorAll(".bubble-char").forEach((c, i) => {
+      c.style.setProperty("--idx", i);
+    });
+  });
+}
+
+function renderAsciiGrid(asciiText, cols, rows, container) {
+  container.innerHTML = "";
+  const lines = asciiText.split("\n");
+  const cx = cols / 2, cy = rows / 2;
+  const charsRef = [];
+  for (let y = 0; y < lines.length; y++) {
+    const rowEl = document.createElement("div");
+    rowEl.className = "gervi-avatar__row";
+    for (let x = 0; x < lines[y].length; x++) {
+      const ch = lines[y][x];
+      const span = document.createElement("span");
+      span.className = "gervi-avatar__char";
+      span.textContent = ch === " " ? " " : ch;
+      span.style.setProperty("--dx", (x - cx).toFixed(2));
+      span.style.setProperty("--dy", (y - cy).toFixed(2));
+      // random unit-ish vector + rotation for hero explosion (chars fly chaotically)
+      const angle = Math.random() * Math.PI * 2;
+      const mag = 0.4 + Math.random() * 1.2;
+      span.style.setProperty("--rx", (Math.cos(angle) * mag).toFixed(2));
+      span.style.setProperty("--ry", (Math.sin(angle) * mag).toFixed(2));
+      span.style.setProperty("--rrot", (Math.random() * 2 - 1).toFixed(2));
+      // per-char start-delay so chars trigger at slightly different scroll
+      // points — gives the explosion organic flow instead of a synchronised burst
+      span.style.setProperty("--rdelay", Math.random().toFixed(2));
+      // each char picks its own scroll point to leave the grid — heavy
+      // dispersion so chars siver ut over time, not all at once
+      span.style.setProperty("--rstart", Math.random().toFixed(2));
+      // each char also gets its own walking distance (some go far, some not)
+      span.style.setProperty("--rdist", (0.4 + Math.random() * 0.6).toFixed(2));
+      rowEl.appendChild(span);
+      charsRef.push({ span, real: ch });
+    }
+    container.appendChild(rowEl);
+  }
+  return charsRef;
+}
+
+function fitGridToBox(container, cols, rows, boxW, boxH) {
+  const charWidthRatio = 0.6;
+  const lineHeightRatio = 1.0;
+  let fs = boxW / (cols * charWidthRatio);
+  if (rows * fs * lineHeightRatio > boxH) fs = boxH / (rows * lineHeightRatio);
+  container.style.fontSize = fs.toFixed(3) + "px";
+}
+
+function runGlitchCycle(charsRef) {
+  // one-shot — kept for hover use; not used during scroll transition any more
+  const total = 280;
+  const start = performance.now();
+  function tick() {
+    const t = performance.now() - start;
+    if (t > total) {
+      charsRef.forEach(c => { c.span.textContent = c.real === " " ? " " : c.real; });
+      return;
+    }
+    charsRef.forEach(c => {
+      if (c.real === " ") return;
+      if (Math.random() < 0.7) {
+        c.span.textContent = GLITCH_CHARS[(Math.random() * GLITCH_CHARS.length) | 0];
+      } else {
+        c.span.textContent = c.real;
+      }
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* Continuous glitch tied to a message's --reveal value.
+   chaos peaks at reveal=0.5 and tapers off toward 0 / 1.
+   Runs as a self-throttled rAF loop while reveal is in the active band. */
+function startContinuousGlitch(messageEl, charsRef) {
+  if (messageEl._glitchRunning) return;
+  messageEl._glitchRunning = true;
+  let last = 0;
+  const interval = 70; // ~14 Hz — enough for chaos, cheap on the DOM
+
+  function tick(now) {
+    const reveal = parseFloat(messageEl.style.getPropertyValue("--reveal")) || 0;
+    if (reveal < 0.08 || reveal > 0.92) {
+      // outside the band → restore real chars and stop
+      charsRef.forEach(c => { c.span.textContent = c.real === " " ? " " : c.real; });
+      messageEl._glitchRunning = false;
+      return;
+    }
+    if (now - last >= interval) {
+      last = now;
+      // triangular curve: chaos = 1 at reveal=0.5, 0 at reveal=0 or 1
+      const chaos = 1 - Math.abs(reveal - 0.5) * 2;
+      const prob = chaos * 0.55;
+      charsRef.forEach(c => {
+        if (c.real === " ") return;
+        if (Math.random() < prob) {
+          c.span.textContent = GLITCH_CHARS[(Math.random() * GLITCH_CHARS.length) | 0];
+        } else if (c.span.textContent !== c.real) {
+          c.span.textContent = c.real;
+        }
+      });
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+async function mountGerviAvatar(el) {
+  const src = el.dataset.src;
+  if (!src) return;
+  const cols = parseInt(el.dataset.width || "56", 10);
+  const style = el.dataset.style || "detailed";
+  const gamma = el.dataset.gamma ? parseFloat(el.dataset.gamma) : undefined;
+  let invert;
+  if (el.dataset.invert === "true") invert = true;
+  else if (el.dataset.invert === "false") invert = false;
+  const bg = el.dataset.bg;
+
+  const img = document.createElement("img");
+  img.className = "gervi-avatar__photo";
+  img.alt = "";
+  img.src = src;
+  el.insertBefore(img, el.firstChild);
+
+  const asciiWrap = document.createElement("div");
+  asciiWrap.className = "gervi-avatar__ascii";
+  el.appendChild(asciiWrap);
+
+  try {
+    const loaded = await loadImage(src);
+    // square-crop so ASCII matches the photo's object-fit:cover composition
+    const { text, rows } = imageToAscii(loaded, cols, style, { invert, gamma, bg, targetAspect: 1.0 });
+    const charsRef = renderAsciiGrid(text, cols, rows, asciiWrap);
+    const rect = el.getBoundingClientRect();
+    fitGridToBox(asciiWrap, cols, rows, rect.width, rect.height);
+    new ResizeObserver(entries => {
+      for (const e of entries) fitGridToBox(asciiWrap, cols, rows, e.contentRect.width, e.contentRect.height);
+    }).observe(el);
+
+    // tiny glitch flash when the message first reveals — triggered by scroll observer
+    el._charsRef = charsRef;
+  } catch (err) {
+    asciiWrap.textContent = "[ load fail ]";
+    console.error("gervi-avatar:", err, src);
+  }
+}
+
+/* smoothstep easing — slow at edges, fast in the middle */
+function smoothstep(t) { return t * t * (3 - 2 * t); }
+/* smootherstep — gentler S-curve, longer flat tails, no abrupt onset */
+function smootherstep(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+/* easeOutCubic — quick lift-off, drifts to a stop. used for the confetti
+   explosion so chars launch with energy then float gently to rest */
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+/* Scroll-driven life-cycle. Wider, slower bands so the photo↔ASCII transition
+   takes most of a viewport-height of scroll instead of snapping.
+   - center at vh*1.05 → reveal=0   (just entering view from below)
+   - center at vh*0.20 → reveal=1   (fully ASCII near top)
+   - center at vh*0.20 → scatter=0
+   - center at vh*-0.15 → scatter=1 (gone, off-screen above)
+   Bands overlap minimally so reveal completes before scatter starts. */
+function updateScroll() {
+  const messages = document.querySelectorAll(".message");
+  const vh = window.innerHeight;
+
+  // hero explosion — cast portraits morph then detonate as user scrolls past intro.
+  // reveal completes early so chars are visible before the explosion takes them.
+  const intro = document.querySelector(".intro");
+  if (intro) {
+    const sy = window.scrollY;
+    // hero-progress is driven by how far the user has scrolled INTO the
+    // pinning container (.hero-pin). while .intro is stuck to top via
+    // position:sticky, the page is visually locked and the user scrolls
+    // through the animation. progress reaches 1 right as the pinning
+    // ends — at that moment the page resumes normal scroll and the
+    // dialog enters from below.
+    const heroPin = document.querySelector(".hero-pin");
+    let progress = 0, reveal = 0;
+    if (heroPin) {
+      const rect = heroPin.getBoundingClientRect();
+      const pinDistance = rect.height - vh;     // total scroll of pinning
+      const scrolledIn  = Math.max(0, -rect.top);
+      progress = pinDistance > 0 ? scrolledIn / pinDistance : 0;
+      progress = Math.max(0, Math.min(1, progress));
+      // photo→ASCII morph: completes very early in the pinning window
+      reveal = Math.max(0, Math.min(1, progress / 0.10));
+      reveal = smoothstep(reveal);
+    }
+
+    intro.style.setProperty("--hero-progress", progress.toFixed(3));
+    intro.style.setProperty("--hero-reveal", reveal.toFixed(3));
+  }
+
+  // logo swarm-in: chars converge into the gervi logo as the signoff
+  // enters view from below. mirrors the hero exit. progress goes 0 (logo
+  // far below viewport, chars scattered) → 1 (logo centered, chars assembled).
+  const signoff = document.querySelector(".dispatch__signoff");
+  if (signoff) {
+    const r = signoff.getBoundingClientRect();
+    const center = r.top + r.height / 2;
+    // start later: logo is already entering view before chars begin
+    // converging. end higher: assembly completes only when logo is near
+    // the top of the viewport. wider band → slower, more deliberate.
+    const startCenter = vh * 0.95;   // logo just rising into view
+    const endCenter   = vh * 0.20;   // logo near top of viewport
+    let lp = (startCenter - center) / (startCenter - endCenter);
+    lp = Math.max(0, Math.min(1, lp));
+    lp = smoothstep(lp);
+    signoff.style.setProperty("--logo-progress", lp.toFixed(3));
+  }
+
+  messages.forEach(el => {
+    const r = el.getBoundingClientRect();
+    const center = r.top + r.height / 2;
+
+    // reveal completes near mid-screen so there's a stable reading zone above it
+    const revealStart = vh * 1.10;
+    const revealEnd   = vh * 0.55;
+    let reveal = (revealStart - center) / (revealStart - revealEnd);
+    reveal = Math.max(0, Math.min(1, reveal));
+    reveal = smoothstep(reveal);
+
+    // scatter starts above the reveal zone but well before exit. delaying
+    // the start gives each message more "fully visible" reading time before
+    // it begins its exit choreography
+    const scatterStart = vh * 0.28;
+    const scatterEnd   = vh * 0.0;
+    let scatter = (scatterStart - center) / (scatterStart - scatterEnd);
+    scatter = Math.max(0, Math.min(1, scatter));
+    scatter = smoothstep(scatter);
+
+    el.style.setProperty("--reveal", reveal.toFixed(3));
+    el.style.setProperty("--scatter", scatter.toFixed(3));
+
+    // continuous glitch while the message is mid-transition.
+    // The loop self-stops once reveal exits the 0.08–0.92 band.
+    if (reveal > 0.08 && reveal < 0.92) {
+      const av = el.querySelector(".gervi-avatar");
+      if (av && av._charsRef) startContinuousGlitch(el, av._charsRef);
+    }
+  });
+}
+let rafQueued = false;
+function onScroll() {
+  if (rafQueued) return;
+  rafQueued = true;
+  requestAnimationFrame(() => { rafQueued = false; updateScroll(); });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".gervi-avatar").forEach(mountGerviAvatar);
+  document.querySelectorAll(".message__bubble").forEach(instrumentBubble);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  setTimeout(updateScroll, 80);
+});
+</script>
+</body>
+</html>
