@@ -35,6 +35,20 @@
   .page { max-width: 1120px; margin: 0 auto; padding: 60px 40px 240px; position: relative; }
   .chat { max-width: 920px; margin: 0 auto; }
 
+  .dispatch__back {
+    font-family: var(--ascii-font);
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+  .dispatch__back a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .dispatch__back a:hover { color: var(--ink); border-bottom-color: currentColor; }
+
   .masthead {
     display: flex; align-items: baseline; justify-content: space-between;
     border-top: 6px solid var(--ink);
@@ -540,6 +554,11 @@
 <body>
 <div class="dispatch-back"><a href="/dispatch/conversations/">All Issues</a></div>
 <div class="page">
+  <nav class="dispatch__back">
+    <a href="/dispatch/conversations/">← back to conversations</a>
+    <span style="opacity:.4; padding: 0 8px;">·</span>
+    <a href="/dispatch/">gervi dispatch</a>
+  </nav>
   <div class="hero-pin">
   <div class="intro">
     <div class="masthead">
