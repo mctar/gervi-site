@@ -557,18 +557,31 @@
 
     .page { padding: 24px 18px 160px; }
 
-    .masthead { padding: 10px 0; margin-bottom: 6px; }
+    /* masthead: stack so the title and issue tag don't fight for one line */
+    .masthead {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      padding: 10px 0;
+      margin-bottom: 6px;
+    }
     .masthead h1 { font-size: 18px; }
     .masthead .issue { font-size: 9px; }
 
     .topic { font-size: 11px; }
-    .question { font-size: 32px; margin-top: 36px; }
+    .question { font-size: 28px; margin-top: 24px; line-height: 1.1; }
 
-    .hero-pin { height: 140vh; }
-    .intro { padding-bottom: 24px; }
-    .intro__foot { font-size: 9px; padding-top: 32px; letter-spacing: .2em; }
+    /* shorter pin region — less "is this thing scrolling?" zone on mobile.
+       use 100dvh so iOS URL-bar collapse doesn't jolt the layout. */
+    .hero-pin { height: 115vh; height: 115dvh; }
+    .intro {
+      height: 100vh;
+      height: 100dvh;
+      padding-bottom: 16px;
+    }
+    .intro__foot { display: none; }
 
-    .intro__cast { gap: 22px; margin: 36px 0 0; }
+    .intro__cast { gap: 16px; margin: 22px 0 0; }
     .cast-row { gap: 16px; }
     .cast-row__label {
       writing-mode: horizontal-tb;
