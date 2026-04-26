@@ -518,9 +518,27 @@
     font-weight: 700;
   }
   .footer button:hover { background: var(--riso-red); color: var(--paper); border-color: var(--riso-red); }
+
+  /* DISPATCH BACK */
+  .dispatch-back {
+    position: fixed; top: 1.2rem; left: 1.5rem; z-index: 9999;
+    font-family: var(--ascii-font); font-size: 0.55rem;
+    letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.45;
+    transition: opacity 0.3s;
+  }
+  .dispatch-back:hover { opacity: 0.95; }
+  .dispatch-back a {
+    color: var(--ink); text-decoration: none;
+    padding: 0.4rem 0.6rem; border: 1px solid currentColor;
+    background: var(--paper);
+    transition: background 0.2s, color 0.2s;
+  }
+  .dispatch-back a:hover { background: var(--ink); color: var(--paper); }
+  @media print { .dispatch-back { display: none; } }
 </style>
 </head>
 <body>
+<div class="dispatch-back"><a href="/dispatch/conversations/">All Issues</a></div>
 <div class="page">
   <div class="hero-pin">
   <div class="intro">
