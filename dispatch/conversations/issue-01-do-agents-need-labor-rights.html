@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GERVI / / DISPATCH — do agents need labor rights?</title>
 <style>
   :root {
@@ -549,6 +550,60 @@
   }
   .dispatch-back a:hover { background: var(--ink); color: var(--paper); }
   @media print { .dispatch-back { display: none; } }
+
+  /* ========== MOBILE ========== */
+  @media (max-width: 720px) {
+    html, body { overflow-x: hidden; }
+
+    .page { padding: 24px 18px 160px; }
+
+    .masthead { padding: 10px 0; margin-bottom: 6px; }
+    .masthead h1 { font-size: 18px; }
+    .masthead .issue { font-size: 9px; }
+
+    .topic { font-size: 11px; }
+    .question { font-size: 32px; margin-top: 36px; }
+
+    .hero-pin { height: 140vh; }
+    .intro { padding-bottom: 24px; }
+    .intro__foot { font-size: 9px; padding-top: 32px; letter-spacing: .2em; }
+
+    .intro__cast { gap: 22px; margin: 36px 0 0; }
+    .cast-row { gap: 16px; }
+    .cast-row__label {
+      writing-mode: horizontal-tb;
+      transform: none;
+      font-size: 9px;
+      letter-spacing: .25em;
+      align-self: flex-start;
+      margin: 0 0 4px;
+      width: 100%;
+      text-align: center;
+    }
+    .cast-row--humans .cast-card .gervi-avatar { width: 130px; height: 130px; }
+    .cast-row--synths .cast-card .gervi-avatar { width: 96px; height: 96px; }
+    .cast-name { font-size: 10px; letter-spacing: .18em; }
+    .cast-name__role { font-size: 9px; letter-spacing: .12em; }
+
+    /* messages stack: avatar above, body below */
+    .chat { gap: 64px; padding-bottom: 12vh; }
+    .message,
+    .message.synth {
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .message__avatar { flex: 0 0 auto; align-self: flex-start; }
+    .message.synth .message__avatar { align-self: flex-end; }
+    .message__avatar .gervi-avatar { width: 130px; height: 130px; }
+    .message__bubble { font-size: 14px; padding: 14px 16px; box-shadow: 4px 4px 0 var(--ink); }
+    .message.synth .message__bubble { box-shadow: -3px 3px 0 var(--riso-red); }
+    .message__name { font-size: 10px; letter-spacing: .18em; }
+
+    .dispatch__related { font-size: 10px; letter-spacing: .1em; }
+
+    .dispatch__back { font-size: 10px; letter-spacing: .12em; margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
