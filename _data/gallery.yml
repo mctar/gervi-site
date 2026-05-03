@@ -1,3 +1,63 @@
+- image: /assets/mannlaus2/photos/premiere_17_epilogue_overhead.jpg
+  alt: Mannlaus 2 epilogue, overhead view of two figures on a bioluminescent floor
+  caption: Mannlaus 2 · Epilogue 2026
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/judith_bluebeard_opera.jpg
+  alt: Judith towers over Bluebeard in mycelium vestments, in a blue-lit concrete chamber
+  caption: Mannlaus 2 · I Saw Everything and Touched Nothing
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/tech_07_seven_doors_lit.jpg
+  alt: All seven doors lit on the Mannlaus 2 set
+  caption: Mannlaus 2 · Seven Doors
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/tech_09_door7_blue.jpg
+  alt: Door 7 lighting state, bioluminescent blue
+  caption: Mannlaus 2 · Door 7 Lighting State
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/premiere_15_door4_audience.jpg
+  alt: Door 4, Outsourced Tenderness, viewed from the audience
+  caption: Mannlaus 2 · Door 4, Outsourced Tenderness
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/rehearsal_05_detail_hand.jpg
+  alt: Detail of a hand on stone during Mannlaus 2 rehearsal
+  caption: Mannlaus 2 · Detail, Hand on Stone
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/backstage_11_vestment.jpg
+  alt: Adjusting Bluebeard's mycelium vestment backstage
+  caption: Mannlaus 2 · Mycelium Vestment
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mannlaus2/photos/after_18_bow.jpg
+  alt: The bow at the end of Mannlaus 2, all seven doors open
+  caption: Mannlaus 2 · The Bow
+  project: mannlaus-2
+  project_title: Mannlaus 2
+  year: 2026
+- image: /assets/mimir/mimir-hero.jpeg
+  alt: Mimir live knowledge extraction system hero image
+  caption: Mímir · 2026
+  project: mimir
+  project_title: Mímir
+  year: 2026
+- image: /assets/kaupang/kaupang-hero.svg
+  alt: Kaupang sovereign agent marketplace hero illustration
+  caption: Kaupang · 2026
+  project: kaupang
+  project_title: Kaupang
+  year: 2026
 - image: /assets/cluj_hero.png
   alt: Human Control Protocol performance still
   caption: Human Control Protocol · 2025
