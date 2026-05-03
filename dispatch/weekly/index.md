@@ -12,6 +12,13 @@ Field notes from the frontier. Published when something happens worth writing ab
 
 <ul class="dispatch-list">
   <li>
+    <a href="{{ "/dispatch/weekly/what-the-machine-inherits.html" | relative_url }}" class="dispatch-link">
+      <div class="entry-date">May 3, 2026</div>
+      <div class="entry-title">Issue #04: What the Machine Inherits</div>
+      <div class="entry-sub">The machine inherits the codified work. The human inherits everything else.</div>
+    </a>
+  </li>
+  <li>
     <a href="{{ "/dispatch/weekly/machine-labour-rights.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">April 25, 2026</div>
       <div class="entry-title">Issue #03: Machine Labour Rights</div>
