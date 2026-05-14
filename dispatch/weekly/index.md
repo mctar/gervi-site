@@ -12,6 +12,13 @@ Field notes from the frontier. Published when something happens worth writing ab
 
 <ul class="dispatch-list">
   <li>
+    <a href="{{ "/dispatch/weekly/the-light-gets-in.html" | relative_url }}" class="dispatch-link">
+      <div class="entry-date">May 14, 2026</div>
+      <div class="entry-title">Issue #05: The Light Gets In</div>
+      <div class="entry-sub">Building forward while the kingdom behind us comes apart. The Red Queen's race, and the crack where the light gets in.</div>
+    </a>
+  </li>
+  <li>
     <a href="{{ "/dispatch/weekly/what-the-machine-inherits.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">May 3, 2026</div>
       <div class="entry-title">Issue #04: What the Machine Inherits</div>
