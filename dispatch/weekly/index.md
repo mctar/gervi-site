@@ -12,6 +12,13 @@ Field notes from the frontier. Published when something happens worth writing ab
 
 <ul class="dispatch-list">
   <li>
+    <a href="{{ "/dispatch/weekly/we-kept-the-building.html" | relative_url }}" class="dispatch-link">
+      <div class="entry-date">May 17, 2026</div>
+      <div class="entry-title">Issue #06: We Kept the Building</div>
+      <div class="entry-sub">The disappearing entry rung, part one. AI ate the edge. The salary paid for the work; the work paid for you.</div>
+    </a>
+  </li>
+  <li>
     <a href="{{ "/dispatch/weekly/the-light-gets-in.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">May 14, 2026</div>
       <div class="entry-title">Issue #05: The Light Gets In</div>
