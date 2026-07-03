@@ -11,6 +11,14 @@ description: A curated weekly review of AI news, published every Monday.
 Field notes from the frontier. Published when something happens worth writing about.
 
 <ul class="dispatch-list">
+  
+  <li>
+    <a href="{{ "/dispatch/weekly/doomrot.html" | relative_url }}" class="dispatch-link">
+      <div class="entry-date">July 3, 2026</div>
+      <div class="entry-title">Issue #07: Loop Engineering - Context rot</div>
+      <div class="entry-sub">DOOMROT What an AI forgets, and when it matters. A controlled DOOM experiment: same model, same map, two tasks. Context rot only collapses success when the objective cannot be rebuilt from the model's priors. A guessable goal holds at 62%; an arbitrary one falls to 4%.</div>
+    </a>
+  </li>  
   <li>
     <a href="{{ "/dispatch/weekly/we-kept-the-building.html" | relative_url }}" class="dispatch-link">
       <div class="entry-date">May 17, 2026</div>
